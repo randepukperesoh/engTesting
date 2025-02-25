@@ -1,0 +1,28 @@
+.item {
+  padding: 0.5rem 0.2rem;
+  border-bottom: 0.2px solid var(--color-font-disable);
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  cursor: pointer;
+  color: var(--color-font-active);
+}
+
+.modal {
+  width: 60vw;
+  color: var(--color-font-active);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &_chekboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  &_btnGroup {
+    display: flex;
+    justify-content: space-evenly;
+  }
+}

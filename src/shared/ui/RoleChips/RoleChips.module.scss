@@ -1,0 +1,15 @@
+.chips {
+  font-size: 0.6rem;
+  padding: 0.1rem;
+  border-radius: 5px;
+}
+
+.admin {
+  border: 0.5px solid var(--color-action);
+  color: var(--color-action);
+}
+
+.user {
+  border: 0.5px solid var(--color-font-success);
+  color: var(--color-font-success);
+}

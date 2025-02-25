@@ -1,0 +1,20 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  width: 60vw;
+}
+.flex {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.btnGroup {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.btn {
+  width: 100%;
+}

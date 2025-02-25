@@ -1,0 +1,46 @@
+.toggle {
+  position: relative;
+  width: 56px;
+  height: 32px;
+  cursor: pointer;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  outline: none;
+
+  &:focus-visible {
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+  }
+}
+
+.track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ccc;
+  border-radius: 16px;
+  transition: background-color 0.3s ease;
+
+  &.activeTrack {
+    background-color: var(
+      --color-action
+    ); // Зеленый цвет для активного состояния
+  }
+}
+
+.thumb {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+
+  &.activeThumb {
+    transform: translateX(24px); // Перемещение круга вправо
+  }
+}

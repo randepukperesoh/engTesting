@@ -1,0 +1,21 @@
+.wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(#ffffff, 0.5);
+  z-index: 1;
+}
+.content {
+  //   width: 40%;
+  background-color: var(--element-bg-2);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 3px 0px var(--color-font-disable);
+  display: flex;
+  z-index: 10;
+}

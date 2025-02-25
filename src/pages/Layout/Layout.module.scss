@@ -1,0 +1,18 @@
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: var(--color-background);
+  width: 100vw;
+}
+.header {
+  background-color: var(--element-bg-2);
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,50 @@
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+
+  .hiddenCheckbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:focus + .customCheckbox {
+      box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); // Визуальный фокус
+    }
+  }
+
+  .customCheckbox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #e0e0e0;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+
+    &.checked {
+      background-color: var(--color-action);
+      border-color: var(--color-action);
+
+      &::after {
+        content: "";
+        display: block;
+        width: 8px;
+        height: 4px;
+        border: 2px solid #fff;
+        border-top: none;
+        border-left: none;
+        transform: rotate(45deg);
+        margin: 6px 0 0 4px;
+      }
+    }
+  }
+
+  .label {
+    margin-left: 8px;
+    font-size: 14px;
+    color: #333;
+  }
+}

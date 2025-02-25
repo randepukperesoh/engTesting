@@ -1,0 +1,9 @@
+.button {
+  color: var(--color-background);
+  background-color: var(--color-action);
+  border-radius: 0.5rem;
+
+  :hover {
+    background-color: #0d0d0d;
+  }
+}
