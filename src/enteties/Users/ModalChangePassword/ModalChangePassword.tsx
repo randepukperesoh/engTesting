@@ -1,26 +1,14 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Modal } from "../../../shared/ui/Modal/Modal";
 import { Button } from "../../../shared/ui/Button/Button";
 import { Input } from "../../../shared/ui/Input/Input";
 
 import styles from "./ModalChangePassword.module.scss";
+import { useChangeUserPassword } from "../../../shared/hooks/useChangeUserPassword";
 
-export const useChangeUserPassword = () => {
-  const [password, setPassword] = useState("");
-  const [confrimPassword, setConfrimPassword] = useState("");
-
-  const handleChangePassword = async () => {};
-
-  return {
-    handleChangePassword,
-    setConfrimPassword,
-    setPassword,
-  };
-};
-
-export const ModalChangePassword: FC = () => {
-  const { handleChangePassword, setPassword, setConfrimPassword } =
-    useChangeUserPassword();
+export const ModalChangePassword: FC<{ id: string }> = ({ id }) => {
+  const { handleChangePassword, setPassword, setConfirmPassword } =
+    useChangeUserPassword(id);
 
   return (
     <Modal
@@ -32,7 +20,7 @@ export const ModalChangePassword: FC = () => {
             label="Пароль"
           />
           <Input
-            onChange={(e) => setConfrimPassword(e.currentTarget.value)}
+            onChange={(e) => setConfirmPassword(e.currentTarget.value)}
             label="Повторите пароль"
           />
           <Button onClick={handleChangePassword}>Подтвердить</Button>

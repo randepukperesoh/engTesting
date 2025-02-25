@@ -78,6 +78,7 @@ const UsersPage: FC = () => {
           filteredData.map((el) => (
             <ModalEditUser
               key={"edit_" + el.id}
+              id={el.id}
               name={el.last_name + " " + el.first_name}
               role={el.is_admin === "true" ? "Администратор" : "Пользователь"}
             />

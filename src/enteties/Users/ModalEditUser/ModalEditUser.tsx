@@ -4,15 +4,17 @@ import { RoleChips } from "../../../shared/ui/RoleChips/RoleChips";
 import { Input } from "../../../shared/ui/Input/Input";
 import { Checkbox } from "../../../shared/ui/Checkbox/Checkbox";
 import { Button } from "../../../shared/ui/Button/Button";
-
-import styles from "./ModalEditUser.module.scss";
 import { Loader } from "../../../shared/ui/Loader/Loader";
 import { IUser, useGetUser } from "../../../shared/hooks/useGetUser";
 import { ModalChangePassword } from "../ModalChangePassword/ModalChangePassword";
+import { useEditUser } from "../../../shared/hooks/useEditUser";
+
+import styles from "./ModalEditUser.module.scss";
 
 interface IModalEditUser {
   name: string;
   role: string;
+  id: number;
 }
 
 const MOCK: IUser = {
@@ -29,12 +31,21 @@ const MOCK: IUser = {
   img_url: "https://lk.donstu.ru/PhotoP/7728.jpeg",
 };
 
-const ModalEditUser: FC<IModalEditUser> = ({ name, role }) => {
+const ModalEditUser: FC<IModalEditUser> = ({ name, role, id }) => {
   const {
     data: fData,
     //  error,
     isLoading,
   } = useGetUser();
+
+  const {
+    handleEditSecondName,
+    handleEditActive,
+    handleEditAdmin,
+    handleEditFirstName,
+    handleEditLogin,
+    handleEditOtherName,
+  } = useEditUser();
 
   const data = fData || MOCK;
 
@@ -44,23 +55,52 @@ const ModalEditUser: FC<IModalEditUser> = ({ name, role }) => {
         !isLoading ? (
           <div className={styles.modal}>
             <h2>Редактирование</h2>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <Input defaultValue={data.last_name} label="Фамилия" />
-              <Input defaultValue={data.first_name} label="Имя" />
-              <Input defaultValue={data.other_name} label="Отчество" />
-              <Input defaultValue={data.login} label="Логин" />
+            <form
+              className={styles.modal_form}
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <Input
+                onChange={(e) =>
+                  handleEditSecondName(String(id), e.currentTarget.value)
+                }
+                defaultValue={data.last_name}
+                label="Фамилия"
+              />
+              <Input
+                onChange={(e) =>
+                  handleEditFirstName(String(id), e.currentTarget.value)
+                }
+                defaultValue={data.first_name}
+                label="Имя"
+              />
+              <Input
+                onChange={(e) =>
+                  handleEditOtherName(String(id), e.currentTarget.value)
+                }
+                defaultValue={data.other_name}
+                label="Отчество"
+              />
+              <Input
+                onChange={(e) =>
+                  handleEditLogin(String(id), e.currentTarget.value)
+                }
+                defaultValue={data.login}
+                label="Логин"
+              />
               <div className={styles.modal_chekboxes}>
                 <Checkbox
                   initialValue={data.is_active !== "true"}
                   label="Заблокирован"
+                  onChange={(value) => handleEditActive(String(id), value)}
                 />
                 <Checkbox
                   initialValue={data.is_admin !== "true"}
+                  onChange={(value) => handleEditAdmin(String(id), value)}
                   label="Администратор"
                 />
               </div>
               <div className={styles.modal_btnGroup}>
-                <ModalChangePassword />
+                <ModalChangePassword id={String(id)} />
                 <Button>Отправить</Button>
               </div>
             </form>
