@@ -7,10 +7,10 @@ export const useResetPassword = () => {
     const formData = new FormData();
     formData.append("password", password);
 
-    const response = await fetch(
-      "https://speaktest.exesfull.com/main/api/profile/ChangePassword",
-      { method: "POST", body: formData }
-    );
+    const response = await fetch("/back/main/api/profile/ChangePassword", {
+      method: "POST",
+      body: formData,
+    });
 
     const res = await response.json();
 

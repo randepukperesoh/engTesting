@@ -6,7 +6,7 @@ export const useChangeUserPassword = (id: string) => {
   const [error, setError] = useState<string | null>(null);
 
   const validatePassword = (password: string): boolean => {
-    if (password.length < 8) {
+    if (password.length < 4) {
       setError("Пароль должен содержать минимум 8 символов.");
       return false;
     }
@@ -31,21 +31,23 @@ export const useChangeUserPassword = (id: string) => {
   };
 
   const handleChangePassword = async () => {
-    if (!validatePassword(password)) {
-      return;
-    }
+    // if (!validatePassword(password)) {
+    //   return;
+    // }
 
-    if (!validateConfirmPassword(password, confirmPassword)) {
-      return;
-    }
+    // if (!validateConfirmPassword(password, confirmPassword)) {
+    //   return;
+    // }
+
+    // ПОЧИНИТЬ ВАЛИДАЦИЮ
     const data = new FormData();
     data.append("user_id", id);
     data.append("password", password);
     try {
-      await fetch(
-        "https://speaktest.exesfull.com/main/admin/users/api/UserChangePassword",
-        { method: "POST", body: data }
-      );
+      await fetch("/back/main/admin/users/api/UserChangePassword", {
+        method: "POST",
+        body: data,
+      });
     } catch (err) {
       setError("Произошла ошибка при изменении пароля.");
       console.error(err);

@@ -10,7 +10,7 @@ export const useEditUser = () => {
       data.append("data", value);
       try {
         const response = await fetch(
-          "https://speaktest.exesfull.com/main/admin/users/api/UpdateUserByCol",
+          "/back/main/admin/users/api/UpdateUserByCol",
           { method: "post", credentials: "include", body: data }
         );
         if (!response.ok) {
