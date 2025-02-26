@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useIsMobile } from "../../hooks/useIsMobile";
 
 import styles from "./Navigation.module.scss";
@@ -39,12 +39,18 @@ const ROUTES = [
 export const Navigation = () => {
   const { isMobile } = useIsMobile();
 
+  const { pathname } = useLocation();
+
+  if (pathname === "/testing") return null;
+
   return (
     <nav className={styles.wrapper}>
       <ul className={styles.navigation}>
         {ROUTES.map((route, index) => (
           <li key={index}>
-            <Link to={route.to}>{isMobile ? route.img : route.text}</Link>
+            <Link to={route.to}>
+              {isMobile ? route.img : route.text.toUpperCase()}
+            </Link>
           </li>
         ))}
       </ul>

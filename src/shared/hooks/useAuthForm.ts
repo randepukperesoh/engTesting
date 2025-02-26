@@ -21,7 +21,7 @@ export const useAuthForm = () => {
         body: formData,
       });
 
-      const res: {status: boolean} = await response.json();
+      const res = await response.json();
 
       setIsLogined(res.status)
 

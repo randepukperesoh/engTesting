@@ -1,8 +1,12 @@
-import { lazy } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// router.ts
+import { createBrowserRouter } from "react-router-dom";
+import ProtectedRoute from "./shared/ProtectedRoute/ProtectedRoute";
+import { FC, lazy, Suspense } from "react";
+import { RouterProvider } from "react-router-dom";
+import { Loader } from "./shared/ui/Loader/Loader";
 
-// Импортируйте ваши компоненты
-const RootLayout = lazy(() => import("./pages/Layout/Layot")); // Общий макет
+// Lazy-loaded components
+const RootLayout = lazy(() => import("./pages/Layout/Layot"));
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const ErrorPage = lazy(() => import("./pages/ErrorPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
@@ -11,46 +15,97 @@ const UsersPage = lazy(() => import("./pages/UsersPage/UsersPage"));
 const ExamsPage = lazy(() => import("./pages/ExamsPage/ExamsPage"));
 const SystemPage = lazy(() => import("./pages/SystemPage/SystemPage"));
 const ResultsPage = lazy(() => import("./pages/ResultsPage/ResultsPage"));
+const TestingPage = lazy(() => import("./pages/TestingPage/TestingPage"));
 
+// Create the router
 const router = createBrowserRouter([
   {
+    path: "login",
+    element: (
+      <Suspense fallback={<Loader />}>
+        <LoginPage />
+      </Suspense>
+    ),
+  },
+  {
     path: "/",
-    element: <RootLayout />,
-    errorElement: <ErrorPage />,
+    element: <ProtectedRoute />,
+    errorElement: (
+      <Suspense fallback={<Loader />}>
+        <ErrorPage />
+      </Suspense>
+    ),
     children: [
       {
-        index: true,
-        element: <HomePage />,
-      },
-      {
-        path: "login",
-        element: <LoginPage />,
-      },
-      {
-        path: "knowledge",
-        element: <KnowledgePage />,
-      },
-      {
-        path: "users",
-        element: <UsersPage />,
-      },
-      {
-        path: "exams",
-        element: <ExamsPage />,
-      },
-      {
-        path: "system",
-        element: <SystemPage />,
-      },
-      {
-        path: "results",
-        element: <ResultsPage />,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <RootLayout />
+          </Suspense>
+        ),
+        children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <HomePage />
+              </Suspense>
+            ),
+          },
+          {
+            path: "knowledge",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <KnowledgePage />
+              </Suspense>
+            ),
+          },
+          {
+            path: "users",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <UsersPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: "exams",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <ExamsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: "system",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <SystemPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: "results",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <ResultsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: "testing",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <TestingPage />
+              </Suspense>
+            ),
+          },
+        ],
       },
     ],
   },
 ]);
 
-const AppRoutes: React.FC = () => {
+const AppRoutes: FC = () => {
   return <RouterProvider router={router} />;
 };
 

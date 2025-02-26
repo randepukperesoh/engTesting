@@ -2,26 +2,52 @@ import { FC } from "react";
 import { Button } from "../../shared/ui/Button/Button";
 import { Input } from "../../shared/ui/Input/Input";
 import { useAuthForm } from "../../shared/hooks/useAuthForm";
+import { useIsGroup } from "../../shared/hooks/useIsGroup";
+import { useLoginAsGroup } from "../../shared/hooks/useLoginAsGroup";
 
 import styles from "./LoginPage.module.scss";
 
 const LoginPage: FC = () => {
+  const { isGroup, handleChangeToGroup, handleChangeToUser } = useIsGroup();
   const { handleLogin, setLogin, setPassword } = useAuthForm();
+  const { handleLoginAsGroup, setCode } = useLoginAsGroup();
 
   return (
-    <form
-      className={styles.form}
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-    >
-      <Input onChange={(e) => setLogin(e.currentTarget.value)} label="Логин" />
-      <Input
-        label="Пароль"
-        onChange={(e) => setPassword(e.currentTarget.value)}
-      />
-      <Button onClick={handleLogin}>Войти</Button>
-    </form>
+    <div className={styles.wrapper}>
+      <form
+        className={styles.form}
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
+        {!isGroup ? (
+          <>
+            <h2>Пользователь</h2>
+            <Input
+              onChange={(e) => setLogin(e.currentTarget.value)}
+              label="Логин"
+            />
+            <Input
+              label="Пароль"
+              onChange={(e) => setPassword(e.currentTarget.value)}
+            />
+            <Button onClick={handleLogin}>Войти</Button>
+
+            <Button onClick={handleChangeToGroup}>Тестирование группой</Button>
+          </>
+        ) : (
+          <>
+            <h2>Тестирование</h2>
+            <Input
+              onChange={(e) => setCode(e.currentTarget.value)}
+              label="Код"
+            />
+            <Button onClick={handleLoginAsGroup}>Войти</Button>
+            <Button onClick={handleChangeToUser}>Войти как пользователь</Button>
+          </>
+        )}
+      </form>
+    </div>
   );
 };
 

@@ -6,7 +6,7 @@ import { useResetPassword } from "../../../shared/hooks/useResetPassword";
 
 import styles from "./ModalResetPassword.module.scss";
 
-const ModalResetPassword: FC = () => {
+export const ModalResetPassword: FC = () => {
   const { setPassword, handleReset } = useResetPassword();
 
   return (
@@ -25,5 +25,3 @@ const ModalResetPassword: FC = () => {
     </Modal>
   );
 };
-
-export default ModalResetPassword;

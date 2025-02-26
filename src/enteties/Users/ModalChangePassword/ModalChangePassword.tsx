@@ -2,9 +2,9 @@ import { FC } from "react";
 import { Modal } from "../../../shared/ui/Modal/Modal";
 import { Button } from "../../../shared/ui/Button/Button";
 import { Input } from "../../../shared/ui/Input/Input";
+import { useChangeUserPassword } from "../../../shared/hooks/useChangeUserPassword";
 
 import styles from "./ModalChangePassword.module.scss";
-import { useChangeUserPassword } from "../../../shared/hooks/useChangeUserPassword";
 
 export const ModalChangePassword: FC<{ id: string }> = ({ id }) => {
   const { handleChangePassword, setPassword, setConfirmPassword } =

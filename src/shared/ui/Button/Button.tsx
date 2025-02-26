@@ -9,7 +9,7 @@ interface IButton extends HTMLAttributes<HTMLButtonElement> {
 export const Button: FC<IButton> = ({ children, className, ...rest }) => {
   return (
     <button {...rest} className={`${styles.button} ${className}`}>
-      {children}
+      {children?.toLocaleString().toLocaleUpperCase()}
     </button>
   );
 };

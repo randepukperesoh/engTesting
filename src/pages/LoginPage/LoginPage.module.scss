@@ -9,3 +9,10 @@
   box-shadow: 0 0 10px -5px black;
   background-color: var(--element-bg-2);
 }
+.wrapper {
+  width: 90vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}

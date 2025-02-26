@@ -1,16 +1,17 @@
 import { FC } from "react";
-
-import styles from "./DeviceItem.module.scss";
 import { ModalSelectUser } from "../ModalSelectUser/ModalSelectUser";
 import { ModalEditUserNumber } from "./ModalEditUserNumber/ModalEditUserNumber";
+import { IPlace } from "../../../shared/hooks/useGetPlaceList";
 
-export const DeviceItem: FC = () => {
+import styles from "./DeviceItem.module.scss";
+
+export const DeviceItem: FC<IPlace> = ({ alert, code, id, title }) => {
   return (
     <div className={styles.device}>
       <ModalEditUserNumber />
       <ModalSelectUser />
       <div className={styles.device_id}>
-        Устройство: <span>123123123-312312321312-132312312-fdgdfg112</span>
+        Устройство: <span>{id}</span>
       </div>
     </div>
   );
