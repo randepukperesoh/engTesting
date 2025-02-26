@@ -42,10 +42,10 @@ export const useChangeUserPassword = (id: string) => {
     data.append("user_id", id);
     data.append("password", password);
     try {
-      await fetch(
-        "https://speaktest.exesfull.com/main/admin/users/api/UserChangePassword",
-        { method: "POST", body: data }
-      );
+      await fetch("/back/main/admin/users/api/UserChangePassword", {
+        method: "POST",
+        body: data,
+      });
     } catch (err) {
       setError("Произошла ошибка при изменении пароля.");
       console.error(err);
