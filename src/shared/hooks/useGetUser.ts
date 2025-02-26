@@ -14,17 +14,21 @@ export interface IUser {
   img_url: string;
 }
 
-export const useGetUser = () => {
+export const useGetUser = (id: number) => {
   const [data, setData] = useState<IUser | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     const getUser = async () => {
+      const formData = new FormData();
+      formData.append("user_id", String(id));
+
       try {
         setIsLoading(true);
         const response = await fetch("/back/main/admin/users/api/getUser", {
           method: "POST",
+          body: formData,
         });
         const res: IUser = await response.json();
 

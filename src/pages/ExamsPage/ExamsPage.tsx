@@ -1,9 +1,9 @@
 import { FC } from "react";
-
-import styles from "./ExamsPage.module.scss";
 import { Button } from "../../shared/ui/Button/Button";
 import Select from "../../shared/ui/Select/Select";
 import { DeviceItem } from "../../enteties/Exams/DeviceItem/DeviceItem";
+
+import styles from "./ExamsPage.module.scss";
 
 const name = "ТестоТехник";
 const options = [
