@@ -1,19 +1,27 @@
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../stores/useUserStore";
+import { useCallback } from "react";
 
 export const useExit = () => {
+  const { setIsGroup, setIsLogined } = useUserStore();
   const navigate = useNavigate();
-  const handleExit = async () => {
+
+  const handleExit = useCallback(async () => {
     try {
-      // const response =
-       await fetch("/back/main/api/profile/exit");
+      setIsLogined(false);
+      setIsGroup(false);
 
-      // const res = await response.json();
+      navigate("/login");
 
-      navigate('/login');
+      await fetch("/back/main/api/profile/exit", {
+        method: "POST",
+        credentials: "include",
+        body: new FormData(),
+      });
     } catch (e) {
       console.error(e);
     }
-  };
+  }, []);
 
   return {
     handleExit,

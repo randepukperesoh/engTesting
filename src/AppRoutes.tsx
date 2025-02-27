@@ -28,7 +28,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/",
+    path: "",
     element: <ProtectedRoute />,
     errorElement: (
       <Suspense fallback={<Loader />}>
@@ -92,7 +92,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "testing",
+            path: "/testing",
             element: (
               <Suspense fallback={<Loader />}>
                 <TestingPage />

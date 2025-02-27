@@ -19,4 +19,15 @@
     flex-direction: column;
     gap: 0.5rem;
   }
+
+  @media screen and (max-width: 760px) {
+    flex-direction: column;
+
+    &_filters {
+      width: unset;
+      border-bottom: 0.5px solid var(--color-font-disable);
+      border-right: unset;
+      padding: 1rem 0;
+    }
+  }
 }

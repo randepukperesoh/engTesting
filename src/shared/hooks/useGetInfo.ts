@@ -14,17 +14,10 @@ export interface IProfile {
   updated_at: string;
 }
 
-// const customCookie =
-//   "stToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcm9tIjoiTWlkZGxlQXV0aCIsInVzZXJfaWQiOjMsImlhdCI6MTc0MDQ5NjMyNSwiZXhwIjoxNzQwNzU1NTI1fQ.OiTVLkzFz_Ec0tWDDCkZbYVXUhJW5ET6M_1w8NCI5CM,stTP_ConId:46";
-
 export const useGetInfo = () => {
   const [data, setData] = useState<IProfile | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-
-  // useEffect(() => {
-  //   document.cookie = customCookie;
-  // }, []);
 
   useEffect(() => {
     const fetchInfo = async () => {
@@ -37,10 +30,7 @@ export const useGetInfo = () => {
         // Делаем запрос без явного Content-Type
         const response = await fetch("/back/main/api/profile/getInfo", {
           method: "POST",
-          credentials: "include", // Включает отправку кук
-          headers: {
-            // Cookie: customCookie, // Явно добавляем куку
-          },
+          credentials: "include",
           body: formData,
         });
 

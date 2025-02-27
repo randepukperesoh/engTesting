@@ -1,0 +1,11 @@
+.timer {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  &_noactive {
+    color: var(--color-font-submit);
+  }
+  &_active {
+    color: var(--color-font-success);
+  }
+}

@@ -1,106 +1,104 @@
-import { useState } from "react";
+// import { useState } from "react";
 
-// interface AudioRecorderState {
-//   isRecording: boolean; // Состояние записи
-//   audioBlob: Blob | null; // Записанный аудио-файл
-//   error: string | null; // Ошибка
-// }
+// // interface AudioRecorderState {
+// //   isRecording: boolean; // Состояние записи
+// //   audioBlob: Blob | null; // Записанный аудио-файл
+// //   error: string | null; // Ошибка
+// // }
 
+// const useAudioRecorder = () => {
+//   const [isRecording, setIsRecording] = useState(false);
+//   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+//   const [error, setError] = useState<string | null>(null);
 
+//   let mediaRecorder: MediaRecorder | null = null; // Локальная переменная для MediaRecorder
 
-const useAudioRecorder = () => {
-  const [isRecording, setIsRecording] = useState(false);
-  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
-  const [error, setError] = useState<string | null>(null);
+//   // Начало записи
+//   const startRecording = () => {
+//     if (isRecording) return;
 
-  let mediaRecorder: MediaRecorder | null = null; // Локальная переменная для MediaRecorder
+//     setIsRecording(true);
+//     setError(null);
 
-  // Начало записи
-  const startRecording = () => {
-    if (isRecording) return;
+//     const audioChunks: BlobPart[] = [];
 
-    setIsRecording(true);
-    setError(null);
+//     const initRecorder = async () => {
+//       try {
+//         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+//         mediaRecorder = new MediaRecorder(stream);
 
-    const audioChunks: BlobPart[] = [];
+//         mediaRecorder.ondataavailable = (event) => {
+//           if (event.data.size > 0) {
+//             audioChunks.push(event.data);
+//           }
+//         };
 
-    const initRecorder = async () => {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder = new MediaRecorder(stream);
+//         mediaRecorder.onstop = () => {
+//           const blob = new Blob(audioChunks, { type: "audio/mp3" });
+//           setAudioBlob(blob);
+//           setIsRecording(false);
+//         };
 
-        mediaRecorder.ondataavailable = (event) => {
-          if (event.data.size > 0) {
-            audioChunks.push(event.data);
-          }
-        };
+//         mediaRecorder.start();
+//       } catch (err) {
+//         console.error("Ошибка записи аудио:", err);
+//         setError("Не удалось начать запись аудио.");
+//         setIsRecording(false);
+//       }
+//     };
 
-        mediaRecorder.onstop = () => {
-          const blob = new Blob(audioChunks, { type: "audio/mp3" });
-          setAudioBlob(blob);
-          setIsRecording(false);
-        };
+//     initRecorder();
+//   };
 
-        mediaRecorder.start();
-      } catch (err) {
-        console.error("Ошибка записи аудио:", err);
-        setError("Не удалось начать запись аудио.");
-        setIsRecording(false);
-      }
-    };
+//   // Остановка записи
+//   const stopRecording = () => {
+//     if (!isRecording || !mediaRecorder) return;
 
-    initRecorder();
-  };
+//     // Если mediaRecorder существует, останавливаем его
+//     mediaRecorder.stop();
+//     mediaRecorder = null; // Обнуляем ссылку после остановки
+//   };
 
-  // Остановка записи
-  const stopRecording = () => {
-    if (!isRecording || !mediaRecorder) return;
+//   // Отправка файла на сервер
+//   const uploadAudio = async (stepId: string, sh: string) => {
+//     if (!audioBlob) {
+//       setError("Сначала запишите аудио!");
+//       return;
+//     }
 
-    // Если mediaRecorder существует, останавливаем его
-    mediaRecorder.stop();
-    mediaRecorder = null; // Обнуляем ссылку после остановки
-  };
+//     const formData = new FormData();
+//     formData.append("file", new File([audioBlob], "recording.mp3", { type: "audio/mp3" }));
+//     formData.append("step_id", stepId);
+//     formData.append("sh", sh);
 
-  // Отправка файла на сервер
-  const uploadAudio = async (stepId: string, sh: string) => {
-    if (!audioBlob) {
-      setError("Сначала запишите аудио!");
-      return;
-    }
+//     try {
+//       const response = await fetch(
+//         "/back/main/examination/api/uploadAudio",
+//         {
+//           method: "POST",
+//           body: formData,
+//         }
+//       );
 
-    const formData = new FormData();
-    formData.append("file", new File([audioBlob], "recording.mp3", { type: "audio/mp3" }));
-    formData.append("step_id", stepId);
-    formData.append("sh", sh);
+//       if (response.ok) {
+//         alert("Аудио успешно загружено!");
+//       } else {
+//         setError("Произошла ошибка при загрузке аудио.");
+//       }
+//     } catch (err) {
+//       console.error("Ошибка при отправке аудио:", err);
+//       setError("Произошла ошибка при отправке аудио.");
+//     }
+//   };
 
-    try {
-      const response = await fetch(
-        "/back/main/examination/api/uploadAudio",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+//   return {
+//     isRecording,
+//     audioBlob,
+//     error,
+//     startRecording,
+//     stopRecording,
+//     uploadAudio,
+//   };
+// };
 
-      if (response.ok) {
-        alert("Аудио успешно загружено!");
-      } else {
-        setError("Произошла ошибка при загрузке аудио.");
-      }
-    } catch (err) {
-      console.error("Ошибка при отправке аудио:", err);
-      setError("Произошла ошибка при отправке аудио.");
-    }
-  };
-
-  return {
-    isRecording,
-    audioBlob,
-    error,
-    startRecording,
-    stopRecording,
-    uploadAudio,
-  };
-};
-
-export default useAudioRecorder;
+// export default useAudioRecorder;

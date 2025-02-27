@@ -14,6 +14,10 @@ export const TestingInstruction: FC<{ handleStartTest: () => void }> = ({
 
   const filteredParts = parts?.filter((part) => part.trim() !== "");
 
+  const processedParts = filteredParts?.flatMap((part) => {
+    return part.split(/<\/?b>/).filter((segment) => segment.trim() !== "");
+  });
+
   return (
     <div className={styles.instruction}>
       {isLoading ? (
@@ -22,7 +26,7 @@ export const TestingInstruction: FC<{ handleStartTest: () => void }> = ({
         <>
           <h2>Инструкция</h2>
           <div>
-            {filteredParts?.map((el, i) => (
+            {processedParts?.map((el, i) => (
               <div key={el + "_" + i}>{el}</div>
             ))}
           </div>

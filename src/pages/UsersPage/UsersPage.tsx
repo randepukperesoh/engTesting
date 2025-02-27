@@ -6,6 +6,7 @@ import ModalEditUser from "../../enteties/Users/ModalEditUser/ModalEditUser";
 import { Loader } from "../../shared/ui/Loader/Loader";
 import { useGetList } from "../../shared/hooks/useGetList";
 import { useFilterUser } from "../../shared/hooks/useFilterUser";
+import { useSearchInList } from "../../shared/hooks/useSearchInList";
 
 import styles from "./UsersPage.module.scss";
 
@@ -20,11 +21,18 @@ const UsersPage: FC = () => {
 
   const { filteredData } = useFilterUser(data, isAdmin);
 
+  const { handleChangeSearchQuery, memoizedData } =
+    useSearchInList(filteredData);
+
   return (
     <div className={styles.users}>
       <div className={styles.users_filters}>
         <CreateUserModal />
-        <Input label="Поиск" aria-placeholder="По фамилии" />
+        <Input
+          onChange={(e) => handleChangeSearchQuery(e.currentTarget.value)}
+          label="Поиск"
+          aria-placeholder="По фамилии"
+        />
         <h2 className={styles.h2}>Параметры:</h2>
         <div>
           <Checkbox
@@ -38,7 +46,7 @@ const UsersPage: FC = () => {
         {isLoading && <Loader />}
         {!isLoading &&
           // !error &&
-          filteredData?.map((el) => (
+          memoizedData.map((el) => (
             <ModalEditUser
               key={"edit_" + el.id}
               id={el.id}

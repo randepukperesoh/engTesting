@@ -26,12 +26,15 @@ const LoginPage: FC = () => {
             <Input
               onChange={(e) => setLogin(e.currentTarget.value)}
               label="Логин"
+              key={"loginAsUser"}
             />
             <Input
               label="Пароль"
               onChange={(e) => setPassword(e.currentTarget.value)}
             />
-            <Button onClick={handleLogin}>Войти</Button>
+            <Button key={"BtnAsUser"} onClick={handleLogin}>
+              Войти
+            </Button>
 
             <Button onClick={handleChangeToGroup}>Тестирование группой</Button>
           </>
@@ -41,8 +44,11 @@ const LoginPage: FC = () => {
             <Input
               onChange={(e) => setCode(e.currentTarget.value)}
               label="Код"
+              key={"loginAsUserGroup"}
             />
-            <Button onClick={handleLoginAsGroup}>Войти</Button>
+            <Button key={"BtnAsGroup"} onClick={handleLoginAsGroup}>
+              Войти
+            </Button>
             <Button onClick={handleChangeToUser}>Войти как пользователь</Button>
           </>
         )}
