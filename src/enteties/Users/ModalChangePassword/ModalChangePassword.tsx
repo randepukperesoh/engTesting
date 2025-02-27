@@ -7,7 +7,7 @@ import { useChangeUserPassword } from "../../../shared/hooks/useChangeUserPasswo
 import styles from "./ModalChangePassword.module.scss";
 
 export const ModalChangePassword: FC<{ id: string }> = ({ id }) => {
-  const { handleChangePassword, setPassword, setConfirmPassword } =
+  const { handleChangePassword, setPassword, setConfirmPassword, error } =
     useChangeUserPassword(id);
 
   return (
@@ -23,6 +23,8 @@ export const ModalChangePassword: FC<{ id: string }> = ({ id }) => {
             onChange={(e) => setConfirmPassword(e.currentTarget.value)}
             label="Повторите пароль"
           />
+
+          {error && <p className={styles.modal_error}>{error}</p>}
           <Button onClick={handleChangePassword}>Подтвердить</Button>
         </div>
       )}

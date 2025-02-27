@@ -10,10 +10,10 @@ export const useGetTestPlaseRegister = () => {
         try {
           const data = new FormData();
           data.append("code", code);
-          data.append("place_id", "1");
+          data.append("place_id", "2");
           data.append("api", "TestPlaseRegister");
           const response = await fetch(
-            "https://speaktest.exesfull.com/auth/api/",
+            "/back/auth/api/",
             {
               method: "POST",
             }

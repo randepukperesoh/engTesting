@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 0.5rem;
   justify-content: center;
-  width: 60vw;
+  min-width: 290px;
 }
 .flex {
   display: flex;
@@ -13,6 +13,12 @@
 .btnGroup {
   display: flex;
   justify-content: space-evenly;
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
 }
 
 .btn {

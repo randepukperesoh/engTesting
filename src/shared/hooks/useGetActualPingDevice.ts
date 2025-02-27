@@ -1,8 +1,19 @@
 import { useEffect, useState } from "react";
-import { IPlace } from "./useGetPlaceList";
 
+export interface IACtualDevice {
+  id: number;
+    created_at: string;
+    updated_at: string;
+    rand_code: string;
+    is_active: boolean;
+    action: null;
+    last_ping_date: string;
+    fio: string;
+    place_id: number;
+    num: number;
+}
 export const useGetActualPingDevice = (id: number) => {
-  const [data, setData] = useState<IPlace[]>([]); // здесь будет другое
+  const [data, setData] = useState<IACtualDevice[]>([]); // здесь будет другое
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -14,7 +25,7 @@ export const useGetActualPingDevice = (id: number) => {
           "/back/main/admin/techmanager/api/getActualPingDevices",
           { method: "POST", body: data }
         );
-        const res = await response.json();
+        const res: IACtualDevice[] = await response.json();
 
         setData(res);
       } catch (e) {

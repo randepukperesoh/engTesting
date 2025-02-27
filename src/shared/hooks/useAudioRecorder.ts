@@ -6,6 +6,8 @@ import { useState } from "react";
 //   error: string | null; // Ошибка
 // }
 
+
+
 const useAudioRecorder = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
@@ -73,7 +75,7 @@ const useAudioRecorder = () => {
 
     try {
       const response = await fetch(
-        "https://speaktest.exesfull.com/main/examination/api/uploadAudio",
+        "/back/main/examination/api/uploadAudio",
         {
           method: "POST",
           body: formData,

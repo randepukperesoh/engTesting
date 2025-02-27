@@ -7,7 +7,7 @@ export const useChangeUserPassword = (id: string) => {
 
   const validatePassword = (password: string): boolean => {
     if (password.length < 4) {
-      setError("Пароль должен содержать минимум 8 символов.");
+      setError("Пароль должен содержать минимум 4 символов.");
       return false;
     }
     if (!/[a-zA-Z]/.test(password) || !/[0-9]/.test(password)) {
@@ -31,13 +31,13 @@ export const useChangeUserPassword = (id: string) => {
   };
 
   const handleChangePassword = async () => {
-    // if (!validatePassword(password)) {
-    //   return;
-    // }
+    if (!validatePassword(password)) {
+      return;
+    }
 
-    // if (!validateConfirmPassword(password, confirmPassword)) {
-    //   return;
-    // }
+    if (!validateConfirmPassword(password, confirmPassword)) {
+      return;
+    }
 
     // ПОЧИНИТЬ ВАЛИДАЦИЮ
     const data = new FormData();

@@ -1,34 +1,21 @@
 import { FC } from "react";
 import { Button } from "../../shared/ui/Button/Button";
-import { IProfile, useGetInfo } from "../../shared/hooks/useGetInfo";
+import { useGetInfo } from "../../shared/hooks/useGetInfo";
 import { useExit } from "../../shared/hooks/useExit";
 import { ModalResetPassword } from "../../enteties/Profile/ModalResetPassword/ModalResetPassword";
 
 import styles from "./HomePage.module.scss";
-
-const MOCK: IProfile = {
-  id: 3,
-  created_at: "2025-02-16T22:23:34.000000Z",
-  updated_at: "2025-02-25T08:18:53.000000Z",
-  first_name: "ТестИмя",
-  last_name: "ТестФамилия",
-  other_name: "ТестОтчество",
-  login: "test",
-  last_enter_date: "2025-02-25T08:18:53.000000Z",
-  is_admin: true,
-  is_active: true,
-  img_url: "https://cdn-icons-png.flaticon.com/512/8377/8377259.png",
-};
+import { useIsMobile } from "../../shared/hooks/useIsMobile";
 
 const HomePage: FC = () => {
   const {
-    data: fDAta,
+    data,
     // error,
     isLoading,
   } = useGetInfo();
   const { handleExit } = useExit();
 
-  const data = fDAta || MOCK;
+  const { isMobile } = useIsMobile();
 
   if (
     !data
@@ -43,14 +30,14 @@ const HomePage: FC = () => {
       <div className={styles.user}>
         <div className={styles.flex}>
           <img className={styles.user_img} src={data.img_url} height={100} />
-          <ModalResetPassword />
+          {!isMobile && <ModalResetPassword />}
         </div>
         <div className={styles.user_text}>
           <div>{data.first_name}</div>
           <div>{data.last_name}</div>
           <div>{data.is_admin ? "Администратор" : "Пользователь"}</div>
           <div>{data.other_name}</div>
-
+          {isMobile && <ModalResetPassword />}
           <Button onClick={handleExit}>Выйти</Button>
         </div>
       </div>

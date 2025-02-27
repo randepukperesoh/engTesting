@@ -1,11 +1,19 @@
 import { FC } from "react";
 
 import styles from "./ModalEditUserNumber.module.scss";
-import { Modal } from "../../../../shared/ui/Modal/Modal";
-import { Input } from "../../../../shared/ui/Input/Input";
-import { Button } from "../../../../shared/ui/Button/Button";
+import { Modal } from "../../../shared/ui/Modal/Modal";
+import { Input } from "../../../shared/ui/Input/Input";
+import { Button } from "../../../shared/ui/Button/Button";
 
-export const ModalEditUserNumber: FC = () => {
+interface IModalEditUserNumber {
+  is_active: boolean;
+  device_id: number;
+}
+
+export const ModalEditUserNumber: FC<IModalEditUserNumber> = ({
+  is_active,
+  device_id,
+}) => {
   return (
     <Modal
       rendreProp={(setIsOpen) => (
@@ -20,7 +28,10 @@ export const ModalEditUserNumber: FC = () => {
       )}
     >
       <div className={styles.user}>
-        <span>7</span> <div>Активный</div>
+        <div>{device_id}</div>
+        <div className={is_active ? styles.user_isActive : styles.user_isOff}>
+          {is_active ? "Активный" : "Отключается"}
+        </div>
       </div>
     </Modal>
   );

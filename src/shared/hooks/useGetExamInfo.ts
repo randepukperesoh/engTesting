@@ -23,9 +23,11 @@ export interface IExam {
         try {
           setIsLoading(true);
           const response = await fetch(
-            "https://speaktest.exesfull.com/main/examination/api/getExamInfo",
+            "/back/main/examination/api/getExamInfo",
             {
-              method: "POST",
+              method: "POST", credentials:'include', body: new FormData, headers:{
+                Cookies: 'stTP_ConId=30; stToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcm9tIjoiTWlkZGxlQXV0aCIsInVzZXJfaWQiOjIsIm9ubHlfZXhhbSI6dHJ1ZSwiZXhhbV9jb2RlIjoiNDlfZjYyMmYxNjgtYTZiYi00MjhlLWEzMmEtYTk1ZDYxMDVjNDgzIiwiaWF0IjoxNzQwNjUzNzA4LCJleHAiOjE3NDA2NjA5MDh9.k8sHS8e-VmMaGPEqZIhY7tJ8pjHf4ZtUNorwHyOgVwM'
+              }
             }
           );
   

@@ -1,7 +1,7 @@
-import { IReSultUser } from "./../../pages/ResultsPage/ResultsPage";
+// import { IReSultUser } from "./../../pages/ResultsPage/ResultsPage";
 import { useEffect, useState } from "react";
 
-interface IReSult {
+export interface IReSult {
   user_id: number;
   last_name: string;
   first_name: string;

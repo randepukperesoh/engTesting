@@ -85,7 +85,9 @@ const ModalEditUser: FC<IModalEditUser> = ({ name, role, id }) => {
               </div>
               <div className={styles.modal_btnGroup}>
                 <ModalChangePassword id={String(id)} />
-                <Button>Отправить</Button>
+                <div>
+                  <Button>Отправить</Button>
+                </div>
               </div>
             </form>
           </div>

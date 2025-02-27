@@ -4,56 +4,19 @@ import CreateUserModal from "../../enteties/Users/CreateUserModal/CreateUserModa
 import { Checkbox } from "../../shared/ui/Checkbox/Checkbox";
 import ModalEditUser from "../../enteties/Users/ModalEditUser/ModalEditUser";
 import { Loader } from "../../shared/ui/Loader/Loader";
-import { IList, useGetList } from "../../shared/hooks/useGetList";
+import { useGetList } from "../../shared/hooks/useGetList";
 import { useFilterUser } from "../../shared/hooks/useFilterUser";
 
 import styles from "./UsersPage.module.scss";
-
-const MOCK: IList[] = [
-  {
-    id: 5,
-    last_name: "Абделаал",
-    first_name: "Мохамед",
-    other_name: "",
-    is_active: "true",
-    is_admin: "true",
-  },
-  {
-    id: 6,
-    last_name: "Румянцев",
-    first_name: "Артем",
-    other_name: "Романович",
-    is_active: "true",
-    is_admin: "false",
-  },
-  {
-    id: 3,
-    last_name: "ТестФамилия",
-    first_name: "ТестИмя",
-    other_name: "ТестОтчество",
-    is_active: "true",
-    is_admin: "true",
-  },
-  {
-    id: 2,
-    last_name: "Эвердин",
-    first_name: "Максим",
-    other_name: "Юрьевич",
-    is_active: "true",
-    is_admin: "true",
-  },
-];
 
 const UsersPage: FC = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const {
-    data: fData,
+    data,
     isLoading,
     // error
   } = useGetList();
-
-  const data = fData || MOCK;
 
   const { filteredData } = useFilterUser(data, isAdmin);
 
@@ -75,7 +38,7 @@ const UsersPage: FC = () => {
         {isLoading && <Loader />}
         {!isLoading &&
           // !error &&
-          filteredData.map((el) => (
+          filteredData?.map((el) => (
             <ModalEditUser
               key={"edit_" + el.id}
               id={el.id}

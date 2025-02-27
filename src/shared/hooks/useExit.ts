@@ -4,11 +4,12 @@ export const useExit = () => {
   const navigate = useNavigate();
   const handleExit = async () => {
     try {
-      const response = await fetch("/back/main/api/profile/exit");
+      // const response =
+       await fetch("/back/main/api/profile/exit");
 
-      const res = await response.json();
+      // const res = await response.json();
 
-      navigate(res);
+      navigate('/login');
     } catch (e) {
       console.error(e);
     }

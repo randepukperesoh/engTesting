@@ -1,9 +1,10 @@
 import { FC } from "react";
 import { Input } from "../../shared/ui/Input/Input";
 import { Result } from "../../enteties/Results/Result";
+import { useGetResults } from "../../shared/hooks/useGetResults";
+import { useSearchInIReSult } from "../../shared/hooks/useSearchInIReSult";
 
 import styles from "./ResultsPage.module.scss";
-import { useGetResults } from "../../shared/hooks/useGetResults";
 
 export interface IReSultUser {
   user_id: number;
@@ -18,14 +19,21 @@ export interface IReSultUser {
 const ResultsPage: FC = () => {
   const { data: results } = useGetResults();
 
+  const { handleChangeSearchQuery, memoizedData } = useSearchInIReSult(
+    results || []
+  );
+
   return (
     <div className={styles.results}>
       <div className={styles.results_filters}>
         <h2 className={styles.results_filters_h2}>Результаты</h2>
-        <Input label="Поиск" />
+        <Input
+          onChange={(e) => handleChangeSearchQuery(e.currentTarget.value)}
+          label="Поиск"
+        />
       </div>
       <div className={styles.results_items}>
-        {results?.map((el, i) => (
+        {memoizedData.map((el, i) => (
           <Result key={"res_" + i} {...el} />
         ))}
       </div>

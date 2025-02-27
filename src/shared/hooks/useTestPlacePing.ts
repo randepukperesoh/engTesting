@@ -21,9 +21,11 @@ export interface IPing {
     useEffect(() => {
       const fetchPing = async () => {
         try {
+          const formData = new FormData
+          formData.append('api', 'TestPlacePing')
           const response = await fetch(
-            "https://speaktest.exesfull.com/auth/api/",
-            { method: "POST" }
+            "/back/auth/api/",
+            { method: "POST" , body: formData}
           );
           const res: IPing = await response.json();
   

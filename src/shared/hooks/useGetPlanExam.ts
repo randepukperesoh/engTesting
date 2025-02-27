@@ -27,9 +27,9 @@ export interface IPlanBlock {
           data.append("step_id", String(step));
           data.append("ssh", "");
           const response = await fetch(
-            "https://speaktest.exesfull.com/main/examination/api/getPlanBlocks",
+            "/back/main/examination/api/getPlanBlocks",
             {
-              method: "POST",
+              method: "POST", body:data
             }
           );
   

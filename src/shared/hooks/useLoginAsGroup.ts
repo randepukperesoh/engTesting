@@ -10,7 +10,7 @@ export const useLoginAsGroup = () => {
       const data = new FormData();
       data.append("code", code);
       data.append("api", "searchTechPlace");
-      const response = await fetch("https://speaktest.exesfull.com/auth/api/", {
+      const response = await fetch("/back/auth/api/", {
         method: "POST",
         body: data,
       });
