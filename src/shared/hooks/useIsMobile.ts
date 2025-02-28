@@ -5,8 +5,11 @@ export const useIsMobile = () => {
     window.innerWidth <= 768 
   );
 
+  const [isMobileNav, setIsMobileNav] = useState<boolean>(window.innerWidth <= 912)
+
   const resizeHandler = () => {
     setIsMobile(window.innerWidth <= 768); 
+    setIsMobileNav(window.innerWidth <= 912)
   };
 
   useEffect(() => {
@@ -16,5 +19,5 @@ export const useIsMobile = () => {
       window.removeEventListener("resize", resizeHandler);
     };
   }, []); 
-  return { isMobile };
+  return { isMobile, isMobileNav };
 };

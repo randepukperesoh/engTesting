@@ -1,9 +1,7 @@
 import { IBlock } from "../../shared/hooks/useGetBlockByArray";
 import { IVoice } from "../../shared/hooks/useGetExamData";
 
-// Функция сортировки
-function sortArrayWithAudioAfterType(data: (IVoice | IBlock)[]): (IVoice | IBlock)[] {
-    // Шаг 1: Создаем маппинг для элементов с type != "audio"
+const sortArrayWithAudioAfterType = (data: (IVoice | IBlock)[]): (IVoice | IBlock)[] =>{
     const nonAudioMap = new Map<number, IBlock>();
     const audioItems: IVoice[] = [];
   
@@ -15,21 +13,18 @@ function sortArrayWithAudioAfterType(data: (IVoice | IBlock)[]): (IVoice | IBloc
       }
     });
   
-    // Шаг 2: Создаем отсортированный массив
     const sortedArray: (IVoice | IBlock)[] = [];
   
-    // Добавляем элементы с type != "audio" и их парные элементы с type == "audio"
     data.forEach(item => {
       if (item.type !== "audio") {
-        sortedArray.push(item); // Добавляем элемент с type != "audio"
+        sortedArray.push(item);
         const matchingAudio = audioItems.find(audio => audio.id === item.id);
         if (matchingAudio) {
-          sortedArray.push(matchingAudio); // Добавляем парный элемент с type == "audio"
+          sortedArray.push(matchingAudio); 
         }
       }
     });
   
-    // Шаг 3: Добавляем оставшиеся элементы с type == "audio", у которых нет парных элементов
     audioItems.forEach(audio => {
       if (!nonAudioMap.has(audio.id)) {
         sortedArray.push(audio);
@@ -39,20 +34,18 @@ function sortArrayWithAudioAfterType(data: (IVoice | IBlock)[]): (IVoice | IBloc
     return sortedArray;
   }
   
-  // Ваш код с интеграцией
+  
   export const processAndSortData = (audioData: IVoice[] | undefined, results: IBlock[] | null): (IVoice | IBlock)[] => {
     let example: (IVoice | IBlock)[] = [];
   
-    // Проверяем, что оба массива существуют
     if (audioData && results) {
-      example = [...(audioData || []), ...(results || [])]; // Объединяем массивы
+      example = [...(audioData || []), ...(results || [])]; 
     } else if (audioData) {
-      example = [...audioData]; // Если только audioData существует
+      example = [...audioData]; 
     } else if (results) {
-      example = [...results]; // Если только results существует
+      example = [...results]; 
     }
   
-    // Сортируем объединенный массив
     const sortedData = sortArrayWithAudioAfterType(example);
   
     return sortedData;

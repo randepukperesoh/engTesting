@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { FC, useState } from "react";
 import styles from "./Toggle.module.scss";
 
 interface IToggleProps {
-  onChange?: (value: boolean) => void; // Коллбэк для изменения состояния
-  initialValue?: boolean; // Начальное значение (по умолчанию false)
+  onChange?: (value: boolean) => void;
+  initialValue?: boolean;
 }
 
-export const Toggle: React.FC<IToggleProps> = ({
+export const Toggle: FC<IToggleProps> = ({
   onChange,
   initialValue = false,
 }) => {

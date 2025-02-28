@@ -24,10 +24,8 @@ export const useGetInfo = () => {
       try {
         setIsLoading(true);
 
-        // Создаем объект FormData
         const formData = new FormData();
 
-        // Делаем запрос без явного Content-Type
         const response = await fetch("/back/main/api/profile/getInfo", {
           method: "POST",
           credentials: "include",
@@ -40,8 +38,8 @@ export const useGetInfo = () => {
 
         const res: IProfile = await response.json();
         setData(res);
-      } catch (e: any) {
-        setError(e.message || "Произошла ошибка при получении данных");
+      } catch (e) {
+        setError(e as string || "Произошла ошибка при получении данных");
       } finally {
         setIsLoading(false);
       }

@@ -13,11 +13,7 @@ import styles from "./UsersPage.module.scss";
 const UsersPage: FC = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const {
-    data,
-    isLoading,
-    // error
-  } = useGetList();
+  const { data, isLoading } = useGetList();
 
   const { filteredData } = useFilterUser(data, isAdmin);
 
@@ -45,7 +41,6 @@ const UsersPage: FC = () => {
       <div className={styles.users_items}>
         {isLoading && <Loader />}
         {!isLoading &&
-          // !error &&
           memoizedData.map((el) => (
             <ModalEditUser
               key={"edit_" + el.id}

@@ -13,26 +13,3 @@
     flex-direction: column;
   }
 }
-
-.user {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  padding: 0.5rem;
-  border-radius: 1rem;
-  background-color: #f3f1f1;
-  cursor: pointer;
-  box-shadow: 0 0 3px 0 var(--color-font-disable);
-
-  &_name {
-    font-weight: 500;
-  }
-}
-
-.selectedUser {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  //   background-color: #fff;
-  padding: 0 0.5rem;
-}

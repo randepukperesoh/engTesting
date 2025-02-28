@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
 interface MicrophoneStatus {
-  hasMicrophone: boolean | null; // Есть ли микрофон
-  isRecording: boolean; // Запись активна
-  error: string | null; // Ошибка
-  stream: MediaStream | null; // Аудиопоток
+  hasMicrophone: boolean | null;
+  isRecording: boolean; 
+  error: string | null; 
+  stream: MediaStream | null;
 }
 
 const useMicrophone = (): MicrophoneStatus & {
@@ -16,7 +16,6 @@ const useMicrophone = (): MicrophoneStatus & {
   const [error, setError] = useState<string | null>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
 
-  // Проверка наличия микрофона
   useEffect(() => {
     const checkMicrophoneAvailability = async () => {
       try {
@@ -32,11 +31,7 @@ const useMicrophone = (): MicrophoneStatus & {
     checkMicrophoneAvailability();
   }, []);
 
-  useEffect(() => {
-    // Написать тост для hasMic
-  }, [])
 
-  // Начало записи
   const startRecording = async () => {
     if (isRecording || !hasMicrophone) return;
 
@@ -51,7 +46,6 @@ const useMicrophone = (): MicrophoneStatus & {
     }
   };
 
-  // Остановка записи
   const stopRecording = () => {
     if (!stream) return;
 

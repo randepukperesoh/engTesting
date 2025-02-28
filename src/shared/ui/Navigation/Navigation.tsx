@@ -1,5 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 import { useIsMobile } from "../../hooks/useIsMobile";
+import { HomeIcons } from "../icons/HomeIcons";
+import { DescriptionIcon } from "../icons/DescriptionIcon";
+import { GroupIcons } from "../icons/GroupIcons";
+import { ClockIcon } from "../icons/ClockIcon";
+import { FolderIcon } from "../icons/FolderIcon";
+import { ImageIcon } from "../icons/ImageIcon";
 
 import styles from "./Navigation.module.scss";
 
@@ -7,37 +13,37 @@ const ROUTES = [
   {
     to: "/",
     text: "Главная",
-    img: <span className="material-symbols-outlined">home</span>,
+    img: <HomeIcons />,
   },
   {
     to: "/knowledge",
     text: "База знаний",
-    img: <span className="material-symbols-outlined">description</span>,
+    img: <DescriptionIcon />,
   },
   {
     to: "/users",
     text: "Пользователи",
-    img: <span className="material-symbols-outlined">group</span>,
+    img: <GroupIcons />,
   },
   {
     to: "/exams",
     text: "Проведение экзаменов",
-    img: <span className="material-symbols-outlined">schedule</span>,
+    img: <ClockIcon />,
   },
   {
     to: "/system",
     text: "Система",
-    img: <span className="material-symbols-outlined">save</span>,
+    img: <FolderIcon />,
   },
   {
     to: "/results",
     text: "Результаты",
-    img: <span className="material-symbols-outlined">monitoring</span>,
+    img: <ImageIcon />,
   },
 ];
 
 export const Navigation = () => {
-  const { isMobile } = useIsMobile();
+  const { isMobileNav: isMobile } = useIsMobile();
 
   const { pathname } = useLocation();
 
@@ -45,6 +51,7 @@ export const Navigation = () => {
 
   return (
     <nav className={styles.wrapper}>
+      <img src="/ENG_transparent-.png" height={32} alt="logo" />
       <ul className={styles.navigation}>
         {ROUTES.map((route, index) => (
           <li key={index}>

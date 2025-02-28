@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 interface UseAudioRecorderProps {
-  onUpload: (audioBlob: Blob) => void; // Функция для отправки аудио на сервер
+  onUpload: (audioBlob: Blob) => void; 
 }
 
 export const useUploadAudio = ({ onUpload }: UseAudioRecorderProps) => {
@@ -9,7 +9,6 @@ export const useUploadAudio = ({ onUpload }: UseAudioRecorderProps) => {
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
   const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
 
-  // Запуск записи
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -29,7 +28,6 @@ export const useUploadAudio = ({ onUpload }: UseAudioRecorderProps) => {
     }
   };
 
-  // Остановка записи
   const stopRecording = () => {
     if (mediaRecorder) {
       mediaRecorder.stop();
@@ -38,13 +36,12 @@ export const useUploadAudio = ({ onUpload }: UseAudioRecorderProps) => {
     }
   };
 
-  // Обработка окончания записи
   useEffect(() => {
     if (mediaRecorder) {
       mediaRecorder.addEventListener('stop', () => {
         const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-        onUpload(audioBlob); // Отправляем аудио на сервер
-        setAudioChunks([]); // Очищаем чанки после отправки
+        onUpload(audioBlob); 
+        setAudioChunks([]); 
       });
     }
 

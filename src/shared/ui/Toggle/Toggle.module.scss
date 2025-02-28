@@ -23,9 +23,7 @@
   transition: background-color 0.3s ease;
 
   &.activeTrack {
-    background-color: var(
-      --color-action
-    ); // Зеленый цвет для активного состояния
+    background-color: var(--color-action);
   }
 }
 
@@ -41,6 +39,6 @@
   transition: transform 0.3s ease;
 
   &.activeThumb {
-    transform: translateX(24px); // Перемещение круга вправо
+    transform: translateX(24px);
   }
 }

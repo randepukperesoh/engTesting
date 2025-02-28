@@ -1,7 +1,7 @@
 .exams {
   width: 90%;
   display: flex;
-  min-height: 70vh;
+  height: 80vh;
   background-color: var(--element-bg-2);
   border-radius: 0.5rem;
   padding: 1rem;
@@ -13,13 +13,20 @@
     gap: 0.5rem;
     border-right: 1px solid var(--color-font-disable);
     padding: 0 0.5rem 0 0;
+    &_head {
+      line-height: 1.2;
+    }
   }
   &_items {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: space-between;
-    padding: 0 0 0 1rem;
+    padding: 1rem 0 1rem 1rem;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   @media screen and (max-width: 760px) {

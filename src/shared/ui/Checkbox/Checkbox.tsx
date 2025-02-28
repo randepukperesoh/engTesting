@@ -3,9 +3,9 @@ import { FC, useState } from "react";
 import styles from "./Checkbox.module.scss";
 
 interface ICheckboxProps {
-  label?: string; // Текст метки чекбокса
-  onChange?: (value: boolean) => void; // Коллбэк для изменения состояния
-  initialValue?: boolean; // Начальное значение (по умолчанию false)
+  label?: string;
+  onChange?: (value: boolean) => void;
+  initialValue?: boolean;
 }
 
 export const Checkbox: FC<ICheckboxProps> = ({

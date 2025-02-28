@@ -1,13 +1,15 @@
 .select {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  //   background-color: #fff;
+  // justify-content: space-evenly;
+  cursor: pointer;
   padding: 0 0.5rem;
-
-  &_icon {
-  }
+  width: 100%;
+  height: 100%;
 
   &_button {
+    width: 100%;
+    text-align: right;
+    padding: 0 1rem 0 0;
   }
 }

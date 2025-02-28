@@ -10,9 +10,10 @@ export const DeviceItem: FC<IACtualDevice> = ({ id, fio, is_active }) => {
     <div className={styles.device}>
       <ModalEditUserNumber device_id={id} is_active={is_active} />
       <ModalSelectUser deviceId={id} name={fio} />
-      <div className={styles.device_id}>
+
+      {/* <div className={styles.device_id}>
         Устройство: <span>{id}</span>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -6,13 +6,14 @@ import styles from "./Modal.module.scss";
 interface IModal {
   children: ReactNode;
   rendreProp: (setIsOpen: (value: boolean) => void) => ReactNode;
+  style?: React.CSSProperties;
 }
 
-export const Modal: FC<IModal> = ({ children, rendreProp }) => {
+export const Modal: FC<IModal> = ({ children, rendreProp, style }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div>
+    <div style={style}>
       <div
         onClick={(e) => {
           e.stopPropagation();

@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface IPlanBlock {
   id: number;
@@ -14,11 +14,10 @@ export interface IPlanBlock {
   status: string;
 }
 
-export const useGetPlanExam = (step: number | null) => {
+export const useGetPlanExam = (step: number | null, sh: string) => {
   const [data, setData] = useState<IPlanBlock[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const ssh = useId();
 
   useEffect(() => {
     const fetchPlan = async () => {
@@ -26,7 +25,7 @@ export const useGetPlanExam = (step: number | null) => {
         setIsLoading(true);
         const data = new FormData();
         data.append("step_id", String(step));
-        data.append("sh", ssh);
+        data.append("sh", sh);
         const response = await fetch(
           "/back/main/examination/api/getPlanBlocks",
           {
@@ -46,8 +45,9 @@ export const useGetPlanExam = (step: number | null) => {
       }
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     step && fetchPlan();
-  }, [step]);
+  }, [sh, step]);
 
   return { data, isLoading, error };
 };

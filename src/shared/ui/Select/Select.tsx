@@ -7,9 +7,9 @@ interface IOption {
 }
 
 interface ISelectProps {
-  options: IOption[]; // Список опций
-  onChange?: (value: string | number) => void; // Коллбэк для изменения значения
-  defaultValue?: string | number; // Начальное значение
+  options: IOption[];
+  onChange?: (value: string | number) => void;
+  defaultValue?: string | number;
 }
 
 const Select: React.FC<ISelectProps> = ({

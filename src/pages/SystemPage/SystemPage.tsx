@@ -7,12 +7,10 @@ import styles from "./SystemPage.module.scss";
 const SystemPage: FC = () => {
   const { data, isLoading } = useGetSystem();
 
-  if (isLoading) return <Loader />;
-  // if (error) return <>Что-то пошло не так</>;
-
   return (
     <div className={styles.wrapper}>
-      Размер всех файлов {String(data) || "3.25"} MB
+      {isLoading && <Loader />}
+      {!isLoading && <>Размер всех файлов {String(data) || "3.25"} MB</>}
     </div>
   );
 };

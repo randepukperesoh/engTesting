@@ -12,15 +12,17 @@ export interface IACtualDevice {
     place_id: number;
     num: number;
 }
-export const useGetActualPingDevice = (id: number) => {
-  const [data, setData] = useState<IACtualDevice[]>([]); // здесь будет другое
+export const useGetActualPingDevice = () => {
+  
+  const [placeId, setPlaceId] = useState(1);
+  const [data, setData] = useState<IACtualDevice[]>([]); 
   const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchActualPingDevice = async () => {
       try {
         const data = new FormData();
-        data.append("place_id", String(id));
+        data.append("place_id", String(placeId));
         const response = await fetch(
           "/back/main/admin/techmanager/api/getActualPingDevices",
           { method: "POST", body: data }
@@ -39,7 +41,7 @@ export const useGetActualPingDevice = (id: number) => {
     return () => {
       clearInterval(intervalId);
     };
-  }, [id]);
+  }, [placeId]);
 
-  return { data, error };
+  return { data, error, setPlaceId };
 };

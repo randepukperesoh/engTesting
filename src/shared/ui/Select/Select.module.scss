@@ -12,7 +12,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #fff;
-    appearance: none; // Убираем стандартную стрелку
+    appearance: none;
     cursor: pointer;
     color: var(--color-font-active);
 
@@ -28,7 +28,7 @@
     top: 50%;
     right: 12px;
     transform: translateY(-50%);
-    pointer-events: none; // Чтобы стрелка не мешала клику
+    pointer-events: none;
     font-size: 16px;
     color: #999;
   }

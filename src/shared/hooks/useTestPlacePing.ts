@@ -10,11 +10,11 @@ export interface IPing {
     last_ping_date: string;
     place_id: number;
     num: number;
-    select_user_id: null;
+    select_user_id: null | number;
     fio: null;
   }
   
-  export const useTestPlacePing = () => {
+  export const useTestPlacePing = (step: number) => {
     const [data, setData] = useState<IPing | null>(null);
     const [error, setError] = useState("");
   
@@ -36,12 +36,15 @@ export interface IPing {
         }
       };
   
-      const intervalId = setInterval(fetchPing, 3000);
+      const intervalId = step !== 2 ?setInterval(fetchPing, 3000) : 1;
   
       return () => {
         clearInterval(intervalId);
+        if(step === 2){
+          clearInterval(intervalId)
+        }
       };
-    }, []);
+    }, [step]);
   
     return { data, error };
   };

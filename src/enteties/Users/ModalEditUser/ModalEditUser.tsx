@@ -18,11 +18,7 @@ interface IModalEditUser {
 }
 
 const ModalEditUser: FC<IModalEditUser> = ({ name, role, id }) => {
-  const {
-    data,
-    //  error,
-    isLoading,
-  } = useGetUser(id);
+  const { data, isLoading } = useGetUser(id);
 
   const {
     handleEditSecondName,

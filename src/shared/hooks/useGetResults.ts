@@ -1,4 +1,3 @@
-// import { IReSultUser } from "./../../pages/ResultsPage/ResultsPage";
 import { useEffect, useState } from "react";
 
 export interface IReSult {

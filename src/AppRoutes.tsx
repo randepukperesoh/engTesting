@@ -1,11 +1,9 @@
-// router.ts
 import { createBrowserRouter } from "react-router-dom";
 import ProtectedRoute from "./shared/ProtectedRoute/ProtectedRoute";
 import { FC, lazy, Suspense } from "react";
 import { RouterProvider } from "react-router-dom";
 import { Loader } from "./shared/ui/Loader/Loader";
 
-// Lazy-loaded components
 const RootLayout = lazy(() => import("./pages/Layout/Layot"));
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const ErrorPage = lazy(() => import("./pages/ErrorPage"));
@@ -17,7 +15,6 @@ const SystemPage = lazy(() => import("./pages/SystemPage/SystemPage"));
 const ResultsPage = lazy(() => import("./pages/ResultsPage/ResultsPage"));
 const TestingPage = lazy(() => import("./pages/TestingPage/TestingPage"));
 
-// Create the router
 const router = createBrowserRouter([
   {
     path: "login",

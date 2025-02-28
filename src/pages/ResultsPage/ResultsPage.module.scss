@@ -1,5 +1,5 @@
 .results {
-  min-height: 80vh;
+  height: 80vh;
   background-color: var(--element-bg-2);
   width: 90%;
   border-radius: 0.5rem;
@@ -18,6 +18,8 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    overflow-y: auto;
+    padding: 0.5rem 0;
   }
 
   @media screen and (max-width: 760px) {

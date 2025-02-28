@@ -1,0 +1,14 @@
+.user {
+  display: flex;
+  gap: 0.2rem;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: #fff;
+  cursor: pointer;
+  box-shadow: 0 0 3px 0 var(--color-font-disable);
+
+  &_name {
+    font-weight: 500;
+  }
+}

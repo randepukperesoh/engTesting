@@ -11,7 +11,7 @@
     height: 0;
 
     &:focus + .customCheckbox {
-      box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); // Визуальный фокус
+      box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
     }
   }
 

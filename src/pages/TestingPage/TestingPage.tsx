@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useGetTestPlaseRegister } from "../../shared/hooks/useGetTestPlaseRegister";
 import { FC, useCallback, useEffect, useState } from "react";
 import { Button } from "../../shared/ui/Button/Button";
@@ -26,7 +27,7 @@ const useStartExam = (isPlaceRegistered: boolean) => {
       b.append("api", "TechDeviceUser_startExam");
       await fetch("/back/auth/api/", { method: "POST", body: b });
     };
-    isPlaceRegistered && a();
+    a();
   }, [isPlaceRegistered]);
 };
 
@@ -37,20 +38,20 @@ const TestingPage: FC = () => {
 
   useStartExam(isPlaceRegistered);
 
-  const { data: pingData } = useTestPlacePing();
+  const { data: pingData } = useTestPlacePing(step);
 
   const { handlePostFinish } = useFinish();
 
   const handleFinishTest = useCallback(() => {
     setStep(2);
     handlePostFinish();
-  }, []);
+  }, [handlePostFinish]);
 
   const handleStartTest = useCallback(() => {
     setStep(1);
   }, []);
 
-  const { hasMicrophone } = useMicrophone();
+  useMicrophone();
 
   return (
     <div className={styles.wrapper}>

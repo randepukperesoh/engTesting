@@ -46,7 +46,6 @@ export const useAudioRecorder = () => {
 
   useEffect(() => {
     return () => {
-      // Очистка при размонтировании компонента
       if (mediaRecorder && mediaRecorder.state === 'recording') {
         mediaRecorder.stop();
       }
