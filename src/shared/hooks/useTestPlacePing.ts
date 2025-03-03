@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useUserStore } from "../stores/useUserStore";
 
 export interface IPing {
     id: number;
@@ -17,6 +18,8 @@ export interface IPing {
   export const useTestPlacePing = (step: number) => {
     const [data, setData] = useState<IPing | null>(null);
     const [error, setError] = useState("");
+
+    const {setId} = useUserStore();
   
     useEffect(() => {
       const fetchPing = async () => {
@@ -28,8 +31,11 @@ export interface IPing {
             { method: "POST" , body: formData}
           );
           const res: IPing = await response.json();
-  
+          
+          setId(res.num)
+
           setData(res);
+
         } catch (e) {
           setError("Связь с сервером прервалась");
           console.error(e);
@@ -44,7 +50,7 @@ export interface IPing {
           clearInterval(intervalId)
         }
       };
-    }, [step]);
+    }, [setId, step]);
   
     return { data, error };
   };

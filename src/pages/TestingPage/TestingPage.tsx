@@ -22,7 +22,7 @@ const TestingPage: FC = () => {
 
   const { handlePostFinish } = useFinish();
 
-  const { placeId } = useUserStore();
+  const { id } = useUserStore();
 
   const handleFinishTest = useCallback(() => {
     setStep(2);
@@ -39,9 +39,7 @@ const TestingPage: FC = () => {
     <div className={styles.wrapper}>
       {step === -1 && (
         <div className={styles.test}>
-          {placeId !== "0" && (
-            <div className={styles.test_number}>{placeId}</div>
-          )}
+          {id !== 0 && <div className={styles.test_number}>{id}</div>}
           <div>{pingData?.fio}</div>
           <div className={styles.test_btnGroup}>
             <Button>Отключиться</Button>
