@@ -1,19 +1,24 @@
 import { FC } from "react";
 import { ModalSelectUser } from "../ModalSelectUser/ModalSelectUser";
 import { ModalEditUserNumber } from "../ModalEditUserNumber/ModalEditUserNumber";
-
-import styles from "./DeviceItem.module.scss";
 import { IACtualDevice } from "../../../shared/hooks/useGetActualPingDevice";
 
-export const DeviceItem: FC<IACtualDevice> = ({ id, fio, is_active }) => {
+import styles from "./DeviceItem.module.scss";
+
+export const DeviceItem: FC<IACtualDevice> = ({
+  id,
+  fio,
+  rand_code,
+  last_ping_date,
+}) => {
   return (
     <div className={styles.device}>
-      <ModalEditUserNumber device_id={id} is_active={is_active} />
-      <ModalSelectUser deviceId={id} name={fio} />
-
-      {/* <div className={styles.device_id}>
-        Устройство: <span>{id}</span>
-      </div> */}
+      <ModalEditUserNumber
+        device_hash={rand_code}
+        last_ping_date={last_ping_date}
+        device_id={id}
+      />
+      <ModalSelectUser deviceId={id} rand_code={rand_code} name={fio} />
     </div>
   );
 };

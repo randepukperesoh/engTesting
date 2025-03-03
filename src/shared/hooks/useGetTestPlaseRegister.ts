@@ -5,14 +5,14 @@ export const useGetTestPlaseRegister = () => {
   const [data, setData] = useState(false);
   const [error, setError] = useState("");
 
-  const { id } = useUserStore();
+  const { id, placeId } = useUserStore();
 
   useEffect(() => {
     const fetchRegister = async () => {
       try {
         const data = new FormData();
         data.append("code", String(id));
-        data.append("place_id", "1");
+        data.append("place_id", placeId);
         data.append("api", "TestPlaseRegister");
         const response = await fetch("/back/auth/api/", {
           method: "POST",

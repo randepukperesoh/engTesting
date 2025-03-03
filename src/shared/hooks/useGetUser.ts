@@ -34,7 +34,7 @@ export const useGetUser = (id: number) => {
 
         setData(res);
       } catch (e) {
-        console.log(e);
+        console.error(e);
         setError(e as string);
       } finally {
         setIsLoading(false);

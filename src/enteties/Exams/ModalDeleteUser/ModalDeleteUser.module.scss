@@ -4,4 +4,15 @@
   justify-content: end;
   width: 95%;
   cursor: pointer;
+  position: relative;
+
+  &_code {
+    position: absolute;
+    font-size: 0.7rem;
+    bottom: -0.5rem;
+    left: 50%;
+    width: max-content;
+    color: var(--color-font-disable);
+    transform: translate(-50%);
+  }
 }

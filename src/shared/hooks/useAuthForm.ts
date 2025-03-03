@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useUserStore } from "../stores/useUserStore";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const useAuthForm = () => {
   const [login, setLogin] = useState("");
@@ -23,9 +24,13 @@ export const useAuthForm = () => {
 
     const res: { status: boolean } = await response.json();
 
-    setIsLogined(res.status);
+    const { status } = res;
+    setIsLogined(status);
 
-    navigate(res.status ? "/" : "login");
+    if(!status){
+      toast.error('Неверный логин или пароль')
+    }
+    navigate(status ? "/" : "");
   }, [login, navigate, password, setIsLogined]);
 
   return {

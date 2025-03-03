@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export const useResetPassword = () => {
   const [password, setPassword] = useState("");
@@ -7,14 +8,14 @@ export const useResetPassword = () => {
     const formData = new FormData();
     formData.append("password", password);
 
-    const response = await fetch("/back/main/api/profile/ChangePassword", {
+    await fetch("/back/main/api/profile/ChangePassword", {
       method: "POST",
       body: formData,
     });
 
-    const res = await response.json();
-
-    console.log({ res });
+    
+    toast.success('Пароль успешно изменен')
+    
     callback?.();
   };
 

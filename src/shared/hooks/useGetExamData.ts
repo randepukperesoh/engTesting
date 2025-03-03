@@ -19,6 +19,7 @@ export interface IVoice {
   id: number;
   type: "audio";
   audioName: string;
+  step_id: number;
 }
 
 export const useGetExamData = (windowHash: string, isOpenModal: boolean) => {
@@ -61,11 +62,12 @@ export const useGetExamData = (windowHash: string, isOpenModal: boolean) => {
   }, [data]);
 
   const audioData = useMemo(() => {
-    return data?.reduce((acc, el, i) => {
+    if(!data) return []
+    return data.reduce((acc, el, i) => {
       if (el.type === "voice") {
         return [
           ...acc,
-          { id: i, type: "audio", audioName: el.audio_name ?? "" } as IVoice,
+          { id: i, type: "audio",step_id: el.step_id, audioName: el.audio_name ?? "" } as IVoice,
         ];
       }
       return acc;

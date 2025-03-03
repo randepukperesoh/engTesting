@@ -43,5 +43,5 @@ export const useGetActualPingDevice = () => {
     };
   }, [placeId]);
 
-  return { data, error, setPlaceId };
+  return { data, error,placeId, setPlaceId };
 };

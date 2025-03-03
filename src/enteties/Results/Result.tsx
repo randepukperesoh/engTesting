@@ -18,11 +18,15 @@ export const Result: FC<IReSultUser> = ({
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const { examIds, audioData } = useGetExamData(window_hash, isOpenModal);
+  console.log({ audioData });
 
   const { data: results, isLoading } = useGetBlockByArray(examIds, isOpenModal);
 
   const comparedArr = processAndSortData(audioData, results);
 
+  console.log({ comparedArr });
+  // 1,2,3,6,7,9,10,8,13,12,14,16,17,15,19,18
+  // 1,2,3,6,7,9,10,8,13,12,14,16,17,15,19,18
   return (
     <Modal
       rendreProp={() => (

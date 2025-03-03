@@ -29,10 +29,13 @@
   background-color: #eaeff8;
   gap: 0.5rem;
 
-  &_isActive {
+  &_green {
     background-color: rgba(#6edf3d, 0.4);
   }
-  &_isOff {
+  &_red {
     background-color: rgba(#e94242, 0.4);
+  }
+  &_orange {
+    background-color: rgba(#ffa303, 0.4);
   }
 }

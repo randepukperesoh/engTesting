@@ -1,28 +1,37 @@
 import { useCallback, useState } from "react";
 import { useUserStore } from "../stores/useUserStore";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface IGroup {
+  id?: boolean;
+  conect?:{
+    status: boolean
+  };
+place?:{
   id: boolean | number;
   created_at: string;
   title: string;
   code: string;
   alert: string | null;
 }
+}
 
-const createCode = () => `${Math.random()*1000}-${Math.random()*1000}-${Math.random()*1000}-${Math.random()*1000}`
+const createCode = () => `${(Math.random()*1000).toFixed()}-${(Math.random()*1000).toFixed()}-${(Math.random()*1000).toFixed()}-${(Math.random()*1000).toFixed()}`
   
 
-const getDeviceCode = () =>{
+const getDeviceCode = () => {
   
   const code = localStorage.getItem('deviceCode')
 
   const testCode = createCode()
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-  code && localStorage.setItem('deviceCode', testCode)
+  if(!code) {
+    localStorage.setItem('deviceCode', testCode)
+  }
 
-  return code || testCode
+    return  localStorage.getItem('deviceCode')!
+
 }
 
 export const useLoginAsGroup = () => {
@@ -30,11 +39,12 @@ export const useLoginAsGroup = () => {
 
   const navigate = useNavigate();
 
-  const { setIsGroup } = useUserStore();
+  const { setIsGroup, setPlaceId } = useUserStore();
   
   const deviceCode = getDeviceCode()
 
   const handleLoginAsGroup = useCallback(async () => {
+    try{
     const data = new FormData();
     data.append("code", code);
     data.append("api", "searchTechPlace");
@@ -45,15 +55,24 @@ export const useLoginAsGroup = () => {
       body: data,
     });
 
-    const res: IGroup = await response.json();
+    const res: IGroup = await response.json(); 
 
-    const value = res.id !== false;
+    if(res?.id === false) {
+      throw new Error('Не верный код')
+    }
 
-    setIsGroup(value);
+    const req = !!res.place?.id
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    value && navigate("/testing");
-  }, [code, deviceCode, navigate, setIsGroup]);
+    setPlaceId(String(res.place?.id))
+
+    setIsGroup(req);
+
+    navigate( req ? "/testing" : '');}
+    
+    catch {
+      toast.error('Неверный логин или пароль')
+    }
+  }, [code, deviceCode, navigate, setIsGroup, setPlaceId]);
 
   return { handleLoginAsGroup, setCode };
 };

@@ -36,7 +36,7 @@ export interface IPing {
         }
       };
   
-      const intervalId = step !== 2 ?setInterval(fetchPing, 3000) : 1;
+      const intervalId = step !== 2 ?setInterval(fetchPing, 2500) : 1;
   
       return () => {
         clearInterval(intervalId);

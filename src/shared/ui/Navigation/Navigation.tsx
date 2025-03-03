@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useIsMobile } from "../../hooks/useIsMobile";
-import { HomeIcons } from "../icons/HomeIcons";
+// import { HomeIcons } from "../icons/HomeIcons";
 import { DescriptionIcon } from "../icons/DescriptionIcon";
 import { GroupIcons } from "../icons/GroupIcons";
 import { ClockIcon } from "../icons/ClockIcon";
@@ -10,11 +10,11 @@ import { ImageIcon } from "../icons/ImageIcon";
 import styles from "./Navigation.module.scss";
 
 const ROUTES = [
-  {
-    to: "/",
-    text: "Главная",
-    img: <HomeIcons />,
-  },
+  // {
+  //   to: "/",
+  //   text: "Главная",
+  //   img: <HomeIcons />,
+  // },
   {
     to: "/knowledge",
     text: "База знаний",
@@ -51,10 +51,17 @@ export const Navigation = () => {
 
   return (
     <nav className={styles.wrapper}>
-      <img src="/ENG_transparent-.png" height={32} alt="logo" />
+      <Link to="/">
+        <img src="/ENG_transparent-.png" height={32} alt="logo" />{" "}
+      </Link>
       <ul className={styles.navigation}>
         {ROUTES.map((route, index) => (
-          <li key={index}>
+          <li
+            className={`${styles.navigation_link} ${
+              pathname === route.to && styles.navigation_link_active
+            }`}
+            key={index}
+          >
             <Link to={route.to}>
               {isMobile ? route.img : route.text.toUpperCase()}
             </Link>

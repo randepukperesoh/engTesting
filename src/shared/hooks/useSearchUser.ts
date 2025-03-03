@@ -18,7 +18,7 @@ export const useSearchUser = () => {
           const fetchPlaceList = async () => {
             try {
                 const formData= new FormData
-                formData.append('search', search)
+                formData.append('search', search.toLocaleLowerCase())
               const response = await fetch(
                 "/back/main/admin/techmanager/api/SearchUser",
                 { method: "POST", body: formData}

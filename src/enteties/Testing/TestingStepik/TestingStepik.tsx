@@ -23,20 +23,21 @@ export const TestingStepik = ({
 
   const { data: planExam } = useGetPlanExam(stepsId?.[step] || null, sh);
 
-  const {
-    startRecording,
-    stopRecording,
-    blob: lastBlob,
-    isRecording,
-  } = useAudioRecorder();
+  const { startRecording, stopRecording, isRecording } = useAudioRecorder();
 
   const { handleUpload } = useUploadAudiio(sh, stepsId, step);
 
   const { handleStopPing } = useHandleStopPing();
 
   const handleNext = useCallback(async () => {
+    if (isRecording) {
+      const blob = await stopRecording();
+      if (blob) {
+        handleUpload(blob);
+      }
+    }
     stopRecording();
-    handleUpload(lastBlob || new Blob());
+
     if (step === 3) {
       handleFinishTest();
       handleStopPing();
@@ -46,7 +47,7 @@ export const TestingStepik = ({
     handleFinishTest,
     handleStopPing,
     handleUpload,
-    lastBlob,
+    isRecording,
     step,
     stopRecording,
   ]);

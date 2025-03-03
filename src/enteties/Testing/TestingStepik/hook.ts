@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
 
 export const useAudioRecorder = () => {
   const [isRecording, setIsRecording] = useState(false);
-  const [error, setError] = useState<ErrorEvent| null>(null);
-  const [b, setB] = useState<Blob| null>(null)
+  const [error, setError] = useState<ErrorEvent | null>(null);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
 
   const startRecording = async () => {
@@ -18,39 +17,59 @@ export const useAudioRecorder = () => {
         }
       };
 
-      newMediaRecorder.onstop = () => {
-        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-        setB(audioBlob)
-      };
-
       newMediaRecorder.onerror = (err) => {
         setError(err);
       };
 
+      newMediaRecorder.onstop = () => {
+        // Очищаем ошибку после остановки записи
+        setError(null);
+      };
+
       newMediaRecorder.start();
       setMediaRecorder(newMediaRecorder);
-      setIsRecording(true);
+      setIsRecording(true); // Устанавливаем флаг записи в true
     } catch (err) {
       setError(err as ErrorEvent);
-      setIsRecording(false);
+      setIsRecording(false); // Если произошла ошибка, устанавливаем false
     }
   };
 
-  const stopRecording = () => {
-    if (mediaRecorder && mediaRecorder.state === 'recording') {
-      mediaRecorder.stop();
-    }
-    setIsRecording(false);
-    mediaRecorder?.stop();
+  const stopRecording = (): Promise<Blob> => {
+    return new Promise((resolve) => {
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        const audioChunks: BlobPart[] = []; // Создаём новый массив для хранения данных
+
+        // Перехватываем данные при остановке
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data.size > 0) {
+            audioChunks.push(event.data);
+          }
+        };
+
+        // Обрабатываем завершение записи
+        mediaRecorder.onstop = () => {
+          const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+          resolve(audioBlob); // Разрешаем промис с созданным blob
+          setIsRecording(false); // Устанавливаем флаг записи в false
+        };
+
+        mediaRecorder.stop(); // Останавливаем запись
+      } else {
+        setIsRecording(false); // Если запись уже остановлена, устанавливаем false
+        resolve(new Blob([], { type: 'audio/wav' })); // Возвращаем пустой blob
+      }
+    });
   };
 
   useEffect(() => {
     return () => {
       if (mediaRecorder && mediaRecorder.state === 'recording') {
-        mediaRecorder.stop();
+        mediaRecorder.stop(); // Останавливаем запись при размонтировании компонента
+        setIsRecording(false); // Устанавливаем флаг записи в false
       }
     };
   }, [mediaRecorder]);
 
-  return { isRecording, startRecording, stopRecording, blob: b, error };
+  return { isRecording, startRecording, stopRecording, error };
 };

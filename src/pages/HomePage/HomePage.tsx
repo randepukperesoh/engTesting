@@ -23,13 +23,16 @@ const HomePage: FC = () => {
             <img className={styles.user_img} src={data?.img_url} height={100} />
             {!isMobile && <ModalResetPassword />}
           </div>
-          <div className={styles.user_text}>
-            <div>{data?.first_name}</div>
-            <div>{data?.last_name}</div>
-            <div>{data?.is_admin ? "Администратор" : "Пользователь"}</div>
-            <div>{data?.other_name}</div>
+          <div className={styles.user_flex}>
+            <div className={styles.user_flex_text}>
+              <div>{data?.first_name}</div>
+              <div>{data?.last_name}</div>
+              {data?.other_name && <div>{data?.other_name}</div>}
+            </div>
             {isMobile && <ModalResetPassword />}
-            <Button onClick={handleExit}>Выйти</Button>
+            <Button styledButton="red" onClick={handleExit}>
+              Выйти
+            </Button>
           </div>
         </div>
       )}

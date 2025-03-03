@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { toast } from "react-toastify";
 
 export const useUploadAudiio = (
   sh: string,
@@ -21,6 +22,8 @@ export const useUploadAudiio = (
         if (!response.ok) {
           console.error("Ошибка при отправке аудио:", response.statusText);
         }
+
+        toast.success('Ответ отправлен')
       } catch (error) {
         console.error("Ошибка при отправке аудио:", error);
       }

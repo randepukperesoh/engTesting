@@ -11,9 +11,11 @@ import styles from "./ModalSelectUser.module.scss";
 export const ModalSelectUser = ({
   deviceId,
   name,
+  rand_code,
 }: {
   deviceId: number;
   name: string;
+  rand_code: string;
 }) => {
   const { data: searchedUser, setSearch } = useSearchUser();
 
@@ -42,7 +44,11 @@ export const ModalSelectUser = ({
       )}
     >
       {name ? (
-        <ModalDeleteUser deviceId={deviceId} name={name} />
+        <ModalDeleteUser
+          rand_code={rand_code}
+          deviceId={deviceId}
+          name={name}
+        />
       ) : (
         <SelectUser />
       )}

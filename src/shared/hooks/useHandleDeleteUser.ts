@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 export const useHandleDeleteUser = () => {
     const handleDeleteUser = async (id: number, callback?: () => void) => {
       const formData = new FormData();
@@ -6,6 +8,8 @@ export const useHandleDeleteUser = () => {
         method: "POST",
         body: formData,
       });
+
+    toast.success('Пользователь удален')
   
       callback?.();
     };

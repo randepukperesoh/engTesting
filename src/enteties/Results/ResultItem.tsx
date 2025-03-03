@@ -10,9 +10,8 @@ export const ResultItem = ({ data }: IResultItem) => {
 
   if (data.type === "audio") {
     const audioData = data as IVoice;
-    console.log(audioData);
     return (
-      <div>
+      <div style={{ borderBottom: "1px solid grey" }}>
         <audio
           id={String(data.id)}
           controls={true}

@@ -74,7 +74,7 @@ const ModalEditUser: FC<IModalEditUser> = ({ name, role, id }) => {
                   onChange={(value) => handleEditActive(String(id), value)}
                 />
                 <Checkbox
-                  initialValue={data?.is_admin !== "true"}
+                  initialValue={data?.is_admin === "true"}
                   onChange={(value) => handleEditAdmin(String(id), value)}
                   label="Администратор"
                 />

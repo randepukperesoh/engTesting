@@ -23,6 +23,7 @@ const UsersPage: FC = () => {
   return (
     <div className={styles.users}>
       <div className={styles.users_filters}>
+        <h2>Пользователи</h2>
         <CreateUserModal />
         <Input
           onChange={(e) => handleChangeSearchQuery(e.currentTarget.value)}

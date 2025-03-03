@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { useDebounceCallback } from "./useDebounceCallback";
+import { toast } from "react-toastify";
 
 export const useEditUser = () => {
   const editUserField = useCallback(
@@ -17,6 +18,8 @@ export const useEditUser = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const res = await response.json();
+
+        toast.success('Данные пользователя изменены')
 
         return res;
       } catch (error) {

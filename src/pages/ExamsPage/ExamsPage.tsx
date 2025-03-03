@@ -1,22 +1,22 @@
 import { FC } from "react";
-import { Button } from "../../shared/ui/Button/Button";
 import Select from "../../shared/ui/Select/Select";
 import { DeviceItem } from "../../enteties/Exams/DeviceItem/DeviceItem";
 import { useGetPlaceList } from "../../shared/hooks/useGetPlaceList";
 import { useGetActualPingDevice } from "../../shared/hooks/useGetActualPingDevice";
+import { ModalClearAll } from "../../enteties/Exams/ModalClearAll/ModalClearAll";
 
 import styles from "./ExamsPage.module.scss";
 
 const ExamsPage: FC = () => {
   const { data: options } = useGetPlaceList();
 
-  const { data: actualDevice, setPlaceId } = useGetActualPingDevice();
+  const { data: actualDevice, setPlaceId, placeId } = useGetActualPingDevice();
 
   return (
     <div className={styles.exams}>
       <div className={styles.exams_filters}>
         <h2 className={styles.exams_filters_head}>Проведение экзаменов</h2>
-        <Button>Очитстить всё</Button>
+        <ModalClearAll place_id={String(placeId)} />
         <span>Аудитрия проведения</span>
         <Select onChange={(value) => setPlaceId(+value)} options={options} />
       </div>
