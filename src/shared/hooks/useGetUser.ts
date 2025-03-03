@@ -42,7 +42,8 @@ export const useGetUser = (id: number) => {
     };
 
     getUser();
-  }, []);
+  }, [id]);
+  
   return {
     data,
     isLoading,
