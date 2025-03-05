@@ -7,6 +7,9 @@
   resize: both;
   transition: border-color 0.3s ease;
   box-sizing: border-box;
+  min-height: 50px;
+  max-height: 300px;
+  max-width: 60vw;
 
   &:focus {
     outline: none;

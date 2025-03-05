@@ -1,0 +1,12 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 300px;
+
+  &_text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

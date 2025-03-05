@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 
 export interface IExamInfo {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    title: string;
-    description: string;
-    img_url: null;
-    is_open: boolean;
-    is_delete: boolean;
-    user_id: number;
-    instruction_text: string;
+  id: number;
+  created_at: string;
+  updated_at: string;
+  title: string;
+  description: string;
+  img_url: null;
+  is_open: boolean;
+  is_delete: boolean;
+  user_id: number;
+  instruction_text: string;
 }
 
-
 export const useGetExamSteps = (examId: string) => {
-  const [data, setData] = useState<IExamInfo [] | null>(null);
+  const [data, setData] = useState<IExamInfo[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [refetchFlag, setRefetchFlag] = useState(1);
 
   useEffect(() => {
     const fetchExaminfo = async () => {
@@ -41,9 +41,14 @@ export const useGetExamSteps = (examId: string) => {
       }
     };
     fetchExaminfo();
-  }, [examId]);
+  }, [examId, refetchFlag]);
+
+  const refetch = () => setRefetchFlag((prev) => prev + 1);
 
   return {
-    data, isLoading, error
-  }
+    data,
+    isLoading,
+    error,
+    refetch,
+  };
 };

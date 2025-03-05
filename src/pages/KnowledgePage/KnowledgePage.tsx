@@ -2,10 +2,10 @@ import { FC } from "react";
 import { Input } from "../../shared/ui/Input/Input";
 import { ExaminationItem } from "../../enteties/Knowledge/ExaminationItem/ExaminationItem";
 import { useGetExamList } from "../../shared/hooks/useGetExamList";
-
-import styles from "./KnowledgePage.module.scss";
 import { Loader } from "../../shared/ui/Loader/Loader";
 import { ModalCreateExam } from "../../enteties/Knowledge/ModalCreateExam/ModalCreateExam";
+
+import styles from "./KnowledgePage.module.scss";
 
 const KnowledgePage: FC = () => {
   const { data: examList, error, isLoading, refetch } = useGetExamList();
@@ -14,11 +14,12 @@ const KnowledgePage: FC = () => {
     <div className={styles.wrapper}>
       <div className={styles.wrapper_filters}>
         <h2 className={styles.wrapper_filters_title}>Список все экзаменов </h2>
-        <ModalCreateExam refetch={refetch} />
         <Input
           label="Поиск"
+          isColumn
           // Добавить поиск
         />
+        <ModalCreateExam refetch={refetch} />
       </div>
       <div className={styles.wrapper_items}>
         {!isLoading &&

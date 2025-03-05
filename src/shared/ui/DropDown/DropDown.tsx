@@ -1,55 +1,44 @@
 import { FC, ReactNode, useState } from "react";
+import classNames from "classnames";
 
 import styles from "./Dropdown.module.scss";
 
 interface DropdownProps {
-  options: string[]; // Массив вариантов выбора
-  defaultValue?: string; // Начальное значение
-  onChange?: (value: string) => void; // Callback при выборе элемента
+  options: ReactNode[];
   children: ReactNode;
 }
 
-const Dropdown: FC<DropdownProps> = ({
-  options,
-  defaultValue,
-  onChange,
-  children,
-}) => {
+const Dropdown: FC<DropdownProps> = ({ options, children }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(
-    defaultValue || options[0]
-  );
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleOptionClick = (value: string) => {
-    setSelectedValue(value);
+  const handleOptionClick = () => {
     setIsOpen(false);
-    onChange?.(value); // Вызов callback-функции при выборе
   };
 
   return (
     <div className={styles.dropdown}>
-      {/* Кнопка переключения */}
       <div
         className={styles.dropdown_toggle}
         onClick={toggleMenu}
-        // aria-expanded={isOpen}
+        aria-expanded={isOpen}
       >
         {children}
       </div>
 
-      {/* Меню с вариантами */}
-      <ul className={`${styles.dropdown_menu} ${isOpen ? styles.open : ""}`}>
-        {options.map((option) => (
+      <ul
+        className={classNames(styles.dropdown_menu, { [styles.open]: isOpen })}
+      >
+        {options.map((option, i) => (
           <li
-            key={option}
-            className={`${styles["dropdown__item"]} ${
-              option === selectedValue ? styles.selected : ""
-            }`}
-            onClick={() => handleOptionClick(option)}
+            key={"option_" + i}
+            className={classNames(styles.dropdown_item, {
+              [styles.dropdown_item_selected]: option === "selectedValue",
+            })}
+            onClick={handleOptionClick}
           >
             {option}
           </li>

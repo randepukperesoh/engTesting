@@ -3,6 +3,7 @@ import { useGetExamSteps } from "../../../shared/hooks/useGetExamSteps";
 import { useHandleToggleExamIsOpen } from "../../../shared/hooks/useHandleToggleExamIsOpen";
 import { Button } from "../../../shared/ui/Button/Button";
 import { Loader } from "../../../shared/ui/Loader/Loader";
+import { ModalCreateTask } from "../ModalCreateTask/ModalCreateTask";
 import { ModalDeleteExam } from "../ModalDeleteExam/ModalDeleteExam";
 import { ModalEditExam } from "../ModalEditExam/ModalEditExam";
 import { ModalEditExamInstruction } from "../ModalEditExamInstruction/ModalEditExamInstruction";
@@ -12,9 +13,13 @@ import styles from "./ExaminationItem.module.scss";
 
 export const ModalContent = ({ id }: { id: number }) => {
   const { data: ExamInfo, refetch } = useGetExamInfoConstr(String(id));
-  const { data: ExamSteps, isLoading: isLoadingSteps } = useGetExamSteps(
-    String(id)
-  );
+
+  const {
+    data: ExamSteps,
+    isLoading: isLoadingSteps,
+    refetch: refetchExamsStep,
+  } = useGetExamSteps(String(id));
+
   const { handleToggleExamIsOpen } = useHandleToggleExamIsOpen(String(id));
 
   return (
@@ -22,7 +27,7 @@ export const ModalContent = ({ id }: { id: number }) => {
       <div className={styles.modal_filters}>
         <h2>Редактирование экзамена</h2>
         <div className={styles.modal_filters_btnGroup}>
-          <Button>Создать задание</Button>
+          <ModalCreateTask />
           <ModalEditExam examId={String(id)} />
           <ModalEditExamInstruction examId={String(id)} />
 
@@ -44,7 +49,15 @@ export const ModalContent = ({ id }: { id: number }) => {
       </div>
       <div className={styles.modal_items}>
         {!isLoadingSteps &&
-          ExamSteps?.map((el) => <TaskItem title={el.description} />)}
+          ExamSteps?.map((el, i) => (
+            <TaskItem
+              idInExam={i}
+              isFirst={i === 0}
+              isLast={i === ExamSteps.length - 1}
+              title={el.description}
+              callback={() => refetchExamsStep()}
+            />
+          ))}
         {isLoadingSteps && <Loader />}
       </div>
     </div>
