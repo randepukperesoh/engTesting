@@ -1,0 +1,29 @@
+.accardion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 3px 0 var(--color-font-disable);
+  width: 95%;
+  background-color: #fff;
+  padding: 0 1rem 0.5rem;
+  box-sizing: border-box;
+  align-items: center;
+
+  &_summary {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0.5rem 0 0 0;
+  }
+
+  &_details {
+    width: 90%;
+    padding: 0 0.5rem 0.5rem 0.5rem;
+    border-top: 1px solid var(--color-font-disable);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

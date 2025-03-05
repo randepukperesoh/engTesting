@@ -5,9 +5,9 @@ import { useGetBlockByArray } from "../../shared/hooks/useGetBlockByArray";
 import { Loader } from "../../shared/ui/Loader/Loader";
 import { useGetExamData } from "../../shared/hooks/useGetExamData";
 import { processAndSortData } from "./helpre";
+import { ResultItem } from "./ResultItems/ResultItem";
 
 import styles from "./Result.module.scss";
-import { ResultItem } from "./ResultItem";
 
 export const Result: FC<IReSultUser> = ({
   exam_date,
@@ -18,15 +18,11 @@ export const Result: FC<IReSultUser> = ({
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const { examIds, audioData } = useGetExamData(window_hash, isOpenModal);
-  console.log({ audioData });
 
   const { data: results, isLoading } = useGetBlockByArray(examIds, isOpenModal);
 
   const comparedArr = processAndSortData(audioData, results);
 
-  console.log({ comparedArr });
-  // 1,2,3,6,7,9,10,8,13,12,14,16,17,15,19,18
-  // 1,2,3,6,7,9,10,8,13,12,14,16,17,15,19,18
   return (
     <Modal
       rendreProp={() => (

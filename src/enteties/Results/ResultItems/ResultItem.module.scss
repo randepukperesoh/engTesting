@@ -1,0 +1,22 @@
+.wraper {
+  padding: 0.5rem;
+  border-bottom: 1.5px solid var(--gray-color-1);
+  width: 80%;
+
+  &_audio {
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    border-radius: 1rem;
+    &:hover {
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    &::-webkit-media-controls-panel {
+      background: #f9f9f9;
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+  }
+}

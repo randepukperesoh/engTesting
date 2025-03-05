@@ -1,14 +1,14 @@
 import { useCallback, useState } from "react";
 import { useGetPlanExam } from "../../../shared/hooks/useGetPlanExam";
 import { Button } from "../../../shared/ui/Button/Button";
-import { useAudioRecorder } from "./hook";
-import { Timer } from "./Timer/Timer";
-import { useTimer } from "./useTimer";
-import { useUploadAudiio } from "./useUploadAudiio";
-import { useUnicId } from "./useUnicId";
-import { useGetStepPlan } from "./useGetStepPlan";
-import { StepikItem } from "./StepikItem";
-import { useHandleStopPing } from "./useHandleStopPing";
+import { useAudioRecorder } from "../../../shared/hooks/useAudioRecorder";
+import { Timer } from "../Timer/Timer";
+import { useTimer } from "../../../shared/hooks/useTimer";
+import { useUploadAudiio } from "../../../shared/hooks/useUploadAudiio";
+import { useUnicId } from "../../../shared/hooks/useUnicId";
+import { useGetStepPlan } from "../../../shared/hooks/useGetStepPlan";
+import { StepikItem } from "../StepikItem/StepikItem";
+import { useHandleStopPing } from "../../../shared/hooks/useHandleStopPing";
 
 import styles from "./TestingStepik.module.scss";
 
@@ -62,17 +62,21 @@ export const TestingStepik = ({
           <StepikItem {...el} key={"step_" + el.id} />
         ))}
 
-        <div>
-          <Button key={"start_record"} onClick={() => startRecording()}>
-            Начать запись
-          </Button>
-        </div>
+        {!isRecording && (
+          <div>
+            <Button key={"start_record"} onClick={() => startRecording()}>
+              Начать запись
+            </Button>
+          </div>
+        )}
 
-        <div>
-          <Button key={"send_record"} onClick={handleNext}>
-            Отправить ответ
-          </Button>
-        </div>
+        {isRecording && (
+          <div>
+            <Button key={"send_record"} onClick={handleNext}>
+              Отправить ответ
+            </Button>
+          </div>
+        )}
       </div>
     </>
   );

@@ -1,11 +1,18 @@
 import { IBlock } from "../../shared/hooks/useGetBlockByArray";
 import { IVoice } from "../../shared/hooks/useGetExamData";
 
-export const processAndSortData = (audioData: IVoice[]| undefined, results: IBlock[]| null): (IVoice | IBlock)[] => {
-  // Шаг 1: Создаем карту для группировки элементов из results по step_id
+export interface IDecoding {
+  audioName?: string;
+  type: string;
+  id: number;
+}
+
+export const processAndSortData = (
+  audioData: IVoice[] | undefined,
+  results: IBlock[] | null
+) => {
   const stepMap = new Map<number, IBlock[]>();
 
-  // Заполняем карту элементами из results
   results?.forEach((block) => {
     if (!stepMap.has(block.step_id)) {
       stepMap.set(block.step_id, []);
@@ -13,27 +20,26 @@ export const processAndSortData = (audioData: IVoice[]| undefined, results: IBlo
     stepMap.get(block.step_id)!.push(block);
   });
 
-  // Шаг 2: Создаем карту для элементов из audioData по step_id
   const audioMap = new Map<number, IVoice>();
   audioData?.forEach((voice) => {
     audioMap.set(voice.step_id, voice);
   });
 
-  console.log({audioMap, audioData})
-
-  // Шаг 3: Сортируем step_id по возрастанию
   const sortedStepIds = Array.from(stepMap.keys());
 
-  // Шаг 4: Объединяем группы в один массив
-  const combinedArray: (IVoice | IBlock)[] = [];
+  const combinedArray: (IVoice | IBlock | IDecoding)[] = [];
   sortedStepIds.forEach((stepId) => {
-    // Добавляем элементы из results с текущим step_id
     const blocks = stepMap.get(stepId)!;
-    combinedArray.push(...blocks);
+    combinedArray.push(...blocks.sort((a, b) => a.order_num - b.order_num));
 
-    // Добавляем элемент из audioData с текущим step_id, если он существует
-    if (audioMap.has(stepId)) {
+    const is = audioMap.has(stepId);
+    if (is) {
       combinedArray.push(audioMap.get(stepId)!);
+      combinedArray.push({
+        audioName: audioMap.get(stepId)!.audioName || "",
+        type: "decoding",
+        id: audioMap.get(stepId)!.id,
+      } as IDecoding);
     }
   });
 

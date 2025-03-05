@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 export const useAudioRecorder = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [error, setError] = useState<ErrorEvent | null>(null);
-  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
+  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
+    null
+  );
 
   const startRecording = async () => {
     try {
@@ -37,7 +39,7 @@ export const useAudioRecorder = () => {
 
   const stopRecording = (): Promise<Blob> => {
     return new Promise((resolve) => {
-      if (mediaRecorder && mediaRecorder.state === 'recording') {
+      if (mediaRecorder && mediaRecorder.state === "recording") {
         const audioChunks: BlobPart[] = []; // Создаём новый массив для хранения данных
 
         // Перехватываем данные при остановке
@@ -49,7 +51,7 @@ export const useAudioRecorder = () => {
 
         // Обрабатываем завершение записи
         mediaRecorder.onstop = () => {
-          const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+          const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
           resolve(audioBlob); // Разрешаем промис с созданным blob
           setIsRecording(false); // Устанавливаем флаг записи в false
         };
@@ -57,14 +59,14 @@ export const useAudioRecorder = () => {
         mediaRecorder.stop(); // Останавливаем запись
       } else {
         setIsRecording(false); // Если запись уже остановлена, устанавливаем false
-        resolve(new Blob([], { type: 'audio/wav' })); // Возвращаем пустой blob
+        resolve(new Blob([], { type: "audio/wav" })); // Возвращаем пустой blob
       }
     });
   };
 
   useEffect(() => {
     return () => {
-      if (mediaRecorder && mediaRecorder.state === 'recording') {
+      if (mediaRecorder && mediaRecorder.state === "recording") {
         mediaRecorder.stop(); // Останавливаем запись при размонтировании компонента
         setIsRecording(false); // Устанавливаем флаг записи в false
       }
