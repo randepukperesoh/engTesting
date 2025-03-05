@@ -1,0 +1,8 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 3px 0 var(--color-font-disable);
+}
