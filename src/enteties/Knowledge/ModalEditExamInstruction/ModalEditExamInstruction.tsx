@@ -3,12 +3,14 @@ import { Button } from "../../../shared/ui/Button/Button";
 import { Modal } from "../../../shared/ui/Modal/Modal";
 import { TextArea } from "../../../shared/ui/TextArea/TextArea";
 
+import styles from "./ModalEditExamInstruction.module.scss";
+
 export const ModalEditExamInstruction = ({ examId }: { examId: string }) => {
   const { handleEditInstruction, setText } = useHandleUpdateInstruction(examId);
   return (
     <Modal
       rendreProp={(setIsOpen) => (
-        <div>
+        <div className={styles.content}>
           <h2>Редактирование инструкции</h2>
           <div>
             <TextArea onChange={(e) => setText(e.currentTarget.value)} />

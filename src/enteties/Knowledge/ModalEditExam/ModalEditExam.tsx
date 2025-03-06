@@ -3,6 +3,8 @@ import { Button } from "../../../shared/ui/Button/Button";
 import { Input } from "../../../shared/ui/Input/Input";
 import { Modal } from "../../../shared/ui/Modal/Modal";
 
+import styles from "./ModalEditExam.module.scss";
+
 export const ModalEditExam = ({ examId }: { examId: string }) => {
   const { handleEditExam, setDescription, setTitle } =
     useHandleEditExam(examId);
@@ -10,7 +12,7 @@ export const ModalEditExam = ({ examId }: { examId: string }) => {
   return (
     <Modal
       rendreProp={(setIsOpen) => (
-        <div>
+        <div className={styles.content}>
           <h2>Редактирование экзамена</h2>
           <Input
             onChange={(e) => setTitle(e.currentTarget.value)}

@@ -13,4 +13,10 @@
     align-items: center;
     cursor: pointer;
   }
+
+  &_modal {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }

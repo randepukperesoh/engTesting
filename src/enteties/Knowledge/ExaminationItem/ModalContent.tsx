@@ -27,7 +27,7 @@ export const ModalContent = ({ id }: { id: number }) => {
       <div className={styles.modal_filters}>
         <h2>Редактирование экзамена</h2>
         <div className={styles.modal_filters_btnGroup}>
-          <ModalCreateTask />
+          <ModalCreateTask examId={String(id)} />
           <ModalEditExam examId={String(id)} />
           <ModalEditExamInstruction examId={String(id)} />
 
@@ -52,6 +52,7 @@ export const ModalContent = ({ id }: { id: number }) => {
           ExamSteps?.map((el, i) => (
             <TaskItem
               idInExam={i}
+              stepId={el.id + ""}
               isFirst={i === 0}
               isLast={i === ExamSteps.length - 1}
               title={el.description}
