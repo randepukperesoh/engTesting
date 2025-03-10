@@ -31,11 +31,11 @@ interface IPlan {
       fetchStepPlan();
     }, []);
   
-    const a = useMemo(() => {
+    const stepsId = useMemo(() => {
       if (!data) return null;
       return data.map((el) => el.id).sort((a, b) => a - b);
     }, [data]);
   
-    return { stepsId: a };
+    return { stepsId, data };
   };
   

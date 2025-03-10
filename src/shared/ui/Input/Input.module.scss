@@ -13,8 +13,18 @@
     gap: 0.1rem;
     align-items: center;
 
+    &_row {
+      flex-direction: unset;
+      width: 100%;
+    }
+
     &_span {
       font-size: 1.1rem;
+      // flex-grow: 1;
+      &_row {
+        max-width: 30%;
+        min-width: 15%;
+      }
     }
   }
 }

@@ -1,17 +1,19 @@
-import { useGetExamInfoConstr } from "../../../shared/hooks/useGetExamInfoConstr";
-import { useGetExamSteps } from "../../../shared/hooks/useGetExamSteps";
-import { useHandleToggleExamIsOpen } from "../../../shared/hooks/useHandleToggleExamIsOpen";
-import { Button } from "../../../shared/ui/Button/Button";
-import { Loader } from "../../../shared/ui/Loader/Loader";
-import { ModalCreateTask } from "../ModalCreateTask/ModalCreateTask";
-import { ModalDeleteExam } from "../ModalDeleteExam/ModalDeleteExam";
-import { ModalEditExam } from "../ModalEditExam/ModalEditExam";
-import { ModalEditExamInstruction } from "../ModalEditExamInstruction/ModalEditExamInstruction";
-import { TaskItem } from "../TaskItem/TaskItem";
+import { useParams } from "react-router-dom";
+import { useGetExamInfoConstr } from "../../shared/hooks/useGetExamInfoConstr";
+import { useGetExamSteps } from "../../shared/hooks/useGetExamSteps";
+import { useHandleToggleExamIsOpen } from "../../shared/hooks/useHandleToggleExamIsOpen";
+import { ModalCreateTask } from "../../enteties/Knowledge/ModalAddTask/ModalCreateTask";
+import { ModalEditExam } from "../../enteties/Knowledge/ModalEditExam/ModalEditExam";
+import { ModalEditExamInstruction } from "../../enteties/Knowledge/ModalEditExamInstruction/ModalEditExamInstruction";
+import { ModalDeleteExam } from "../../enteties/Knowledge/ModalDeleteExam/ModalDeleteExam";
+import { Button } from "../../shared/ui/Button/Button";
+import { TaskItem } from "../../enteties/Knowledge/TaskItem/EditTask";
+import { Loader } from "../../shared/ui/Loader/Loader";
 
-import styles from "./ExaminationItem.module.scss";
+import styles from "./ExamItemPage.module.scss";
 
-export const ModalContent = ({ id }: { id: number }) => {
+const ExamItemPage = () => {
+  const { id } = useParams();
   const { data: ExamInfo, refetch } = useGetExamInfoConstr(String(id));
 
   const {
@@ -25,9 +27,9 @@ export const ModalContent = ({ id }: { id: number }) => {
   return (
     <div className={styles.modal}>
       <div className={styles.modal_filters}>
-        <h2>Редактирование экзамена</h2>
+        <h2>Экзамен: {ExamInfo?.title}</h2>
         <div className={styles.modal_filters_btnGroup}>
-          <ModalCreateTask examId={String(id)} />
+          <ModalCreateTask refetch={refetchExamsStep} examId={String(id)} />
           <ModalEditExam examId={String(id)} />
           <ModalEditExamInstruction examId={String(id)} />
 
@@ -64,3 +66,5 @@ export const ModalContent = ({ id }: { id: number }) => {
     </div>
   );
 };
+
+export default ExamItemPage;

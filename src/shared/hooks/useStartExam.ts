@@ -19,7 +19,6 @@ export const useStartExam = () => {
       if (checkForStToken()) {
         // Если кука stToken найдена, останавливаем интервал
         clearInterval(intervalId);
-        console.log("Кука stToken найдена, запросы остановлены.");
       } else {
         // Если куки stToken нет, отправляем запрос
         await startExam();

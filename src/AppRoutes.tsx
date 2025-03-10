@@ -14,6 +14,10 @@ const ExamsPage = lazy(() => import("./pages/ExamsPage/ExamsPage"));
 const SystemPage = lazy(() => import("./pages/SystemPage/SystemPage"));
 const ResultsPage = lazy(() => import("./pages/ResultsPage/ResultsPage"));
 const TestingPage = lazy(() => import("./pages/TestingPage/TestingPage"));
+const ExamItemPage = lazy(() => import("./pages/ExamItemPage/ExamItemPage"));
+const EditTaskPage = lazy(
+  () => import("./enteties/Knowledge/TaskItem/ModalContent")
+);
 
 const router = createBrowserRouter([
   {
@@ -53,6 +57,22 @@ const router = createBrowserRouter([
             element: (
               <Suspense fallback={<Loader />}>
                 <KnowledgePage />
+              </Suspense>
+            ),
+          },
+          {
+            path: "knowledge/:id",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <ExamItemPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: "knowledge/task/:id",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <EditTaskPage />
               </Suspense>
             ),
           },

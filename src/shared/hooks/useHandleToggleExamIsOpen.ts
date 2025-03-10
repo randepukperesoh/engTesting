@@ -8,7 +8,7 @@ export const useHandleToggleExamIsOpen = (examId: string) => {
       formData.append("status", status);
 
       const response = await fetch(
-        "/back/main/admin/constructor/api/updateExamInstruction",
+        "/back/main/admin/constructor/api/ChangeOpen",
         { method: "POST", body: formData }
       );
 

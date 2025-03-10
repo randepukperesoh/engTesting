@@ -17,6 +17,13 @@ body {
   width: 100vw;
 }
 
+a:-webkit-any-link {
+  /* color: unset;s */
+}
+
+a {
+  color: var(--color-action) !important;
+}
 h2 {
   font-weight: 500;
   margin: 0;

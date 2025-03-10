@@ -22,13 +22,17 @@ const LoginPage: FC = () => {
       >
         {!isGroup ? (
           <>
-            <h2>Пользователь</h2>
+            <h2 className={styles.h}>Пользователь</h2>
             <Input
+              style={{ width: "100%" }}
+              isColumn
               onChange={(e) => setLogin(e.currentTarget.value)}
               label="Логин"
               key={"loginAsUser"}
             />
             <Input
+              style={{ width: "100%" }}
+              isColumn
               label="Пароль"
               onChange={(e) => setPassword(e.currentTarget.value)}
             />
@@ -40,8 +44,10 @@ const LoginPage: FC = () => {
           </>
         ) : (
           <>
-            <h2>Тестирование</h2>
+            <h2 className={styles.h}>Тестирование</h2>
             <Input
+              style={{ width: "100%" }}
+              isColumn
               onChange={(e) => setCode(e.currentTarget.value)}
               label="Код"
               key={"loginAsUserGroup"}

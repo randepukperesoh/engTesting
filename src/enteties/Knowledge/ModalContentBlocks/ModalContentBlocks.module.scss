@@ -1,0 +1,13 @@
+.item {
+  border-radius: 0.5rem;
+  box-shadow: 0 0 3px 0 var(--color-font-disable);
+  background-color: #fff;
+  padding: 0.5rem;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 320px;
+}

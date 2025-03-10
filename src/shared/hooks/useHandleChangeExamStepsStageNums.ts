@@ -7,11 +7,11 @@ export const useHandleChangeExamStepsStageNums = () => {
   ) => {
     try {
       const formData = new FormData();
-      formData.append("step_first", firstId);
-      formData.append("step_second", secondId);
+      formData.append("step_first_id", firstId);
+      formData.append("step_second_id", secondId);
 
       const response = await fetch(
-        "back/main/admin/constructor/api/ChangeExamStepsStageNums",
+        "/back/main/admin/constructor/api/ChangeExamStepsStageNums",
         {
           method: "POST",
           body: formData,

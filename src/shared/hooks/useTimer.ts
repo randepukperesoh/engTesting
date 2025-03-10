@@ -2,28 +2,38 @@ import { useEffect, useState } from "react";
 
 export const useTimer = (
   handleNext: () => Promise<void>,
-  step: number,
+  // step: number,
   isRecording: boolean,
-  startRecording: () => Promise<void>
+  startRecording: () => Promise<void>,
+  training_time: number,
+  recording_time: number
 ) => {
   const [time, setTime] = useState(1);
 
   useEffect(() => {
-    if ([0, 1, 3].includes(step)) {
-      setTime(90);
-    }
-    if ([0, 1, 3].includes(step) && isRecording === true) {
-      setTime(90);
+    if(isRecording){
+      setTime(recording_time)
     }
 
-    if (step === 2) {
-      setTime(150);
+    if(!isRecording) {
+      setTime(training_time)
     }
 
-    if (step === 2 && isRecording === true) {
-      setTime(150);
-    }
-  }, [isRecording, step]);
+    // if ([0, 1, 3].includes(step)) {
+    //   setTime(90);
+    // }
+    // if ([0, 1, 3].includes(step) && isRecording === true) {
+    //   setTime(90);
+    // }
+
+    // if (step === 2) {
+    //   setTime(150);
+    // }
+
+    // if (step === 2 && isRecording === true) {
+    //   setTime(150);
+    // }
+  }, [isRecording, recording_time, training_time]);
 
   useEffect(() => {
     const tickfn = () => {

@@ -1,0 +1,50 @@
+.item {
+  padding: 0.5rem;
+  box-shadow: 0 0 3px 0 var(--color-font-disable);
+  border-radius: 0.5rem;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &_filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--color-font-disable);
+    padding: 0 0 0.5rem 0;
+
+    &_btns {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+
+  &_items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &_item {
+      padding: 0.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 3px 0 var(--color-font-disable);
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+
+      justify-content: space-between;
+    }
+  }
+}
+
+.create {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 320px;
+}

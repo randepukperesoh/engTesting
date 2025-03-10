@@ -15,6 +15,7 @@ export const Modal: FC<IModal> = ({ children, rendreProp, style }) => {
   return (
     <div style={style}>
       <div
+        style={style} // возможны баги
         onClick={(e) => {
           e.stopPropagation();
           setIsOpen(true);

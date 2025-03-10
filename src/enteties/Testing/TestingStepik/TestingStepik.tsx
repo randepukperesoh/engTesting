@@ -18,7 +18,7 @@ export const TestingStepik = ({
   handleFinishTest: () => void;
 }) => {
   const [step, setStep] = useState(0);
-  const { stepsId } = useGetStepPlan();
+  const { stepsId, data } = useGetStepPlan();
   const { id: sh } = useUnicId();
 
   const { data: planExam } = useGetPlanExam(stepsId?.[step] || null, sh);
@@ -52,7 +52,14 @@ export const TestingStepik = ({
     stopRecording,
   ]);
 
-  const { time } = useTimer(handleNext, step, isRecording, startRecording);
+  const { time } = useTimer(
+    handleNext,
+    // step,
+    isRecording,
+    startRecording,
+    data?.[step].training_time || 90,
+    data?.[step].recording_time || 90
+  );
 
   return (
     <>

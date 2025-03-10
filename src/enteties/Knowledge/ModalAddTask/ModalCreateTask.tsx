@@ -1,12 +1,17 @@
+import { FC } from "react";
 import { useHandleCreateTask } from "../../../shared/hooks/useHandleCreateTask";
 import { Button } from "../../../shared/ui/Button/Button";
 import { Input } from "../../../shared/ui/Input/Input";
 import { Modal } from "../../../shared/ui/Modal/Modal";
-// import { TextArea } from "../../../shared/ui/TextArea/TextArea";
 
 import styles from "./ModalCreateTask.module.scss";
 
-export const ModalCreateTask = ({ examId }: { examId: string }) => {
+interface IModalCreateTask {
+  examId: string;
+  refetch: () => void;
+}
+
+export const ModalCreateTask: FC<IModalCreateTask> = ({ examId, refetch }) => {
   const { handleCreateTask, setTitle } = useHandleCreateTask(examId);
   return (
     <Modal
@@ -17,19 +22,14 @@ export const ModalCreateTask = ({ examId }: { examId: string }) => {
             onChange={(e) => setTitle(e.currentTarget.value)}
             label="Название"
           />
-          {/* <Input label="Заголовок" /> */}
-          {/* <label className={styles.content_text}>
-      Текст:
-      <TextArea />
-    </label>
-    <Input label="Изображения" />
-    <label className={styles.content_text}>
-      Варианты ответов:
-      <TextArea />
-    </label>
-    <Input label="Время подготовки" />
-    <Input label="Время записи" /> */}
-          <Button onClick={() => handleCreateTask(() => setIsOpen(false))}>
+          <Button
+            onClick={() =>
+              handleCreateTask(() => {
+                setIsOpen(false);
+                refetch();
+              })
+            }
+          >
             Создать
           </Button>
         </div>

@@ -2,9 +2,8 @@ import { FC } from "react";
 import { Button } from "../../../shared/ui/Button/Button";
 import Dropdown from "../../../shared/ui/DropDown/DropDown";
 import { useHandleChangeExamStepsStageNums } from "../../../shared/hooks/useHandleChangeExamStepsStageNums";
-import { Modal } from "../../../shared/ui/Modal/Modal";
-import { useHandleUpdateTask } from "../../../shared/hooks/useHandleUpdateTask";
-import { Input } from "../../../shared/ui/Input/Input";
+import { Link } from "react-router-dom";
+import { useHandleDeleteTask } from "../../../shared/hooks/useHandleDeleteTask";
 
 import styles from "./TaskItem.module.scss";
 
@@ -28,31 +27,13 @@ export const TaskItem: FC<ITaskItem> = ({
   const { handleChangeExamStepsStageNums } =
     useHandleChangeExamStepsStageNums();
 
-  const { handleUpdateTask, setDescription, setTitle } =
-    useHandleUpdateTask(stepId);
+  const { handleDeleteTask } = useHandleDeleteTask(stepId);
 
   return (
     <div className={styles.item}>
-      <Modal
-        rendreProp={(setIsOpen) => (
-          <div className={styles.item_modal}>
-            <h2>Обновить задание</h2>
-            <Input
-              onChange={(e) => setTitle(e.currentTarget.value)}
-              label="Название"
-            />
-            <Input
-              onChange={(e) => setDescription(e.currentTarget.value)}
-              label="Описание"
-            />
-            <Button onClick={() => handleUpdateTask(() => setIsOpen(false))}>
-              Сохранить
-            </Button>
-          </div>
-        )}
-      >
-        <div className={styles.item_title}>{title} </div>
-      </Modal>
+      <Link to={`/knowledge/task/${stepId}`}>
+        <div className={styles.item_title}>{title}</div>
+      </Link>
       <Dropdown
         options={[
           <Button style={{ width: "100%" }}>Изменить название</Button>,
@@ -75,7 +56,7 @@ export const TaskItem: FC<ITaskItem> = ({
               onClick={() => {
                 handleChangeExamStepsStageNums(
                   idInExam + "",
-                  idInExam - 1 + ""
+                  idInExam + 1 + ""
                 );
                 callback?.();
               }}
@@ -84,6 +65,16 @@ export const TaskItem: FC<ITaskItem> = ({
               Переместить вниз
             </Button>
           ),
+          <Button
+            onClick={() => {
+              handleDeleteTask();
+              callback?.();
+            }}
+            styledButton="red"
+            style={{ width: "100%" }}
+          >
+            Удалить
+          </Button>,
         ]}
       >
         <Button>...</Button>

@@ -11,6 +11,9 @@ export interface IExamInfo {
   is_delete: boolean;
   user_id: number;
   instruction_text: string;
+  recording_time: number;
+  training_time: number;
+  step_id: string;
 }
 
 export const useGetExamSteps = (examId: string) => {
