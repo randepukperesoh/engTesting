@@ -1,9 +1,10 @@
-// useHandleDeleteExamRandList
-
 import { toast } from "react-toastify";
 
 export const useHandleDeleteExamRandList = () => {
-  const handleDeleteExamRandList = async (listId: string, callback?: () => void) => {
+  const handleDeleteExamRandList = async (
+    listId: string,
+    callback?: () => void
+  ) => {
     try {
       const formData = new FormData();
       formData.append("list_id", listId);

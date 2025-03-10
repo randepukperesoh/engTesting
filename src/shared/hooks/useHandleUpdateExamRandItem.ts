@@ -1,3 +1,4 @@
+import { translateTypesToEng } from "./../consts/select";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -7,18 +8,19 @@ export const useHandleUpdateExamRandItem = () => {
 
   const handleUpdateExamRandItem = async (
     item_id: string,
+    defaultData: string,
+    defaultType: string,
     callback?: () => void
   ) => {
     try {
-      if (!type || !data.length ) {
-        toast.error("Нельязя отправить пустое поле");
-        throw new Error("Нельязя отправить пустое поле");
-      }
-
+      console.log({ type, defaultData, data, defaultType });
       const formData = new FormData();
       formData.append("item_id", item_id);
-      formData.append("type", type);
-      formData.append("data", data);
+      formData.append(
+        "type",
+        translateTypesToEng[type] || translateTypesToEng[defaultType]
+      );
+      formData.append("data", data || defaultData);
 
       const response = await fetch(
         "/back/main/admin/constructor/api/updateExamRandItem",

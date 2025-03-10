@@ -6,14 +6,19 @@ export const useHandleEditBlock = () => {
   const [data, setData] = useState("");
   const [type, setType] = useState("");
 
-  const handleEditBlock = async (blockId: string, callback?: () => void) => {
+  const handleEditBlock = async (
+    blockId: string,
+    defaultData: string,
+    defaultType: string,
+    callback?: () => void
+  ) => {
     try {
-      if (!type || !data) throw new Error("Нельзя отправить пустые поял");
+      // if (!type || !data) throw new Error("Нельзя отправить пустые поял");
 
       const formData = new FormData();
       formData.append("block_id", blockId);
-      formData.append("type", translateTypesToEng[type]);
-      formData.append("data", data);
+      formData.append("type", translateTypesToEng[type] || defaultType);
+      formData.append("data", data || defaultData);
 
       const response = await fetch(
         "/back/main/admin/constructor/api/editExamBlock",

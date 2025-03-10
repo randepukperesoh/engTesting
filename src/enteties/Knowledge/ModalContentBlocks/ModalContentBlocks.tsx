@@ -11,7 +11,7 @@ import { TextArea } from "../../../shared/ui/TextArea/TextArea";
 import styles from "./ModalContentBlocks.module.scss";
 
 export const ModalContentBlocks = ({ id }: { id: string }) => {
-  const { data } = useGetExamRandItems(id);
+  const { data, refetch } = useGetExamRandItems(id);
 
   const {
     handleCreateExamRandGroup,
@@ -34,7 +34,7 @@ export const ModalContentBlocks = ({ id }: { id: string }) => {
       <div className={styles.wrapper}>
         {data?.map((el) => (
           <Modal
-            rendreProp={() => (
+            rendreProp={(setIsOpen) => (
               <div className={styles.wrapper}>
                 <h2>Редактирование</h2>
                 <Select
@@ -45,7 +45,19 @@ export const ModalContentBlocks = ({ id }: { id: string }) => {
                   defaultValue={el.data}
                   onChange={(e) => setDataUpdate(e.currentTarget.value)}
                 />
-                <Button onClick={() => handleUpdateExamRandItem(el.id + "")}>
+                <Button
+                  onClick={() =>
+                    handleUpdateExamRandItem(
+                      el.id + "",
+                      el.data,
+                      el.type,
+                      () => {
+                        refetch();
+                        setIsOpen(false);
+                      }
+                    )
+                  }
+                >
                   Сохранить
                 </Button>
                 <Button
@@ -62,15 +74,22 @@ export const ModalContentBlocks = ({ id }: { id: string }) => {
         ))}
       </div>
       <Modal
-        rendreProp={() => (
-          <div>
+        rendreProp={(setIsOpen) => (
+          <div className={styles.wrapper}>
             <h2>Создание</h2>
             <Select
               onChange={(e) => setTypeCreate(OPTIONS_MOCK_DESC[+e])}
               options={OPTIONS_MOCK}
             />
             <TextArea onChange={(e) => setDataCreate(e.currentTarget.value)} />
-            <Button onClick={() => handleCreateExamRandGroup(id)}>
+            <Button
+              onClick={() =>
+                handleCreateExamRandGroup(id, () => {
+                  refetch();
+                  setIsOpen(false);
+                })
+              }
+            >
               Создать
             </Button>
           </div>

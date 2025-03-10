@@ -57,10 +57,13 @@ const ModalContetEditBlocks = () => {
 const ModalContent = ({
   title,
   id,
+  refetchs,
+  handleHideModal,
 }: {
   id: string;
   title: string;
-  refetchs;
+  refetchs: () => void;
+  handleHideModal: () => void;
 }) => {
   const { data, refetch } = useGetExamRandGroupsList(id);
 
@@ -73,12 +76,17 @@ const ModalContent = ({
         <Input isColumn style={{ width: "100%" }} label="Поиск" />
         <div className={styles.content_filters_btns}>
           <ModalEdit id={id} />
-          <ModalCreate refetchS={} refetch={refetch} id={id} />
+          <ModalCreate refetchS={refetchs} refetch={refetch} id={id} />
           <Button
-            onClick={() => handleDeleteExamRandList(id)}
+            onClick={() =>
+              handleDeleteExamRandList(id, () => {
+                handleHideModal();
+                refetchs();
+              })
+            }
             styledButton="red"
           >
-            Удалить
+            Удалить sss
           </Button>
         </div>
       </div>
@@ -111,8 +119,13 @@ export const ModalEditRandValue: FC<IModalEditRandValue> = ({
 }) => {
   return (
     <Modal
-      rendreProp={() => (
-        <ModalContent refetchs={refetch} id={id} title={title} />
+      rendreProp={(setIsOpen) => (
+        <ModalContent
+          handleHideModal={() => setIsOpen(false)}
+          refetchs={refetch}
+          id={id}
+          title={title}
+        />
       )}
     >
       <div className={styles.item}>{title}</div>

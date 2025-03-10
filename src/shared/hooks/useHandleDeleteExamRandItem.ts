@@ -1,7 +1,10 @@
 import { toast } from "react-toastify";
 
 export const useHandleDeleteExamRandItem = () => {
-  const handleDeleteExamRandItem = async (itemId: string, callback?: () => void) => {
+  const handleDeleteExamRandItem = async (
+    itemId: string,
+    callback?: () => void
+  ) => {
     try {
       const formData = new FormData();
       formData.append("item_id", itemId);
@@ -14,13 +17,13 @@ export const useHandleDeleteExamRandItem = () => {
       const res: { status: boolean } = await response.json();
 
       if (!res.status) {
-        throw new Error("Не удалось удалить задание");
+        throw new Error("Не удалось удалить блок");
       }
       callback?.();
-      toast.success("Задние удалено");
+      toast.success("Блок удалено");
     } catch (e) {
       console.error(e);
-      toast.error("Не удалось удалить задание");
+      toast.error("Не удалось удалить блок");
     }
   };
 

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useGetExamBlock } from "../../../shared/hooks/useGetExamBlock";
+import { IBlock, useGetExamBlock } from "../../../shared/hooks/useGetExamBlock";
 import { useHandleChangeRecordTime } from "../../../shared/hooks/useHandleChangeRecordTime";
 import { useHandleChangeTrainingTime } from "../../../shared/hooks/useHandleChangeTrainingTime";
 import { useHandleDeleteExamBlock } from "../../../shared/hooks/useHandleDeleteExamBlock";
@@ -22,12 +22,83 @@ import styles from "./TaskItem.module.scss";
 import { Accordion } from "../../../shared/ui/Accordion/Accordion";
 import { useGetExamRandList } from "../../../shared/hooks/useGetExamRandList";
 import { useHandleEditExamBlockAddRandList } from "../../../shared/hooks/useHandleEditExamBlockAddRandList";
+import { FC } from "react";
 
 const OPTION_MAP_MOCK: Record<string, string> = {
   title: "Заголовок",
   text: "Текст",
   image: "Изображение",
   bold: "Выделеный текст",
+};
+
+interface IContent extends IBlock {
+  refetch: () => void;
+  setIsOpen: (value: boolean) => void;
+}
+
+const Content: FC<IContent> = ({ data, id, type, refetch, setIsOpen }) => {
+  const { handleDeleteExamBlock } = useHandleDeleteExamBlock();
+
+  const { handleEditBlock, setData, setType } = useHandleEditBlock();
+
+  const { data: dataRandList } = useGetExamRandList();
+
+  const { handleEditExamBlockAddRandList } =
+    useHandleEditExamBlockAddRandList();
+
+  return (
+    <div className={styles.wrapper}>
+      <h2>Редактирование</h2>
+      <Select
+        onChange={(e) => setType(OPTIONS_MOCK_DESC[+e])}
+        options={OPTIONS_MOCK}
+        defaultValue={translateTypes[type]}
+      />
+      <TextArea
+        className={styles.item_modal_items_item_input}
+        style={{ width: "100%" }}
+        defaultValue={data}
+        onChange={(e) => setData(e.currentTarget.value)}
+      />
+      <Accordion
+        style={{ width: "100%" }}
+        renderProp={() => (
+          <div className={styles.item_modal_items_item_accordion}>
+            {dataRandList?.map((listItem) => (
+              <Button
+                onClick={() =>
+                  handleEditExamBlockAddRandList(
+                    id + "",
+                    listItem.id + "",
+                    refetch
+                  )
+                }
+                key={"rand_" + id}
+              >
+                {listItem.title}
+              </Button>
+            ))}
+          </div>
+        )}
+      >
+        Выбрать случайный вариант
+      </Accordion>
+      <Button onClick={() => handleEditBlock(id + "", data, type, refetch)}>
+        Сохранить
+      </Button>
+      <Button
+        onClick={() =>
+          handleDeleteExamBlock(id + "", () => {
+            refetch();
+            setIsOpen(false);
+          })
+        }
+        styledButton="red"
+      >
+        Удалить
+      </Button>
+    </div>
+  );
 };
 
 const EditTask = () => {
@@ -39,15 +110,6 @@ const EditTask = () => {
 
   const { handleChangeRecordTime } = useHandleChangeRecordTime(stepId);
   const { handleChangeTrainingTime } = useHandleChangeTrainingTime(stepId);
-
-  const { handleDeleteExamBlock } = useHandleDeleteExamBlock();
-
-  const { handleEditBlock, setData, setType } = useHandleEditBlock();
-
-  const { data: dataRandList } = useGetExamRandList();
-
-  const { handleEditExamBlockAddRandList } =
-    useHandleEditExamBlockAddRandList();
 
   return (
     <div className={styles.item_modal}>
@@ -71,62 +133,13 @@ const EditTask = () => {
             return (
               <Modal
                 key={"masdsa_" + el.id}
-                rendreProp={(setIsOpen) => (
-                  <div className={styles.wrapper}>
-                    <h2>Редактирование</h2>
-                    <Select
-                      onChange={(e) => setType(OPTIONS_MOCK_DESC[+e])}
-                      options={OPTIONS_MOCK}
-                      defaultValue={translateTypes[el.type]}
-                    />
-                    <TextArea
-                      className={styles.item_modal_items_item_input}
-                      style={{ width: "100%" }}
-                      defaultValue={el.data}
-                      onChange={(e) => setData(e.currentTarget.value)}
-                    />
-
-                    <Accordion
-                      style={{ width: "100%" }}
-                      renderProp={() => (
-                        <div className={styles.item_modal_items_item_accordion}>
-                          {dataRandList?.map((listItem) => (
-                            <Button
-                              onClick={() =>
-                                handleEditExamBlockAddRandList(
-                                  el.id + "",
-                                  listItem.id + "",
-                                  refetch
-                                )
-                              }
-                              key={"rand_" + el.id}
-                            >
-                              {listItem.title}
-                            </Button>
-                          ))}
-                        </div>
-                      )}
-                    >
-                      Выбрать случайный вариант
-                    </Accordion>
-                    <Button
-                      onClick={() => handleEditBlock(el.id + "", refetch)}
-                    >
-                      Сохранить
-                    </Button>
-                    <Button
-                      onClick={() =>
-                        handleDeleteExamBlock(el.id + "", () => {
-                          refetch();
-                          setIsOpen(false);
-                        })
-                      }
-                      styledButton="red"
-                    >
-                      Удалить
-                    </Button>
-                  </div>
-                )}
+                rendreProp={(setIsOpen) =>
+                  !el.is_rand ? (
+                    <Content {...el} setIsOpen={setIsOpen} refetch={refetch} />
+                  ) : (
+                    <>Сделать здесь предпросмотр по getExamRandListOne</>
+                  )
+                }
               >
                 <div className={styles.item_modal_items_item}>
                   {OPTION_MAP_MOCK[el.type]}

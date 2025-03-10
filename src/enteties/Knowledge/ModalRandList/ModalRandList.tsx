@@ -3,11 +3,15 @@ import { useGetExamRandList } from "../../../shared/hooks/useGetExamRandList";
 import { ModalEditRandValue } from "../ModalEditRandValue/ModalEditRandValue";
 import { Button } from "../../../shared/ui/Button/Button";
 import { Loader } from "../../../shared/ui/Loader/Loader";
+import { Modal } from "../../../shared/ui/Modal/Modal";
+import { useHandleCreateExamRandList } from "../../../shared/hooks/useHandleCreateExamRandList";
+import { Input } from "../../../shared/ui/Input/Input";
 
 import styles from "./ModalRandList.module.scss";
 
 export const ModalRandList: FC = () => {
   const { data, isLoading, error, refetch } = useGetExamRandList();
+  const { handleCreateExamRandList, setTitle } = useHandleCreateExamRandList();
 
   return (
     <div className={styles.wrapper}>
@@ -23,7 +27,29 @@ export const ModalRandList: FC = () => {
           />
         ))}
       {error && <div>Не удалось загрузить данные</div>}
-      <Button>Создать</Button>
+      <Modal
+        rendreProp={(setIsOpen) => (
+          <div className={styles.wrapper}>
+            <h2>Создание списка</h2>
+            <Input
+              style={{ width: "95%" }}
+              onChange={(e) => setTitle(e.currentTarget.value)}
+            />
+            <Button
+              onClick={() =>
+                handleCreateExamRandList(() => {
+                  setIsOpen(false);
+                  refetch();
+                })
+              }
+            >
+              Создать
+            </Button>
+          </div>
+        )}
+      >
+        <Button style={{ width: "100%" }}>Создать</Button>
+      </Modal>
     </div>
   );
 };
