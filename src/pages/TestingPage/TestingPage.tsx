@@ -21,7 +21,7 @@ const Finish = ({ setStep }: { setStep: (value: number) => void }) => {
       navigate("/testing");
     };
 
-    const timeoutId = setTimeout(() => redirectFinish);
+    const timeoutId = setTimeout(() => redirectFinish, 3000);
 
     return () => {
       clearTimeout(timeoutId);
