@@ -1,5 +1,7 @@
 import { toast } from "react-toastify";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useHandleChangeRecordTime = (stepId: string) => {
   const handleChangeRecordTime = async (sec: string, callback?: () => void) => {
     try {
@@ -11,7 +13,7 @@ export const useHandleChangeRecordTime = (stepId: string) => {
       formData.append("sec", sec + "");
 
       const response = await fetch(
-        "/back/main/admin/constructor/api/updateExamStepRecordingTime",
+        api + "/main/admin/constructor/api/updateExamStepRecordingTime",
         { method: "POST", body: formData }
       );
 

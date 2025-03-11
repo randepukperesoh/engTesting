@@ -2,6 +2,8 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { translateTypesToEng } from "../consts/select";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useHandleEditBlock = () => {
   const [data, setData] = useState("");
   const [type, setType] = useState("");
@@ -21,7 +23,7 @@ export const useHandleEditBlock = () => {
       formData.append("data", data || defaultData);
 
       const response = await fetch(
-        "/back/main/admin/constructor/api/editExamBlock",
+        api + "/main/admin/constructor/api/editExamBlock",
         { method: "POST", body: formData }
       );
 

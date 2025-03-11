@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useChangeUserPassword = (id: string) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -44,7 +46,7 @@ export const useChangeUserPassword = (id: string) => {
     data.append("user_id", id);
     data.append("password", password);
     try {
-      await fetch("/back/main/admin/users/api/UserChangePassword", {
+      await fetch(api + "/main/admin/users/api/UserChangePassword", {
         method: "POST",
         body: data,
       });

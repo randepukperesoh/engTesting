@@ -1,6 +1,8 @@
 import { useCallback } from "react";
 import { toast } from "react-toastify";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useUploadAudiio = (
   sh: string,
   stepsId: number[] | null,
@@ -14,16 +16,19 @@ export const useUploadAudiio = (
       formData.append("step_id", String(stepsId[step]));
       formData.append("sh", sh);
       try {
-        const response = await fetch("/back/main/examination/api/uploadAudio", {
-          method: "POST",
-          body: formData,
-        });
+        const response = await fetch(
+          api + "/main/examination/api/uploadAudio",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
 
         if (!response.ok) {
           console.error("Ошибка при отправке аудио:", response.statusText);
         }
 
-        toast.success('Ответ отправлен')
+        toast.success("Ответ отправлен");
       } catch (error) {
         console.error("Ошибка при отправке аудио:", error);
       }

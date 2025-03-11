@@ -1,5 +1,7 @@
 import { toast } from "react-toastify";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useHandleChangeExamStepsStageNums = () => {
   const handleChangeExamStepsStageNums = async (
     firstId: string,
@@ -7,11 +9,11 @@ export const useHandleChangeExamStepsStageNums = () => {
   ) => {
     try {
       const formData = new FormData();
-      formData.append("step_first_id", firstId);
-      formData.append("step_second_id", secondId);
+      formData.append("step_first", firstId);
+      formData.append("step_second", secondId);
 
       const response = await fetch(
-        "/back/main/admin/constructor/api/ChangeExamStepsStageNums",
+        api + "/main/admin/constructor/api/ChangeExamStepsStageNums",
         {
           method: "POST",
           body: formData,

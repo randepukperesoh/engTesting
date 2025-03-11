@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 export interface IUser {
   id: number;
   created_at: string;
@@ -26,7 +28,7 @@ export const useGetUser = (id: number) => {
 
       try {
         setIsLoading(true);
-        const response = await fetch("/back/main/admin/users/api/getUser", {
+        const response = await fetch(api + "/main/admin/users/api/getUser", {
           method: "POST",
           body: formData,
         });
@@ -43,7 +45,7 @@ export const useGetUser = (id: number) => {
 
     getUser();
   }, [id]);
-  
+
   return {
     data,
     isLoading,

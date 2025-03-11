@@ -3,6 +3,7 @@
   box-shadow: 0 0 3px 0 var(--color-font-disable);
   background-color: #fff;
   padding: 0.5rem;
+  cursor: pointer;
 }
 
 .wrapper {
@@ -10,4 +11,5 @@
   flex-direction: column;
   gap: 0.5rem;
   min-width: 320px;
+  max-width: 80vw;
 }

@@ -1,41 +1,43 @@
 import { useEffect, useState } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 export interface IUser {
-    id: number;
-    last_name: string;
-    first_name: string;
-    other_name: string;
-    login: string;
+  id: number;
+  last_name: string;
+  first_name: string;
+  other_name: string;
+  login: string;
 }
 
 export const useSearchUser = () => {
-    const [search, setSearch] = useState('');
-    const [data, setData] = useState<IUser[] | null>(null);
-    const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
+  const [data, setData] = useState<IUser[] | null>(null);
+  const [error, setError] = useState("");
 
-      
-        useEffect(() => {
-          const fetchPlaceList = async () => {
-            try {
-                const formData= new FormData
-                formData.append('search', search.toLocaleLowerCase())
-              const response = await fetch(
-                "/back/main/admin/techmanager/api/SearchUser",
-                { method: "POST", body: formData}
-              );
-              const res: IUser[] = await response.json();
-              setData(res);
-            } catch (e) {
-              setError("Не удалось получить аудитории");
-              console.error(e);
-            }
-          };
-      
-          fetchPlaceList();
-        }, [search]);
-      
+  useEffect(() => {
+    const fetchPlaceList = async () => {
+      try {
+        const formData = new FormData();
+        formData.append("search", search.toLocaleLowerCase());
+        const response = await fetch(
+          api + "/main/admin/techmanager/api/SearchUser",
+          { method: "POST", body: formData }
+        );
+        const res: IUser[] = await response.json();
+        setData(res);
+      } catch (e) {
+        setError("Не удалось получить аудитории");
+        console.error(e);
+      }
+    };
 
-    return{
-        data, error, setSearch
-    }
-}
+    fetchPlaceList();
+  }, [search]);
+
+  return {
+    data,
+    error,
+    setSearch,
+  };
+};

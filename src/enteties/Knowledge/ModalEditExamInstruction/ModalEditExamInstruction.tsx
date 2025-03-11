@@ -5,7 +5,13 @@ import { TextArea } from "../../../shared/ui/TextArea/TextArea";
 
 import styles from "./ModalEditExamInstruction.module.scss";
 
-export const ModalEditExamInstruction = ({ examId }: { examId: string }) => {
+export const ModalEditExamInstruction = ({
+  examId,
+  instruction,
+}: {
+  instruction: string;
+  examId: string;
+}) => {
   const { handleEditInstruction, setText } = useHandleUpdateInstruction(examId);
   return (
     <Modal
@@ -13,7 +19,10 @@ export const ModalEditExamInstruction = ({ examId }: { examId: string }) => {
         <div className={styles.content}>
           <h2>Редактирование инструкции</h2>
           <div>
-            <TextArea onChange={(e) => setText(e.currentTarget.value)} />
+            <TextArea
+              defaultValue={instruction}
+              onChange={(e) => setText(e.currentTarget.value)}
+            />
           </div>
           <Button onClick={() => handleEditInstruction(() => setIsOpen(false))}>
             Сохранить

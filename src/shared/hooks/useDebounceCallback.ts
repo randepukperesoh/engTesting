@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef, useEffect } from "react";
 
 export const useDebounceCallback = <T extends (...args: any[]) => void>(
   callback: T,
   delay: number
 ): ((...args: Parameters<T>) => void) => {
-  const timerRef = useRef<number | null>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     return () => {
@@ -20,6 +21,6 @@ export const useDebounceCallback = <T extends (...args: any[]) => void>(
     }
     timerRef.current = setTimeout(() => {
       callback(...args);
-    }, delay);
+    }, delay) ;
   };
 };

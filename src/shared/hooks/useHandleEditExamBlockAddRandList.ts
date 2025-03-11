@@ -1,5 +1,7 @@
 import { toast } from "react-toastify";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useHandleEditExamBlockAddRandList = () => {
   const handleEditExamBlockAddRandList = async (
     list_id: string,
@@ -12,7 +14,7 @@ export const useHandleEditExamBlockAddRandList = () => {
       formData.append("list_id", list_id);
 
       const response = await fetch(
-        "/back/main/admin/constructor/api/editExamBlockAddRandList",
+        api + "/main/admin/constructor/api/editExamBlockAddRandList",
         { method: "POST", body: formData }
       );
 

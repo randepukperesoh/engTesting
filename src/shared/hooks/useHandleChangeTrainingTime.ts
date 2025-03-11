@@ -1,17 +1,22 @@
 import { toast } from "react-toastify";
 
-export const useHandleChangeTrainingTime = (stepId: string) => {
+const api = import.meta.env.VITE_API_URL;
 
-  const handleChangeTrainingTime = async (sec: string,callback?: () => void) => {
+export const useHandleChangeTrainingTime = (stepId: string) => {
+  const handleChangeTrainingTime = async (
+    sec: string,
+    callback?: () => void
+  ) => {
     try {
-      if (Number(sec) < 5) throw new Error("Время не может быть меньше 5 секунд");
-      
+      if (Number(sec) < 5)
+        throw new Error("Время не может быть меньше 5 секунд");
+
       const formData = new FormData();
       formData.append("step_id", stepId);
       formData.append("sec", sec + "");
-      
+
       const response = await fetch(
-        "/back/main/admin/constructor/api/updateExamStepTrainingTime",
+        api + "/main/admin/constructor/api/updateExamStepTrainingTime",
         { method: "POST", body: formData }
       );
 

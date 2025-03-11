@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 interface IExmaData {
   id: number;
   created_at: string;
@@ -35,7 +37,7 @@ export const useGetExamData = (windowHash: string, isOpenModal: boolean) => {
         const formData = new FormData();
         formData.append("hash", windowHash);
         const response = await fetch(
-          "/back/main/admin/examcheaking/api/getExamData",
+          api + "/main/admin/examcheaking/api/getExamData",
           {
             method: "POST",
             body: formData,
@@ -62,12 +64,17 @@ export const useGetExamData = (windowHash: string, isOpenModal: boolean) => {
   }, [data]);
 
   const audioData = useMemo(() => {
-    if(!data) return []
+    if (!data) return [];
     return data.reduce((acc, el, i) => {
       if (el.type === "voice") {
         return [
           ...acc,
-          { id: i, type: "audio",step_id: el.step_id, audioName: el.audio_name ?? "" } as IVoice,
+          {
+            id: i,
+            type: "audio",
+            step_id: el.step_id,
+            audioName: el.audio_name ?? "",
+          } as IVoice,
         ];
       }
       return acc;

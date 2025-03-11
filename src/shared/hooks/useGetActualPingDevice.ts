@@ -1,21 +1,23 @@
 import { useEffect, useState } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 export interface IACtualDevice {
   id: number;
-    created_at: string;
-    updated_at: string;
-    rand_code: string;
-    is_active: boolean;
-    action: null;
-    last_ping_date: string;
-    fio: string;
-    place_id: number;
-    num: number;
+  created_at: string;
+  updated_at: string;
+  rand_code: string;
+  is_active: boolean;
+  action: null;
+  last_ping_date: string;
+  fio: string;
+  place_id: number;
+  num: number;
 }
+
 export const useGetActualPingDevice = () => {
-  
   const [placeId, setPlaceId] = useState(1);
-  const [data, setData] = useState<IACtualDevice[]>([]); 
+  const [data, setData] = useState<IACtualDevice[]>([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -24,7 +26,7 @@ export const useGetActualPingDevice = () => {
         const data = new FormData();
         data.append("place_id", String(placeId));
         const response = await fetch(
-          "/back/main/admin/techmanager/api/getActualPingDevices",
+          api + "/main/admin/techmanager/api/getActualPingDevices",
           { method: "POST", body: data }
         );
         const res: IACtualDevice[] = await response.json();
@@ -43,5 +45,5 @@ export const useGetActualPingDevice = () => {
     };
   }, [placeId]);
 
-  return { data, error,placeId, setPlaceId };
+  return { data, error, placeId, setPlaceId };
 };

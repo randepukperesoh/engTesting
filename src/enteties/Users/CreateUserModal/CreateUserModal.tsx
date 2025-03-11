@@ -7,6 +7,8 @@ import { Toggle } from "../../../shared/ui/Toggle/Toggle";
 import styles from "./CreateUserModal.module.scss";
 import { toast } from "react-toastify";
 
+const api = import.meta.env.VITE_API_URL;
+
 const useHandleCreateUser = () => {
   // Состояния для каждого поля формы
   const [lastName, setLastName] = useState("");
@@ -36,7 +38,7 @@ const useHandleCreateUser = () => {
     formData.append("api", "createUser");
 
     try {
-      const response = await fetch("/back/main/admin/users/api/createUser", {
+      const response = await fetch(api + "/main/admin/users/api/createUser", {
         method: "POST",
         body: formData,
       });

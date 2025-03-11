@@ -5,7 +5,15 @@ import { Modal } from "../../../shared/ui/Modal/Modal";
 
 import styles from "./ModalEditExam.module.scss";
 
-export const ModalEditExam = ({ examId }: { examId: string }) => {
+export const ModalEditExam = ({
+  examId,
+  description,
+  title,
+}: {
+  title: string;
+  description: string;
+  examId: string;
+}) => {
   const { handleEditExam, setDescription, setTitle } =
     useHandleEditExam(examId);
 
@@ -17,13 +25,19 @@ export const ModalEditExam = ({ examId }: { examId: string }) => {
           <Input
             onChange={(e) => setTitle(e.currentTarget.value)}
             label="Название"
+            defaultValue={title}
           />
           <Input
             onChange={(e) => setDescription(e.currentTarget.value)}
             label="Описание"
+            defaultValue={description}
           />
 
-          <Button onClick={() => handleEditExam(() => setIsOpen(false))}>
+          <Button
+            onClick={() =>
+              handleEditExam(title, description, () => setIsOpen(false))
+            }
+          >
             Сохранить
           </Button>
         </div>

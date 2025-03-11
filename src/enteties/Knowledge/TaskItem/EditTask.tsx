@@ -14,18 +14,23 @@ interface ITaskItem {
   isFirst: boolean;
   idInExam: number;
   callback?: () => void;
+  stepIdNext?: number;
+  setIdPrev?: number;
 }
 
 export const TaskItem: FC<ITaskItem> = ({
   title,
   isFirst,
   isLast,
-  idInExam,
   callback,
   stepId,
+  stepIdNext,
+  setIdPrev,
 }) => {
   const { handleChangeExamStepsStageNums } =
     useHandleChangeExamStepsStageNums();
+
+  console.log({ stepId, setIdPrev, stepIdNext });
 
   const { handleDeleteTask } = useHandleDeleteTask(stepId);
 
@@ -40,10 +45,7 @@ export const TaskItem: FC<ITaskItem> = ({
           !isFirst && (
             <Button
               onClick={() => {
-                handleChangeExamStepsStageNums(
-                  idInExam - 1 + "",
-                  idInExam + ""
-                );
+                handleChangeExamStepsStageNums(stepId + "", stepIdNext + "");
                 callback?.();
               }}
               style={{ width: "100%" }}
@@ -54,10 +56,7 @@ export const TaskItem: FC<ITaskItem> = ({
           !isLast && (
             <Button
               onClick={() => {
-                handleChangeExamStepsStageNums(
-                  idInExam + "",
-                  idInExam + 1 + ""
-                );
+                handleChangeExamStepsStageNums(stepId + "", setIdPrev + "");
                 callback?.();
               }}
               style={{ width: "100%" }}

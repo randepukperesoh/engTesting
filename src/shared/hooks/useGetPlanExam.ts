@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 export interface IPlanBlock {
   id: number;
   created_at: string;
@@ -27,7 +29,7 @@ export const useGetPlanExam = (step: number | null, sh: string) => {
         data.append("step_id", String(step));
         data.append("sh", sh);
         const response = await fetch(
-          "/back/main/examination/api/getPlanBlocks",
+          api + "/main/examination/api/getPlanBlocks",
           {
             method: "POST",
             body: data,

@@ -1,5 +1,7 @@
 import { toast } from "react-toastify";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useHandleDeleteExamRandItem = () => {
   const handleDeleteExamRandItem = async (
     itemId: string,
@@ -10,7 +12,7 @@ export const useHandleDeleteExamRandItem = () => {
       formData.append("item_id", itemId);
 
       const response = await fetch(
-        "/back/main/admin/constructor/api/deleteExamRandItem",
+        api + "/main/admin/constructor/api/deleteExamRandItem",
         { method: "POST", body: formData }
       );
 

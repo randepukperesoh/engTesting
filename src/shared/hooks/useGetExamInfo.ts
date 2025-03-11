@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 export interface IExam {
   id: number;
   created_at: string;
@@ -22,11 +24,14 @@ export const useGetExamInfo = () => {
     const fetchExam = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch("/back/main/examination/api/getExamInfo", {
-          method: "POST",
-          credentials: "include",
-          body: new FormData(),
-        });
+        const response = await fetch(
+          api + "/main/examination/api/getExamInfo",
+          {
+            method: "POST",
+            credentials: "include",
+            body: new FormData(),
+          }
+        );
 
         const res: IExam = await response.json();
         setData(res);

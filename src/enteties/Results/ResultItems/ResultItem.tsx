@@ -9,6 +9,8 @@ import { Loader } from "../../../shared/ui/Loader/Loader";
 
 import styles from "./ResultItem.module.scss";
 
+const api = import.meta.env.VITE_API_URL;
+
 interface IResultItem {
   data: IVoice | IBlock | IDecoding;
 }
@@ -62,8 +64,8 @@ const Audio: FC<IVoice> = ({ audioName, id }) => {
         className={styles.wraper_audio}
         id={String(id)}
         controls
-        src={"/back/uploads/" + audioName}
-        preload={"/back/uploads/" + audioName}
+        src={api + "/uploads/" + audioName}
+        preload={"/uploads/" + audioName}
       >
         Ваш браузер не поддерживает аудио элемент.
       </audio>

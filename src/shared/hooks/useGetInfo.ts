@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 export interface IProfile {
   created_at: string;
   first_name: string;
@@ -26,7 +28,7 @@ export const useGetInfo = () => {
 
         const formData = new FormData();
 
-        const response = await fetch("/back/main/api/profile/getInfo", {
+        const response = await fetch(api + "/main/api/profile/getInfo", {
           method: "POST",
           credentials: "include",
           body: formData,
@@ -39,7 +41,7 @@ export const useGetInfo = () => {
         const res: IProfile = await response.json();
         setData(res);
       } catch (e) {
-        setError(e as string || "Произошла ошибка при получении данных");
+        setError((e as string) || "Произошла ошибка при получении данных");
       } finally {
         setIsLoading(false);
       }

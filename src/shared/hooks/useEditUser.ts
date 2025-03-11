@@ -2,6 +2,8 @@ import { useCallback } from "react";
 import { useDebounceCallback } from "./useDebounceCallback";
 import { toast } from "react-toastify";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useEditUser = () => {
   const editUserField = useCallback(
     async (id: string, field: string, value: string) => {
@@ -11,7 +13,7 @@ export const useEditUser = () => {
       data.append("data", value);
       try {
         const response = await fetch(
-          "/back/main/admin/users/api/UpdateUserByCol",
+          api+ "/main/admin/users/api/UpdateUserByCol",
           { method: "post", credentials: "include", body: data }
         );
         if (!response.ok) {

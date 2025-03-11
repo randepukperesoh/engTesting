@@ -2,6 +2,8 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { OPTIONS_MOCK_DESC, translateTypesToEng } from "../consts/select";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useHandleCreateExamRandItem = () => {
   const [type, setType] = useState(OPTIONS_MOCK_DESC[0]);
   const [data, setData] = useState("");
@@ -19,7 +21,7 @@ export const useHandleCreateExamRandItem = () => {
       formData.append("group_id", group_id);
 
       const response = await fetch(
-        "/back/main/admin/constructor/api/createExamRandItem",
+        api + "/main/admin/constructor/api/createExamRandItem",
         { method: "POST", body: formData }
       );
 

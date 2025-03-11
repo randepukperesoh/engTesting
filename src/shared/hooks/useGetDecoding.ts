@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 interface IdecodingResponse {
   file_name: string;
   status: boolean;
@@ -18,7 +20,7 @@ export const useGetDecoding = () => {
       formData.append("file_name", audioName);
 
       const response = await fetch(
-        "/back/main/admin/examcheaking/api/getRecordAudio",
+        api + "/main/admin/examcheaking/api/getRecordAudio",
         {
           method: "POST",
           body: formData,

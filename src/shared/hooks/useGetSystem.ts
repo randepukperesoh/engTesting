@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useGetSystem = () => {
   const [data, setData] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -9,7 +11,7 @@ export const useGetSystem = () => {
     const getFolderSize = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch("/back/main/api/profile/getFolderSize", {
+        const response = await fetch(api + "/main/api/profile/getFolderSize", {
           method: "POST",
           body: new FormData(),
         });

@@ -21,6 +21,7 @@ export const ModalRandList: FC = () => {
         !error &&
         data?.map((el) => (
           <ModalEditRandValue
+            key={"randValue_" + el.id + el.created_at}
             refetch={refetch}
             id={el.id + ""}
             title={el.title}

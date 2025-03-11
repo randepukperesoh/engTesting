@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../stores/useUserStore";
 import { useCallback } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useExit = () => {
   const { setIsGroup, setIsLogined } = useUserStore();
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ export const useExit = () => {
 
       navigate("/login");
 
-      await fetch("/back/main/api/profile/exit", {
+      await fetch(api + "/main/api/profile/exit", {
         method: "POST",
         credentials: "include",
         body: new FormData(),

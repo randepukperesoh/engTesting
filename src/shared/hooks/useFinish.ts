@@ -1,8 +1,10 @@
 import { toast } from "react-toastify";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useFinish = () => {
   const handlePostFinish = async () => {
-    await fetch("/back/main/examination/api/finish", {
+    await fetch(api + "/main/examination/api/finish", {
       method: "POST",
       body: new FormData(),
     });

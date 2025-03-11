@@ -24,7 +24,7 @@ const ModalEdit = ({ id }: { id: string }) => {
   return (
     <Modal
       rendreProp={(setIsOpen) => (
-        <div>
+        <div className={styles.content}>
           <h2>Название</h2>
           <TextArea
             // label="Название"
@@ -65,7 +65,7 @@ const ModalContent = ({
   refetchs: () => void;
   handleHideModal: () => void;
 }) => {
-  const { data, refetch } = useGetExamRandGroupsList(id);
+  const { data, refetch, setSearch } = useGetExamRandGroupsList(id);
 
   const { handleDeleteExamRandList } = useHandleDeleteExamRandList();
 
@@ -73,7 +73,12 @@ const ModalContent = ({
     <div className={styles.content}>
       <h2>Случайное значение: {title}</h2>
       <div className={styles.content_filters}>
-        <Input isColumn style={{ width: "100%" }} label="Поиск" />
+        <Input
+          isColumn
+          onChange={(e) => setSearch(e.currentTarget.value)}
+          style={{ width: "100%" }}
+          label="Поиск"
+        />
         <div className={styles.content_filters_btns}>
           <ModalEdit id={id} />
           <ModalCreate refetchS={refetchs} refetch={refetch} id={id} />
@@ -86,27 +91,29 @@ const ModalContent = ({
             }
             styledButton="red"
           >
-            Удалить sss
+            Удалить
           </Button>
         </div>
       </div>
       <div className={styles.content_items}>
-        {data?.map((el) => (
-          <div className={styles.content_items_item}>
-            <Modal rendreProp={() => <ModalContentBlocks id={el.id + ""} />}>
-              <div className={styles.content_items_item_text}>{el.title}</div>
-            </Modal>
-            <Dropdown
-              options={[
-                <Modal rendreProp={() => <ModalContetEditBlocks />}>
-                  <Button>Изменить название</Button>
-                </Modal>,
-              ]}
-            >
-              <Button>...</Button>
-            </Dropdown>
-          </div>
-        ))}
+        {data?.length !== 0 &&
+          data?.map((el) => (
+            <div className={styles.content_items_item}>
+              <Modal rendreProp={() => <ModalContentBlocks id={el.id + ""} />}>
+                <div className={styles.content_items_item_text}>{el.title}</div>
+              </Modal>
+              <Dropdown
+                options={[
+                  <Modal rendreProp={() => <ModalContetEditBlocks />}>
+                    <Button>Изменить название</Button>
+                  </Modal>,
+                ]}
+              >
+                <Button>...</Button>
+              </Dropdown>
+            </div>
+          ))}
+        {data?.length === 0 && <div>Ничего не найдено</div>}
       </div>
     </div>
   );

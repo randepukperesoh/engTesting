@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 export interface IBlock {
   id: number;
   created_at: string;
@@ -20,7 +22,6 @@ export const useGetExamBlock = (stepId: string) => {
   const [error, setError] = useState("");
   const [refetchFlag, setRefetchFlag] = useState(1);
 
-
   useEffect(() => {
     const fetchBlocks = async () => {
       try {
@@ -28,7 +29,7 @@ export const useGetExamBlock = (stepId: string) => {
         const formData = new FormData();
         formData.append("step_id", stepId);
         const response = await fetch(
-          "/back/main/admin/constructor/api/getExamBlock",
+          api + "/main/admin/constructor/api/getExamBlock",
           {
             method: "POST",
             body: formData,
@@ -47,7 +48,7 @@ export const useGetExamBlock = (stepId: string) => {
     fetchBlocks();
   }, [stepId, refetchFlag]);
 
-  const refetch = () => setRefetchFlag(prev => prev +1)
+  const refetch = () => setRefetchFlag((prev) => prev + 1);
 
   return { data, error, isLoading, refetch };
 };

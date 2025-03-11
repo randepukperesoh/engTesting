@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 export interface IPlace {
   id: number;
   created_at: string;
@@ -18,7 +20,7 @@ export const useGetPlaceList = () => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          "/back/main/admin/techmanager/api/getPlaceList",
+          api + "/main/admin/techmanager/api/getPlaceList",
           { method: "POST" }
         );
         const res: IPlace[] = await response.json();

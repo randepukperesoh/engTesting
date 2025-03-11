@@ -6,7 +6,7 @@ import { Loader } from "./shared/ui/Loader/Loader";
 
 const RootLayout = lazy(() => import("./pages/Layout/Layot"));
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
-const ErrorPage = lazy(() => import("./pages/ErrorPage"));
+const ErrorPage = lazy(() => import("./pages/ErrorPage/ErrorPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
 const KnowledgePage = lazy(() => import("./pages/KnowledgePage/KnowledgePage"));
 const UsersPage = lazy(() => import("./pages/UsersPage/UsersPage"));

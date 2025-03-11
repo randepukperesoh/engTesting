@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 export interface IReSult {
   user_id: number;
   last_name: string;
@@ -16,7 +18,7 @@ export const useGetResults = () => {
   useEffect(() => {
     const fetchResults = async () => {
       const response = await fetch(
-        "/back/main/admin/examcheaking/api/getResults",
+        api + "/main/admin/examcheaking/api/getResults",
         {
           method: "POST",
           body: new FormData(),

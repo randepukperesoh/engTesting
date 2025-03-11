@@ -17,11 +17,11 @@ export const UserItem: FC<IUserItem> = ({
   last_name,
   other_name,
   login,
-  // id,
+  id,
   deviceId,
   handleHiden,
 }) => {
-  const { handleChangeUserForDevice, setExamId, setUserId } =
+  const { handleChangeUserForDevice, setExamId, setUserId, examId } =
     useChangeUserForDevice();
 
   const { data } = useGetExamList();
@@ -29,11 +29,18 @@ export const UserItem: FC<IUserItem> = ({
   return (
     <Modal
       rendreProp={(setIsOpen) => (
-        <div>
+        <div className={styles.wrapper}>
           <h2>Список экзаменов</h2>
           <div>
             {data?.map((exam) => (
-              <Button onClick={() => setExamId(exam.id)}>{exam.title}</Button>
+              <Button
+                style={{
+                  textDecoration: exam.id === examId ? "underline" : "unset",
+                }}
+                onClick={() => setExamId(exam.id)}
+              >
+                {exam.title}
+              </Button>
             ))}
           </div>
 
@@ -49,7 +56,7 @@ export const UserItem: FC<IUserItem> = ({
         </div>
       )}
     >
-      <div onClick={() => setUserId(deviceId)} className={styles.user}>
+      <div onClick={() => setUserId(id)} className={styles.user}>
         <div className={styles.user_name}>
           {first_name} {last_name} {other_name}
         </div>

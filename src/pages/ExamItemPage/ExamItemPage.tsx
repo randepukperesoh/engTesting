@@ -30,8 +30,15 @@ const ExamItemPage = () => {
         <h2>Экзамен: {ExamInfo?.title}</h2>
         <div className={styles.modal_filters_btnGroup}>
           <ModalCreateTask refetch={refetchExamsStep} examId={String(id)} />
-          <ModalEditExam examId={String(id)} />
-          <ModalEditExamInstruction examId={String(id)} />
+          <ModalEditExam
+            title={ExamInfo?.title || ""}
+            description={ExamInfo?.description || ""}
+            examId={String(id)}
+          />
+          <ModalEditExamInstruction
+            instruction={ExamInfo?.instruction_text || ""}
+            examId={String(id)}
+          />
 
           <ModalDeleteExam examId={String(id)} />
           {!ExamInfo?.is_open && (
@@ -55,6 +62,8 @@ const ExamItemPage = () => {
             <TaskItem
               idInExam={i}
               stepId={el.id + ""}
+              stepIdNext={ExamSteps?.[i - 1]?.id}
+              setIdPrev={ExamSteps?.[i + 1]?.id}
               isFirst={i === 0}
               isLast={i === ExamSteps.length - 1}
               title={el.description}

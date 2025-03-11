@@ -2,6 +2,8 @@ import { translateTypesToEng } from "./../consts/select";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useHandleUpdateExamRandItem = () => {
   const [type, setType] = useState("");
   const [data, setData] = useState("");
@@ -13,17 +15,17 @@ export const useHandleUpdateExamRandItem = () => {
     callback?: () => void
   ) => {
     try {
-      console.log({ type, defaultData, data, defaultType });
+      const resType = type
+        ? translateTypesToEng[type]
+        : translateTypesToEng[defaultType];
+
       const formData = new FormData();
       formData.append("item_id", item_id);
-      formData.append(
-        "type",
-        translateTypesToEng[type] || translateTypesToEng[defaultType]
-      );
+      formData.append("type", resType);
       formData.append("data", data || defaultData);
 
       const response = await fetch(
-        "/back/main/admin/constructor/api/updateExamRandItem",
+        api + "/main/admin/constructor/api/updateExamRandItem",
         { method: "POST", body: formData }
       );
 

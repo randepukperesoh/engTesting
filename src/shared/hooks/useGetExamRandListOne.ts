@@ -2,35 +2,30 @@ import { useEffect, useState } from "react";
 
 const api = import.meta.env.VITE_API_URL;
 
-export interface ISteps {
+export interface IList {
   id: number;
   created_at: string;
   updated_at: string;
-  exam_id: number;
-  user_id: number;
   title: string;
-  description: string;
   status: string;
-  stage_num: number;
-  training_time: number;
-  recording_time: number;
-  has_training: boolean;
 }
 
-export const useGetExamsStepsAll = () => {
-  const [data, setData] = useState<ISteps[] | null>(null);
+export const useGetExamRandListOne = (list_id: string) => {
+  const [data, setData] = useState<IList | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchExam = async () => {
       try {
+        const formData = new FormData();
+        formData.append("list_id", list_id);
         setIsLoading(true);
         const response = await fetch(
-          api + "/main/admin/constructor/api/getExamStepsAll",
+          api + "/main/admin/constructor/api/getExamRandListOne",
           {
             method: "POST",
-            body: new FormData(),
+            body: formData,
           }
         );
 
@@ -46,6 +41,7 @@ export const useGetExamsStepsAll = () => {
     };
 
     fetchExam();
-  }, []);
+  }, [list_id]);
+
   return { data, isLoading, error };
 };

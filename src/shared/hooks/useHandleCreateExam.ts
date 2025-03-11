@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useHandleCreateExam = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -15,7 +17,7 @@ export const useHandleCreateExam = () => {
       formData.append("description", description);
 
       const response = await fetch(
-        "/back/main/admin/constructor/api/createExam",
+        api + "/main/admin/constructor/api/createExam",
         { method: "POST", body: formData }
       );
 

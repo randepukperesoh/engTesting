@@ -1,15 +1,18 @@
-// useHandleDeleteExamBlock
-
 import { toast } from "react-toastify";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useHandleDeleteExamBlock = () => {
-  const handleDeleteExamBlock = async (blockId: string, callback?: () => void) => {
+  const handleDeleteExamBlock = async (
+    blockId: string,
+    callback?: () => void
+  ) => {
     try {
       const formData = new FormData();
       formData.append("block_id", blockId);
 
       const response = await fetch(
-        "/back/main/admin/constructor/api/deleteExamBlock",
+        api + "/main/admin/constructor/api/deleteExamBlock",
         { method: "POST", body: formData }
       );
 

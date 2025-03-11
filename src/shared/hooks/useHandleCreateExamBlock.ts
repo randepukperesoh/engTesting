@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-export type BlockType = "title" | "bold" | "text";
+const api = import.meta.env.VITE_API_URL;
+
+export type BlockType = "title" | "bold" | "text" | "image";
 
 export const useHandleCreateExamBlock = (stepId: string) => {
   const [data, setData] = useState("");
@@ -17,7 +19,7 @@ export const useHandleCreateExamBlock = (stepId: string) => {
       formData.append("type", type);
 
       const response = await fetch(
-        "/back/main/admin/constructor/api/createExamBlock",
+        api + "/main/admin/constructor/api/createExamBlock",
         { method: "POST", body: formData }
       );
 
@@ -38,5 +40,6 @@ export const useHandleCreateExamBlock = (stepId: string) => {
     handleCreateExamBlock,
     setData,
     setType,
+    type,
   };
 };

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 export interface IList {
   id: number;
   last_name: string;
@@ -17,7 +19,7 @@ export const useGetList = () => {
   useEffect(() => {
     const fetchList = async () => {
       try {
-        const response = await fetch("/back/main/admin/users/api/getList", {
+        const response = await fetch(api + "/main/admin/users/api/getList", {
           method: "POST",
           credentials: "include",
         });

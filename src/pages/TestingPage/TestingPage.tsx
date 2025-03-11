@@ -43,9 +43,9 @@ const TestingPage: FC = () => {
           <div>{pingData?.fio}</div>
           <div className={styles.test_btnGroup}>
             <Button>Отключиться</Button>
-            <Button onClick={() => pingData?.fio && setStep(0)}>
-              Начать тестирование
-            </Button>
+            {pingData?.fio && (
+              <Button onClick={() => setStep(0)}>Начать тестирование</Button>
+            )}
           </div>
         </div>
       )}

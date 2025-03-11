@@ -1,22 +1,24 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useHandleUpdateInstruction = (examId: string) => {
   const [text, setText] = useState("");
-  
+
   const handleEditInstruction = async (callback?: () => void) => {
     try {
       if (!text.length || text.length >= 2000) {
-        toast.error('Нельязя отправить пустое поле')
-        throw new Error("Нельязя отправить пустое поле")
+        toast.error("Нельязя отправить пустое поле");
+        throw new Error("Нельязя отправить пустое поле");
       }
-      
+
       const formData = new FormData();
-      formData.append("exam_id", examId)
+      formData.append("exam_id", examId);
       formData.append("text", text);
-      
+
       const response = await fetch(
-        "/back/main/admin/constructor/api/updateExamInstruction",
+        api + "/main/admin/constructor/api/updateExamInstruction",
         { method: "POST", body: formData }
       );
 
@@ -37,5 +39,5 @@ export const useHandleUpdateInstruction = (examId: string) => {
   return {
     handleEditInstruction,
     setText,
-    };
+  };
 };

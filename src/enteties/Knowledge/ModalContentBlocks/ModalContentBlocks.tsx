@@ -1,5 +1,13 @@
-import { OPTIONS_MOCK, OPTIONS_MOCK_DESC } from "../../../shared/consts/select";
-import { useGetExamRandItems } from "../../../shared/hooks/useGetExamRandItems";
+import { FC } from "react";
+import {
+  OPTIONS_MOCK,
+  OPTIONS_MOCK_DESC,
+  translateTypes,
+} from "../../../shared/consts/select";
+import {
+  IBlock,
+  useGetExamRandItems,
+} from "../../../shared/hooks/useGetExamRandItems";
 import { useHandleCreateExamRandItem } from "../../../shared/hooks/useHandleCreateExamRandItem";
 import { useHandleDeleteExamRandItem } from "../../../shared/hooks/useHandleDeleteExamRandItem";
 import { useHandleUpdateExamRandItem } from "../../../shared/hooks/useHandleUpdateExamRandItem";
@@ -10,15 +18,18 @@ import { TextArea } from "../../../shared/ui/TextArea/TextArea";
 
 import styles from "./ModalContentBlocks.module.scss";
 
-export const ModalContentBlocks = ({ id }: { id: string }) => {
-  const { data, refetch } = useGetExamRandItems(id);
+interface IModalEditBlock extends IBlock {
+  refetch: () => void;
+  setIsOpen: (value: boolean) => void;
+}
 
-  const {
-    handleCreateExamRandGroup,
-    setData: setDataCreate,
-    setType: setTypeCreate,
-  } = useHandleCreateExamRandItem();
-
+export const ModalEditBlock: FC<IModalEditBlock> = ({
+  data,
+  type,
+  id,
+  refetch,
+  setIsOpen,
+}) => {
   const {
     handleUpdateExamRandItem,
     setData: setDataUpdate,
@@ -29,44 +40,55 @@ export const ModalContentBlocks = ({ id }: { id: string }) => {
 
   return (
     <div className={styles.wrapper}>
+      <h2>Редактирование</h2>
+      <Select
+        onChange={(e) => setTypeUpdate(OPTIONS_MOCK_DESC[+e])}
+        options={OPTIONS_MOCK}
+        defaultValue={translateTypes[type]}
+      />
+      <TextArea
+        defaultValue={data}
+        onChange={(e) => setDataUpdate(e.currentTarget.value)}
+      />
+      <Button
+        onClick={() => {
+          console.log({ type });
+          handleUpdateExamRandItem(id + "", data, type, () => {
+            refetch();
+            setIsOpen(false);
+          });
+        }}
+      >
+        Сохранить
+      </Button>
+      <Button
+        onClick={() => handleDeleteExamRandItem(id + "")}
+        styledButton="red"
+      >
+        Удалить
+      </Button>
+    </div>
+  );
+};
+
+export const ModalContentBlocks = ({ id }: { id: string }) => {
+  const { data, refetch } = useGetExamRandItems(id);
+
+  const {
+    handleCreateExamRandGroup,
+    setData: setDataCreate,
+    setType: setTypeCreate,
+  } = useHandleCreateExamRandItem();
+
+  return (
+    <div className={styles.wrapper}>
       <h2>Блоки</h2>
 
       <div className={styles.wrapper}>
         {data?.map((el) => (
           <Modal
             rendreProp={(setIsOpen) => (
-              <div className={styles.wrapper}>
-                <h2>Редактирование</h2>
-                <Select
-                  onChange={(e) => setTypeUpdate(OPTIONS_MOCK_DESC[+e])}
-                  options={OPTIONS_MOCK}
-                />
-                <TextArea
-                  defaultValue={el.data}
-                  onChange={(e) => setDataUpdate(e.currentTarget.value)}
-                />
-                <Button
-                  onClick={() =>
-                    handleUpdateExamRandItem(
-                      el.id + "",
-                      el.data,
-                      el.type,
-                      () => {
-                        refetch();
-                        setIsOpen(false);
-                      }
-                    )
-                  }
-                >
-                  Сохранить
-                </Button>
-                <Button
-                  onClick={() => handleDeleteExamRandItem(el.id + "")}
-                  styledButton="red"
-                >
-                  Удалить
-                </Button>
-              </div>
+              <ModalEditBlock {...el} refetch={refetch} setIsOpen={setIsOpen} />
             )}
           >
             <div className={styles.item}>{el.data}</div>
@@ -74,6 +96,7 @@ export const ModalContentBlocks = ({ id }: { id: string }) => {
         ))}
       </div>
       <Modal
+        // style={{ width: "100%" }}
         rendreProp={(setIsOpen) => (
           <div className={styles.wrapper}>
             <h2>Создание</h2>
@@ -95,7 +118,7 @@ export const ModalContentBlocks = ({ id }: { id: string }) => {
           </div>
         )}
       >
-        <Button>Создать</Button>
+        <Button style={{ width: "100%" }}>Создать</Button>
       </Modal>
     </div>
   );

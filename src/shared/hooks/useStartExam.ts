@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 // Функция для проверки наличия куки stToken
 const checkForStToken = (): boolean => {
   const cookies = document.cookie.split(";").map((cookie) => cookie.trim());
@@ -11,7 +13,7 @@ export const useStartExam = () => {
     const startExam = async () => {
       const formData = new FormData();
       formData.append("api", "TechDeviceUser_startExam");
-      await fetch("/back/auth/api/", { method: "POST", body: formData });
+      await fetch(api + "/auth/api/", { method: "POST", body: formData });
     };
 
     // Запускаем интервал

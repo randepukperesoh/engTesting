@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 
 import styles from "./ModalEditUserNumber.module.scss";
 
+const api = import.meta.env.VITE_API_URL;
+
 const useHandleChabgeId = (device_hash: string) => {
   const [number, setNumber] = useState("");
 
@@ -23,7 +25,7 @@ const useHandleChabgeId = (device_hash: string) => {
       formData.append("device_id", device_hash);
       formData.append("number", number);
       const response = await fetch(
-        "/back/main/admin/techmanager/api/changeDeviceNumber",
+        api + "/main/admin/techmanager/api/changeDeviceNumber",
         {
           method: "POST",
           body: formData,

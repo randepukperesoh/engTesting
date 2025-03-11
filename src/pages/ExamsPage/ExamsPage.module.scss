@@ -19,11 +19,9 @@
   }
   &_items {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 1rem;
-    justify-content: space-between;
     padding: 1rem 0 1rem 1rem;
-    height: 100%;
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;

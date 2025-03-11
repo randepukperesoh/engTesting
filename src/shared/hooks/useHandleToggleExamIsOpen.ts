@@ -1,14 +1,19 @@
 import { toast } from "react-toastify";
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useHandleToggleExamIsOpen = (examId: string) => {
-  const handleToggleExamIsOpen = async (status: string, callback?: () => void) => {
+  const handleToggleExamIsOpen = async (
+    status: string,
+    callback?: () => void
+  ) => {
     try {
       const formData = new FormData();
       formData.append("exam_id", examId);
       formData.append("status", status);
 
       const response = await fetch(
-        "/back/main/admin/constructor/api/ChangeOpen",
+        api + "/main/admin/constructor/api/ChangeOpen",
         { method: "POST", body: formData }
       );
 
@@ -18,7 +23,7 @@ export const useHandleToggleExamIsOpen = (examId: string) => {
         throw new Error("Не удалось обновить статус");
       }
 
-      callback?.()
+      callback?.();
       toast.success("Статус обнавлен");
     } catch (e) {
       console.error(e);

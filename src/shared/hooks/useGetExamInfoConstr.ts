@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const api = import.meta.env.VITE_API_URL;
+
 export interface IExamInfo {
   id: number;
   created_at: string;
@@ -27,7 +29,7 @@ export const useGetExamInfoConstr = (examId: string) => {
         formData.append("exam_id", examId);
 
         const response = await fetch(
-          "/back/main/admin/constructor/api/getExamInfo",
+          api + "/main/admin/constructor/api/getExamInfo",
           { method: "POST", body: formData }
         );
 
