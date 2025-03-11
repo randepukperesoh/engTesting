@@ -2,6 +2,8 @@ import { useState } from "react";
 
 type UploadError = string | null;
 
+const api = import.meta.env.VITE_API_URL;
+
 export const useHandleUploadImage = () => {
   const [file, setFile] = useState<File | null>(null); // Состояние выбранного файла
   const [isLoading, setIsLoading] = useState<boolean>(false); // Состояние загрузки
@@ -24,23 +26,27 @@ export const useHandleUploadImage = () => {
     formData.append("file", selectedFile); // Добавляем файл в FormData
 
     try {
-      const response = await fetch('/back/main/admin/constructor/api/imageUp', {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        api + "/main/admin/constructor/api/imageUp",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (response.ok) {
-        const result: {status: boolean, url: 'string'} = await response.json();
+        const result: { status: boolean; url: "string" } =
+          await response.json();
 
         return result.url; // Возвращаем результат загрузки
       } else {
         setError(`Ошибка сервера: ${response.statusText}`);
-        return ''
+        return "";
       }
     } catch (err) {
       setError(`Произошла ошибка: ${err}`);
     } finally {
-        setIsLoading(false); // Завершаем загрузку
+      setIsLoading(false); // Завершаем загрузку
     }
   };
 
@@ -49,6 +55,5 @@ export const useHandleUploadImage = () => {
     isLoading, // Состояние загрузки
     error, // Ошибка загрузки
     handleUpload, // Объединенная функция для выбора и отправки файла
-
   };
 };

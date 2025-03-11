@@ -6,6 +6,7 @@ import { useGetExamList } from "../../../../shared/hooks/useGetExamList";
 import { Button } from "../../../../shared/ui/Button/Button";
 
 import styles from "./UserItem.module.scss";
+import { Input } from "../../../../shared/ui/Input/Input";
 
 interface IUserItem extends IUser {
   deviceId: number;
@@ -24,17 +25,19 @@ export const UserItem: FC<IUserItem> = ({
   const { handleChangeUserForDevice, setExamId, setUserId, examId } =
     useChangeUserForDevice();
 
-  const { data } = useGetExamList();
+  const { data, setSearch } = useGetExamList();
 
   return (
     <Modal
       rendreProp={(setIsOpen) => (
         <div className={styles.wrapper}>
           <h2>Список экзаменов</h2>
-          <div>
+          <Input onChange={(e) => setSearch(e.currentTarget.value)} />
+          <div className={styles.exams}>
             {data?.map((exam) => (
               <Button
                 style={{
+                  width: "100%",
                   textDecoration: exam.id === examId ? "underline" : "unset",
                 }}
                 onClick={() => setExamId(exam.id)}
