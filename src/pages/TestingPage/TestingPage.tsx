@@ -1,5 +1,5 @@
 import { useGetTestPlaseRegister } from "../../shared/hooks/useGetTestPlaseRegister";
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { Button } from "../../shared/ui/Button/Button";
 import useMicrophone from "../../shared/hooks/useMicrophone";
 import { useTestPlacePing } from "../../shared/hooks/useTestPlacePing";
@@ -8,8 +8,27 @@ import { TestingStepik } from "../../enteties/Testing/TestingStepik/TestingStepi
 import { useUserStore } from "../../shared/stores/useUserStore";
 import { useStartExam } from "../../shared/hooks/useStartExam";
 import { useFinish } from "../../shared/hooks/useFinish";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./TestingPage.module.scss";
+
+const Finish = ({ setStep }: { setStep: (value: number) => void }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const redirectFinish = () => {
+      setStep(-1);
+      navigate("/testing");
+    };
+
+    const timeoutId = setTimeout(() => redirectFinish);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
+  return <div>ВЫ ЗАВЕРШИЛИ ТЕСТИРОВАНИЕ</div>;
+};
 
 const TestingPage: FC = () => {
   const [step, setStep] = useState(-1);
@@ -51,7 +70,7 @@ const TestingPage: FC = () => {
       )}
       {step === 0 && <TestingInstruction handleStartTest={handleStartTest} />}
       {step === 1 && <TestingStepik handleFinishTest={handleFinishTest} />}
-      {step === 2 && <div>ВЫ ЗАВЕРШИЛИ ТЕСТИРОВАНИЕ</div>}
+      {step === 2 && <Finish setStep={setStep} />}
     </div>
   );
 };
