@@ -18,7 +18,7 @@ interface IModalEditRandValue {
   refetch: () => void;
 }
 
-const ModalEdit = ({ id }: { id: string }) => {
+const ModalEdit = ({ id, refetch }: { id: string; refetch: () => void }) => {
   const { handleUpdateExamRandList, setText } = useHandleUpdateExamRandList();
 
   return (
@@ -32,7 +32,12 @@ const ModalEdit = ({ id }: { id: string }) => {
             onChange={(e) => setText(e.currentTarget.value)}
           />
           <Button
-            onClick={() => handleUpdateExamRandList(id, () => setIsOpen(false))}
+            onClick={() =>
+              handleUpdateExamRandList(id, () => {
+                setIsOpen(false);
+                refetch();
+              })
+            }
           >
             Сохранить
           </Button>
@@ -80,7 +85,7 @@ const ModalContent = ({
           label="Поиск"
         />
         <div className={styles.content_filters_btns}>
-          <ModalEdit id={id} />
+          <ModalEdit refetch={refetchs} id={id} />
           <ModalCreate refetchS={refetchs} refetch={refetch} id={id} />
           <Button
             onClick={() =>
@@ -99,7 +104,10 @@ const ModalContent = ({
         {data?.length !== 0 &&
           data?.map((el) => (
             <div className={styles.content_items_item}>
-              <Modal rendreProp={() => <ModalContentBlocks id={el.id + ""} />}>
+              <Modal
+                style={{ width: "100%" }}
+                rendreProp={() => <ModalContentBlocks id={el.id + ""} />}
+              >
                 <div className={styles.content_items_item_text}>{el.title}</div>
               </Modal>
               <Dropdown

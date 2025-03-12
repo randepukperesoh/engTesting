@@ -1,30 +1,43 @@
+/* Общий стиль для input */
 .input {
   padding: 0.5rem;
   background-color: #fff;
   border-radius: 0.5rem;
-  offset: 0px;
-  outline: 0px;
+  outline: none; /* Убираем outline */
   color: var(--color-font-active);
   border: 1px solid var(--color-font-disable);
+  width: 100%; /* По умолчанию занимает всю ширину */
+  box-sizing: border-box; /* Включаем border-box для корректного расчета ширины */
+}
 
-  &_label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-    align-items: center;
+/* Стили для label */
+.input_label {
+  display: flex;
+  flex-direction: row; /* По умолчанию row */
+  gap: 0.1rem;
+  align-items: center;
+}
 
-    &_row {
-      flex-direction: unset;
-      width: 100%;
-    }
+/* Если isColumn === true */
+.input_label_column {
+  flex-direction: column; /* Меняем направление на column */
+  align-items: flex-start; /* Выравниваем элементы по левому краю */
+  gap: 0.05rem; /* Увеличиваем отступ между label и input */
+}
 
-    &_span {
-      font-size: 1.1rem;
-      // flex-grow: 1;
-      &_row {
-        max-width: 30%;
-        min-width: 15%;
-      }
-    }
-  }
+/* По умолчанию полная ширина */
+.input_label_fullWidth {
+  width: 100%;
+}
+
+/* Стили для span внутри label */
+.input_label_span {
+  font-size: 1.1rem;
+  min-width: 30%; /* Минимальная ширина для текста */
+}
+
+/* Если isColumn === true */
+.input_label_span_column {
+  text-align: left; /* Текст слева */
+  width: 100%; /* Занимает всю ширину */
 }

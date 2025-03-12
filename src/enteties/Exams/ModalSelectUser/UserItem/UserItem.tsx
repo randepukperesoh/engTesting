@@ -7,6 +7,7 @@ import { Button } from "../../../../shared/ui/Button/Button";
 
 import styles from "./UserItem.module.scss";
 import { Input } from "../../../../shared/ui/Input/Input";
+import classNames from "classnames";
 
 interface IUserItem extends IUser {
   deviceId: number;
@@ -35,15 +36,14 @@ export const UserItem: FC<IUserItem> = ({
           <Input onChange={(e) => setSearch(e.currentTarget.value)} />
           <div className={styles.exams}>
             {data?.map((exam) => (
-              <Button
-                style={{
-                  width: "100%",
-                  textDecoration: exam.id === examId ? "underline" : "unset",
-                }}
+              <div
+                className={classNames(styles.exams_item, {
+                  [styles.exams_item_selected]: exam.id === examId,
+                })}
                 onClick={() => setExamId(exam.id)}
               >
-                {exam.title}
-              </Button>
+                {exam.title.toUpperCase()}
+              </div>
             ))}
           </div>
 

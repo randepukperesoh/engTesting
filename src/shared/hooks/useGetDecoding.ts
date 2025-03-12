@@ -3,14 +3,18 @@ import { useState } from "react";
 const api = import.meta.env.VITE_API_URL;
 
 interface IdecodingResponse {
+  id: number;
+  created_at: string;
+  updated_at: string;
   file_name: string;
-  status: boolean;
-  recode_result: string;
+  recode_status: string;
+  recode_result: string | null;
 }
 
 export const useGetDecoding = () => {
-  const [data, setData] = useState<IdecodingResponse | null>(null);
+  const [data, setData] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState("");
 
   const handleGetDecoding = async (audioName: string) => {
     try {
@@ -29,7 +33,9 @@ export const useGetDecoding = () => {
 
       const res: IdecodingResponse = await response.json();
 
-      setData(res);
+      setStatus(res.recode_status);
+
+      setData(res.recode_result);
     } catch (e) {
       console.error(e);
     } finally {
@@ -41,5 +47,6 @@ export const useGetDecoding = () => {
     handleGetDecoding,
     data,
     isLoading,
+    status,
   };
 };

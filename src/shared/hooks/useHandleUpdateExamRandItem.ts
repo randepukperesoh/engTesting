@@ -8,6 +8,8 @@ export const useHandleUpdateExamRandItem = () => {
   const [type, setType] = useState("");
   const [data, setData] = useState("");
 
+  console.log({type})
+
   const handleUpdateExamRandItem = async (
     item_id: string,
     defaultData: string,
@@ -15,9 +17,11 @@ export const useHandleUpdateExamRandItem = () => {
     callback?: () => void
   ) => {
     try {
-      const resType = type
-        ? translateTypesToEng[type]
-        : translateTypesToEng[defaultType];
+      const resType = type !== ""  ?
+         translateTypesToEng[type] :
+        translateTypesToEng[defaultType];
+
+        console.log({type, resType})
 
       const formData = new FormData();
       formData.append("item_id", item_id);
@@ -32,14 +36,14 @@ export const useHandleUpdateExamRandItem = () => {
       const res: { status: boolean } = await response.json();
 
       if (!res.status) {
-        throw new Error("Не удалось обновить инструкцию");
+        throw new Error("Не удалось обновить значение");
       }
 
       callback?.();
-      toast.success("Инструкция отредактирован");
+      toast.success("Значение отредактирован");
     } catch (e) {
       console.error(e);
-      toast.error((e as string) || "Не удалось отредактировать экзамен");
+      toast.error((e as string) || "Не удалось отредактировать значение");
     }
   };
 

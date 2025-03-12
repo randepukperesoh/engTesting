@@ -18,6 +18,7 @@ const ExamItemPage = lazy(() => import("./pages/ExamItemPage/ExamItemPage"));
 const EditTaskPage = lazy(
   () => import("./enteties/Knowledge/TaskItem/ModalContent")
 );
+const RandListPage = lazy(() => import("./pages/RandListPage/RandListPage"));
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,14 @@ const router = createBrowserRouter([
             element: (
               <Suspense fallback={<Loader />}>
                 <EditTaskPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: "knowledge/randList",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <RandListPage />
               </Suspense>
             ),
           },

@@ -21,13 +21,13 @@ export const useHandleCreateExamRandList = () => {
       const res = await response.json();
 
       if (!res.status) {
-        throw new Error("Не удалось создать блок");
+        throw new Error("Не удалось создать список");
       }
       callback?.();
-      toast.success("Блок создан");
+      toast.success("Список создан");
     } catch (e) {
       console.error(e);
-      toast.error("Не удалось создать блок");
+      toast.error("Не удалось создать список");
     }
   };
 

@@ -6,6 +6,7 @@ export const useAudioRecorder = () => {
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
     null
   );
+  const [isAvailible, setIsAvailible] = useState(false);
 
   const startRecording = async () => {
     try {
@@ -73,5 +74,8 @@ export const useAudioRecorder = () => {
     };
   }, [mediaRecorder]);
 
-  return { isRecording, startRecording, stopRecording, error };
+  useEffect(()=>{if(isRecording) setIsAvailible(true)}, [isRecording])
+
+
+  return { isRecording, startRecording, stopRecording, error, isAvailible };
 };

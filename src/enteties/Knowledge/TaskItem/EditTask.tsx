@@ -30,8 +30,6 @@ export const TaskItem: FC<ITaskItem> = ({
   const { handleChangeExamStepsStageNums } =
     useHandleChangeExamStepsStageNums();
 
-  console.log({ stepId, setIdPrev, stepIdNext });
-
   const { handleDeleteTask } = useHandleDeleteTask(stepId);
 
   return (

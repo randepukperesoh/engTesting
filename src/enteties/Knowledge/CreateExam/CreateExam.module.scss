@@ -24,7 +24,13 @@
       font-size: 1.5rem;
     }
 
-    @media screen and (max-width: 768px) {
+    &_btns {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    @media screen and (max-width: 912px) {
       flex-direction: column;
     }
   }

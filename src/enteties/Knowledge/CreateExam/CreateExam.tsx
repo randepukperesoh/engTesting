@@ -5,9 +5,8 @@ import { Input } from "../../../shared/ui/Input/Input";
 import { ModalCreateExam } from "../ModalCreateExam/ModalCreateExam";
 import { ExaminationItem } from "../ExaminationItem/ExaminationItem";
 import { Loader } from "../../../shared/ui/Loader/Loader";
-import { Modal } from "../../../shared/ui/Modal/Modal";
-import { ModalRandList } from "../ModalRandList/ModalRandList";
 import { Button } from "../../../shared/ui/Button/Button";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./CreateExam.module.scss";
 
@@ -17,24 +16,25 @@ const CreateExam: FC = () => {
   const { filteredData: filteredExamList, setSearchQuery } =
     useSearchInExamList(examList || []);
 
+  const navigate = useNavigate();
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.wrapper_filters}>
-        <Input
-          label="Поиск"
-          onChange={(e) => setSearchQuery(e.currentTarget.value)}
-        />
-        <ModalCreateExam refetch={refetch} />
+        <div>
+          <Input
+            label="Поиск"
+            style={{ width: "100%" }}
+            onChange={(e) => setSearchQuery(e.currentTarget.value)}
+          />
+        </div>
+        <div className={styles.wrapper_filters_btns}>
+          <ModalCreateExam refetch={refetch} />
 
-        <Modal
-          rendreProp={() => (
-            <div>
-              <ModalRandList />
-            </div>
-          )}
-        >
-          <Button> Добавить случайные значения</Button>
-        </Modal>
+          <Button onClick={() => navigate("./randList")}>
+            Cлучайные значения
+          </Button>
+        </div>
       </div>
       <div className={styles.wrapper_items}>
         {!isLoading &&

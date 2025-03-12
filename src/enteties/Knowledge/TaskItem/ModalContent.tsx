@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetExamBlock } from "../../../shared/hooks/useGetExamBlock";
 import { useHandleChangeRecordTime } from "../../../shared/hooks/useHandleChangeRecordTime";
 import { useHandleChangeTrainingTime } from "../../../shared/hooks/useHandleChangeTrainingTime";
@@ -7,7 +7,6 @@ import { Input } from "../../../shared/ui/Input/Input";
 import { Loader } from "../../../shared/ui/Loader/Loader";
 import { ModalCreateBlock } from "../ModalCreateBlock/ModalCreateBlock";
 import { Modal } from "../../../shared/ui/Modal/Modal";
-import { ModalRandList } from "../ModalRandList/ModalRandList";
 import { OverwieRandValues } from "../OverwieRandValues/OverwieRandValues";
 import { ModalAddRandValues } from "../ModalAddRandValues/ModalAddRandValues";
 import { OPTION_MAP_MOCK } from "../../../shared/consts/select";
@@ -23,6 +22,8 @@ const EditTask = () => {
 
   const { handleChangeRecordTime } = useHandleChangeRecordTime(stepId);
   const { handleChangeTrainingTime } = useHandleChangeTrainingTime(stepId);
+
+  const navigate = useNavigate();
 
   return (
     <div className={styles.item_modal}>
@@ -72,15 +73,10 @@ const EditTask = () => {
       {error && <h2>Не удалось получить данные</h2>}
       <div className={styles.btnGroup}>
         <ModalCreateBlock refetch={refetch} stepId={stepId} />
-        <Modal
-          rendreProp={() => (
-            <div>
-              <ModalRandList />
-            </div>
-          )}
-        >
-          <Button> Добавить случайные значения</Button>
-        </Modal>
+
+        <Button onClick={() => navigate("/knowledge/randList")}>
+          Добавить случайные значения
+        </Button>
       </div>
     </div>
   );

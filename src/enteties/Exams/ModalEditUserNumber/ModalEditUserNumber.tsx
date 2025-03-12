@@ -14,9 +14,7 @@ const useHandleChabgeId = (device_hash: string) => {
 
   const handleChangeId = async () => {
     if (number.length > 2) {
-      toast.error(
-        "Длина пароля должна быть меньше трех и содержать только цифры"
-      );
+      toast.error("Длина id не должна быть больше трех символов");
       return;
     }
 
@@ -33,9 +31,9 @@ const useHandleChabgeId = (device_hash: string) => {
       );
       if (!response.ok) throw new Error();
 
-      toast.success("Айди был изменен");
+      toast.success("ID был изменен");
     } catch {
-      toast.error("Не уадлост изменить пароль");
+      toast.error("Не уадлост изменить id");
     }
   };
 
@@ -54,12 +52,11 @@ interface IModalEditUserNumber {
 
 export const ModalEditUserNumber: FC<IModalEditUserNumber> = ({
   device_id,
-  device_hash,
   last_ping_date,
 }) => {
   const [color, setColor] = useState<colorT>("green");
 
-  const { handleChangeId, setNumber } = useHandleChabgeId(device_hash);
+  const { handleChangeId, setNumber } = useHandleChabgeId(device_id + "");
 
   useEffect(() => {
     const lastPingDate = new Date(last_ping_date).getTime();

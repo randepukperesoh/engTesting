@@ -20,11 +20,20 @@ export const useGetExamList = () => {
       try {
         setIsLoading(true);
         const formData = new FormData();
-        formData.append('search', search);
+        formData.append("search", search);
 
         const response = await fetch(
-          api + "/main/admin/constructor/api/getExamList",
-          { method: "POST", body: formData }
+          api + 
+          "/main/admin/constructor/api/getExamList",
+          {
+            method: "POST",
+            body: formData,
+            credentials: "include",
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Credentials": "true",
+            },
+          }
         );
         const res: IExam[] = await response.json();
 

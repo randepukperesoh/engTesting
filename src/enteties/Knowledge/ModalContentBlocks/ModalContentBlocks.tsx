@@ -1,5 +1,6 @@
 import { FC } from "react";
 import {
+  OPTION_MAP_MOCK,
   OPTIONS_MOCK,
   OPTIONS_MOCK_DESC,
   translateTypes,
@@ -52,7 +53,6 @@ export const ModalEditBlock: FC<IModalEditBlock> = ({
       />
       <Button
         onClick={() => {
-          console.log({ type });
           handleUpdateExamRandItem(id + "", data, type, () => {
             refetch();
             setIsOpen(false);
@@ -91,12 +91,13 @@ export const ModalContentBlocks = ({ id }: { id: string }) => {
               <ModalEditBlock {...el} refetch={refetch} setIsOpen={setIsOpen} />
             )}
           >
-            <div className={styles.item}>{el.data}</div>
+            <div className={styles.item}>
+              {OPTION_MAP_MOCK[el.type]}: {el.data}
+            </div>
           </Modal>
         ))}
       </div>
       <Modal
-        // style={{ width: "100%" }}
         rendreProp={(setIsOpen) => (
           <div className={styles.wrapper}>
             <h2>Создание</h2>

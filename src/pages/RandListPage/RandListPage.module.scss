@@ -1,0 +1,21 @@
+.wrapper {
+  width: 80vw;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 0 3px 0 var(--color-font-disable);
+  border-radius: 0.5rem;
+  background-color: var(--element-bg-2);
+}
+
+.wrapper1 {
+  max-width: 80vw;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}

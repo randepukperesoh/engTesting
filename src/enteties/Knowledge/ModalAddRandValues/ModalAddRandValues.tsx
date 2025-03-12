@@ -58,7 +58,6 @@ export const ModalAddRandValues: FC<IContent> = ({
         renderProp={() => (
           <div className={styles.item_modal_items_item_accordion}>
             {dataRandList?.map((listItem, i) => {
-              console.log(id + "", listItem.id + "");
               return (
                 <Button
                   onClick={() =>

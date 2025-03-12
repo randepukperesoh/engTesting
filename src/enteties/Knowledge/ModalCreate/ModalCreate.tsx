@@ -3,6 +3,8 @@ import { Button } from "../../../shared/ui/Button/Button";
 import { Input } from "../../../shared/ui/Input/Input";
 import { Modal } from "../../../shared/ui/Modal/Modal";
 
+import styles from "./ModalCreate.module.scss";
+
 export const ModalCreate = ({
   id,
   refetch,
@@ -18,12 +20,10 @@ export const ModalCreate = ({
   return (
     <Modal
       rendreProp={(setIsOpen) => (
-        <div
-        //  className={styles.create}
-        >
+        <div className={styles.create}>
           <Input
-            style={{ width: "95%" }}
             label="Новая группа"
+            isColumn
             onChange={(e) => setTitle(e.currentTarget.value)}
           />
           <Button

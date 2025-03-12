@@ -10,6 +10,7 @@ export const useFinish = () => {
     });
 
     toast.success("Тест пройден");
+    window.location.reload();
   };
 
   return { handlePostFinish };

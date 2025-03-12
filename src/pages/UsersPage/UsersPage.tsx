@@ -7,6 +7,7 @@ import { Loader } from "../../shared/ui/Loader/Loader";
 import { useGetList } from "../../shared/hooks/useGetList";
 import { useFilterUser } from "../../shared/hooks/useFilterUser";
 import { useSearchInList } from "../../shared/hooks/useSearchInList";
+import { Accordion } from "../../shared/ui/Accordion/Accordion";
 
 import styles from "./UsersPage.module.scss";
 
@@ -28,16 +29,23 @@ const UsersPage: FC = () => {
         <Input
           onChange={(e) => handleChangeSearchQuery(e.currentTarget.value)}
           label="Поиск"
+          isColumn
           aria-placeholder="По фамилии"
         />
-        <h2 className={styles.h2}>Параметры:</h2>
-        <div>
-          <Checkbox
-            onChange={(value) => setIsAdmin(value)}
-            initialValue={false}
-            label="Только администраторы"
-          />
-        </div>
+        <Accordion
+          style={{ padding: "0", width: "100%" }}
+          renderProp={() => (
+            <div style={{ padding: "0.5rem 0 0 0" }}>
+              <Checkbox
+                onChange={(value) => setIsAdmin(value)}
+                initialValue={false}
+                label="Только администраторы"
+              />
+            </div>
+          )}
+        >
+          Параметры
+        </Accordion>
       </div>
       <div className={styles.users_items}>
         {isLoading && <Loader />}

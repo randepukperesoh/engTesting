@@ -28,11 +28,15 @@ const ResultsPage: FC = () => {
       <div className={styles.results_filters}>
         <h2 className={styles.results_filters_h2}>Результаты</h2>
         <Input
+          isColumn
           onChange={(e) => handleChangeSearchQuery(e.currentTarget.value)}
           label="Поиск"
         />
       </div>
       <div className={styles.results_items}>
+        <div className={styles.results_items_filters}>
+          <div>ФИО</div> <div>Дата</div> <div>Время</div>
+        </div>
         {memoizedData.map((el, i) => (
           <Result key={"res_" + i} {...el} />
         ))}

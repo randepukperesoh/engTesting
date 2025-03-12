@@ -3,7 +3,6 @@ import { IBlock } from "../../../shared/hooks/useGetBlockByArray";
 import { useGetDecoding } from "../../../shared/hooks/useGetDecoding";
 import { IVoice } from "../../../shared/hooks/useGetExamData";
 import { Accordion } from "../../../shared/ui/Accordion/Accordion";
-import { Button } from "../../../shared/ui/Button/Button";
 import { IDecoding } from "../helpre";
 import { Loader } from "../../../shared/ui/Loader/Loader";
 
@@ -16,7 +15,12 @@ interface IResultItem {
 }
 
 const Decoding: FC<IDecoding> = ({ audioName }) => {
-  const { data: decodingText, handleGetDecoding, isLoading } = useGetDecoding();
+  const {
+    data: decodingText,
+    handleGetDecoding,
+    isLoading,
+    status,
+  } = useGetDecoding();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -24,18 +28,23 @@ const Decoding: FC<IDecoding> = ({ audioName }) => {
       renderProp={() => (
         <>
           {isLoading && <Loader />}
-          {!isLoading && <>{decodingText?.recode_result}</>}
+          {!isLoading && decodingText && decodingText}
+          {!isLoading && status === "recognition" && "Идет расшифровка"}
+          {!isLoading && status === "wait" && "Ожидание на распознование"}
+          {!isLoading && status === "false" && "Ошибка распознования"}
         </>
+        // ДОПОЛНИТЬ
       )}
     >
-      <Button
+      <div
+        className={styles.decoding}
         onClick={() => {
           setIsOpen((prev) => !prev);
           if (!isOpen) handleGetDecoding(audioName || "");
         }}
       >
         Расшифровать
-      </Button>
+      </div>
     </Accordion>
   );
 };

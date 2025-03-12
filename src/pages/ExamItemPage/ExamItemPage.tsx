@@ -39,8 +39,6 @@ const ExamItemPage = () => {
             instruction={ExamInfo?.instruction_text || ""}
             examId={String(id)}
           />
-
-          <ModalDeleteExam examId={String(id)} />
           {!ExamInfo?.is_open && (
             <Button onClick={() => handleToggleExamIsOpen("true", refetch)}>
               Открыть
@@ -54,6 +52,7 @@ const ExamItemPage = () => {
               Закрыть
             </Button>
           )}
+          <ModalDeleteExam examId={String(id)} />
         </div>
       </div>
       <div className={styles.modal_items}>
