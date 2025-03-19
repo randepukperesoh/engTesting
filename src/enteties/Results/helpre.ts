@@ -8,21 +8,32 @@ export interface IDecoding {
 }
 
 export const processAndSortData = (
-  audioData: IVoice[] | undefined,
-  results: IBlock[] | null,
+  audioData: IVoice[],
+  results: IBlock[],
   examIds: string[]
 ) => {
+  const arr = [...audioData, ...results];
 
-  const idsMap = new Map()
+  const res = examIds
+    .map((id) => arr.find((el) => el.id === +id))
+    .filter((el) => !!el);
 
-  audioData?.map(el => idsMap.set(el.id,el))
-  results?.map(el => idsMap.set(el.id, el))
+  const resultWithDecodings: (IVoice | IBlock | IDecoding)[] = [];
 
-  const res = examIds.map(el => {
-    idsMap.get(+el)
-  })
+  res.forEach((item) => {
+    resultWithDecodings.push(item);
+    if (item.type === "audio" && "audioName" in item) {
+      const newDecoding: IDecoding = {
+        type: "decoding",
+        id: item.id + 100,
+        audioName: item.audioName,
+      };
+      resultWithDecodings.push(newDecoding);
+    }
+  });
 
-  return results;
+  console.log(resultWithDecodings.map((el) => el.id));
+  return resultWithDecodings;
 };
 
 export const formatDate = (isoString: string) => {
