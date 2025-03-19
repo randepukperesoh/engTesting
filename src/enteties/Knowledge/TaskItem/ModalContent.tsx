@@ -1,4 +1,7 @@
-import { useNavigate, useParams } from "react-router-dom";
+import {
+  //  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { useGetExamBlock } from "../../../shared/hooks/useGetExamBlock";
 import { useHandleChangeRecordTime } from "../../../shared/hooks/useHandleChangeRecordTime";
 import { useHandleChangeTrainingTime } from "../../../shared/hooks/useHandleChangeTrainingTime";
@@ -10,8 +13,10 @@ import { Modal } from "../../../shared/ui/Modal/Modal";
 import { OverwieRandValues } from "../OverwieRandValues/OverwieRandValues";
 import { ModalAddRandValues } from "../ModalAddRandValues/ModalAddRandValues";
 import { OPTION_MAP_MOCK } from "../../../shared/consts/select";
+// import { useGetExamSteps } from "../../../shared/hooks/useGetExamSteps";
 
 import styles from "./TaskItem.module.scss";
+import { EditIcon } from "../../../shared/ui/icons/EditIcon";
 
 const EditTask = () => {
   const paramId = useParams().id;
@@ -23,48 +28,69 @@ const EditTask = () => {
   const { handleChangeRecordTime } = useHandleChangeRecordTime(stepId);
   const { handleChangeTrainingTime } = useHandleChangeTrainingTime(stepId);
 
-  const navigate = useNavigate();
+  // const { data: stepdata } = useGetExamSteps(stepId);
 
   return (
     <div className={styles.item_modal}>
       <h2>Редактирование задания</h2>
       <div className={styles.item_modal_filters}>
-        <Input
-          defaultValue="90"
-          onChange={(e) => handleChangeTrainingTime(e.currentTarget.value)}
-          label="Время подготовки"
-        />
-        <Input
-          defaultValue="90"
-          onChange={(e) => handleChangeRecordTime(e.currentTarget.value)}
-          label="Время записи"
-        />
+        <Modal
+          rendreProp={() => (
+            <div className={styles.wrapper}>
+              <h2>Редактирование времени</h2>
+              <Input
+                className={styles.item_modal_filters_input}
+                // defaultValue="90"
+                onChange={(e) =>
+                  handleChangeTrainingTime(e.currentTarget.value)
+                }
+                label="Время подготовки"
+              />
+              <Input
+                className={styles.item_modal_filters_input}
+                // defaultValue="90"
+                onChange={(e) => handleChangeRecordTime(e.currentTarget.value)}
+                label="Время записи"
+              />
+            </div>
+          )}
+        >
+          <Button>
+            <EditIcon /> Редактировать время
+          </Button>
+        </Modal>
       </div>
 
       {!isLoading && !error && (
         <div className={styles.item_modal_items}>
           {data?.map((el) => {
             return (
-              <Modal
-                key={"masdsa_" + el.id}
-                rendreProp={(setIsOpen) =>
-                  !el.is_rand ? (
-                    <ModalAddRandValues
-                      {...el}
-                      setIsOpen={setIsOpen}
-                      refetch={refetch}
-                    />
-                  ) : (
-                    <OverwieRandValues listId={el.randcode + "" || "29"} />
-                  )
-                }
-              >
+              <div className={styles.item_modal_items_wrapper}>
                 <div className={styles.item_modal_items_item}>
                   {OPTION_MAP_MOCK[el.type]}
                   {": "}
                   {el.data}
                 </div>
-              </Modal>
+                <Modal
+                  key={"masdsa_" + el.id}
+                  rendreProp={(setIsOpen) =>
+                    !el.is_rand ? (
+                      <ModalAddRandValues
+                        {...el}
+                        setIsOpen={setIsOpen}
+                        refetch={refetch}
+                      />
+                    ) : (
+                      <OverwieRandValues listId={el.randcode + ""} />
+                    )
+                  }
+                >
+                  <Button>
+                    <EditIcon />
+                    Редактировать
+                  </Button>
+                </Modal>
+              </div>
             );
           })}
         </div>
@@ -74,9 +100,9 @@ const EditTask = () => {
       <div className={styles.btnGroup}>
         <ModalCreateBlock refetch={refetch} stepId={stepId} />
 
-        <Button onClick={() => navigate("/knowledge/randList")}>
+        {/* <Button onClick={() => navigate("/knowledge/randList")}>
           Добавить случайные значения
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

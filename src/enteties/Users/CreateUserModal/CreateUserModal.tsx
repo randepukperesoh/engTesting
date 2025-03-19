@@ -6,6 +6,7 @@ import { Toggle } from "../../../shared/ui/Toggle/Toggle";
 
 import styles from "./CreateUserModal.module.scss";
 import { toast } from "react-toastify";
+import { PlusIcon } from "../../../shared/ui/icons/PlusIcon";
 
 const api = import.meta.env.VITE_API_URL;
 
@@ -127,12 +128,18 @@ const CreateUserModal: FC = () => {
           />
           <div className={styles.btnGroup}>
             <Button onClick={() => setIsOpen(false)}>Закрыть</Button>
-            <Button onClick={handleCreateUser}>Создать</Button>
+            <Button onClick={handleCreateUser}>
+              <PlusIcon />
+              Создать
+            </Button>
           </div>
         </form>
       )}
     >
-      <Button className={styles.btn}>Создать</Button>
+      <Button className={styles.btn}>
+        <PlusIcon />
+        Создать
+      </Button>
     </Modal>
   );
 };

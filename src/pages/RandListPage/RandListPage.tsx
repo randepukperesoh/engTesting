@@ -8,6 +8,7 @@ import { Input } from "../../shared/ui/Input/Input";
 import { Button } from "../../shared/ui/Button/Button";
 
 import styles from "./RandListPage.module.scss";
+import { PlusIcon } from "../../shared/ui/icons/PlusIcon";
 
 const ModalRandList: FC = () => {
   const { data, isLoading, error, refetch } = useGetExamRandList();
@@ -35,7 +36,10 @@ const ModalRandList: FC = () => {
           </div>
         )}
       >
-        <Button style={{ width: "100%" }}>Создать</Button>
+        <Button style={{ width: "100%" }}>
+          <PlusIcon />
+          Создать
+        </Button>
       </Modal>
       {isLoading && !error && <Loader />}
       {!isLoading &&

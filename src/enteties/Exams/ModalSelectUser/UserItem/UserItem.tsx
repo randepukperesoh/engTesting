@@ -8,6 +8,7 @@ import { Button } from "../../../../shared/ui/Button/Button";
 import styles from "./UserItem.module.scss";
 import { Input } from "../../../../shared/ui/Input/Input";
 import classNames from "classnames";
+import { SaveIcon } from "../../../../shared/ui/icons/SaveIcon";
 
 interface IUserItem extends IUser {
   deviceId: number;
@@ -54,6 +55,7 @@ export const UserItem: FC<IUserItem> = ({
               setIsOpen(false);
             }}
           >
+            <SaveIcon />
             Сохранить
           </Button>
         </div>

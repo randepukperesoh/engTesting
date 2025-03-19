@@ -10,6 +10,7 @@ import { ModalChangePassword } from "../ModalChangePassword/ModalChangePassword"
 import { useEditUser } from "../../../shared/hooks/useEditUser";
 
 import styles from "./ModalEditUser.module.scss";
+import { SaveIcon } from "../../../shared/ui/icons/SaveIcon";
 
 interface IModalEditUser {
   name: string;
@@ -79,10 +80,15 @@ const ModalEditUser: FC<IModalEditUser> = ({ name, role, id }) => {
                   label="Администратор"
                 />
               </div>
+
+              <div className={styles.modal_update}>
+                Последнее редактирование: {data?.updated_at}
+              </div>
               <div className={styles.modal_btnGroup}>
                 <ModalChangePassword id={String(id)} />
                 <div>
-                  <Button>Отправить</Button>
+                  <SaveIcon />
+                  <Button>Сохранить</Button>
                 </div>
               </div>
             </form>

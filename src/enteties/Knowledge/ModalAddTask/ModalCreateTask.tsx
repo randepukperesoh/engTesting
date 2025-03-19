@@ -5,6 +5,7 @@ import { Input } from "../../../shared/ui/Input/Input";
 import { Modal } from "../../../shared/ui/Modal/Modal";
 
 import styles from "./ModalCreateTask.module.scss";
+import { PlusIcon } from "../../../shared/ui/icons/PlusIcon";
 
 interface IModalCreateTask {
   examId: string;
@@ -30,12 +31,16 @@ export const ModalCreateTask: FC<IModalCreateTask> = ({ examId, refetch }) => {
               })
             }
           >
+            <PlusIcon />
             Создать
           </Button>
         </div>
       )}
     >
-      <Button>Создать задание</Button>
+      <Button>
+        <PlusIcon />
+        Создать задание
+      </Button>
     </Modal>
   );
 };

@@ -14,6 +14,7 @@ import {
 import { useHandleUploadImage } from "../../../shared/hooks/useHandleUploadImage";
 
 import styles from "./ModalCreateBlock.module.scss";
+import { PlusIcon } from "../../../shared/ui/icons/PlusIcon";
 
 interface IModalCreateBlock {
   stepId: string;
@@ -59,12 +60,15 @@ export const ModalCreateBlock: FC<IModalCreateBlock> = ({
               });
             }}
           >
+            <PlusIcon />
             Добавить блок
           </Button>
         </div>
       )}
     >
-      <Button>Добавить блок</Button>
+      <Button>
+        <PlusIcon /> Добавить блок
+      </Button>
     </Modal>
   );
 };

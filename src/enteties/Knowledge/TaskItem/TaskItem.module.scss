@@ -13,6 +13,11 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    &_time {
+      margin: 0 0 0 5px;
+      color: #495057;
+      font-size: 0.9rem;
+    }
   }
 
   &_modal {
@@ -37,6 +42,12 @@
       border-bottom: 1px solid var(--color-font-disable);
       padding: 0 0 0.5rem 0;
 
+      &_input {
+        width: 100px;
+        display: flex;
+        justify-content: space-between;
+      }
+
       @media screen and (max-width: 712px) {
         flex-direction: column;
         gap: 0.5rem;
@@ -48,7 +59,17 @@
       gap: 0.5rem;
       flex-direction: column;
       width: 100%;
-      // padding: 0 1rem;
+
+      &_wrapper {
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: end;
+        box-shadow: 0 0 3px 0 var(--color-font-disable);
+        background-color: #fff;
+        border-radius: 0.5rem;
+      }
 
       &_item {
         display: flex;
@@ -56,12 +77,11 @@
         align-items: center;
         gap: 0.5rem;
         padding: 0.5rem;
-        box-shadow: 0 0 3px 0 var(--color-font-disable);
         border-radius: 1rem;
         box-sizing: border-box;
         margin: 0 0.2rem;
-        background-color: #fff;
         word-break: break-all;
+        width: 100%;
 
         &_input {
           flex-grow: 1;
@@ -97,6 +117,12 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  &_input {
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 .btnGroup {

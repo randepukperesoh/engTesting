@@ -2,6 +2,9 @@
   color: var(--color-background);
   background-color: var(--color-action);
   border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
   // border: 1px solid black;
 
   &:hover {
@@ -10,6 +13,7 @@
 
   &_red {
     background-color: var(--color-delete);
+    // width: 100%;
     // border-color: var(--color-delete);
     &:hover {
       background-color: #b52b2b;

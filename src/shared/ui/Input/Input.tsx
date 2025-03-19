@@ -13,6 +13,7 @@ export const Input: FC<IInput> = ({
   label,
   isColumn = false, // По умолчанию isColumn = false
   defaultValue,
+  className,
   ...props
 }) => {
   return (
@@ -35,7 +36,7 @@ export const Input: FC<IInput> = ({
         {...props}
         type="text"
         defaultValue={defaultValue}
-        className={styles.input}
+        className={classNames(className, styles.input)}
       />
     </label>
   );

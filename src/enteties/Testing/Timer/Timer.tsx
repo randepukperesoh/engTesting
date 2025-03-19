@@ -9,7 +9,7 @@ export const Timer = ({
 }) => {
   return (
     <div className={styles.timer}>
-      Осталось: {Math.ceil(time / 60) - 1}-{time % 60}{" "}
+      Осталось: {Math.ceil(time / 60) - 1}:{time % 60}{" "}
       <span
         className={isRecording ? styles.timer_active : styles.timer_noactive}
       >

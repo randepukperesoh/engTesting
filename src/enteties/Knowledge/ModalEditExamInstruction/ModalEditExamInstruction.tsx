@@ -1,5 +1,7 @@
 import { useHandleUpdateInstruction } from "../../../shared/hooks/useHandleUpdateInstruction";
 import { Button } from "../../../shared/ui/Button/Button";
+import { EditIcon } from "../../../shared/ui/icons/EditIcon";
+import { SaveIcon } from "../../../shared/ui/icons/SaveIcon";
 import { Modal } from "../../../shared/ui/Modal/Modal";
 import { TextArea } from "../../../shared/ui/TextArea/TextArea";
 
@@ -25,12 +27,17 @@ export const ModalEditExamInstruction = ({
             />
           </div>
           <Button onClick={() => handleEditInstruction(() => setIsOpen(false))}>
+            <SaveIcon />
             Сохранить
           </Button>
         </div>
       )}
     >
-      <Button>Редактировать инструкцию</Button>
+      <div>
+        <Button>
+          <EditIcon /> Редактировать инструкцию
+        </Button>
+      </div>
     </Modal>
   );
 };

@@ -62,10 +62,11 @@ export const Result: FC<IReSultUser> = ({
 
   const { data: results, isLoading } = useGetBlockByArray(examIds, isOpenModal);
 
-  const comparedArr = processAndSortData(audioData, results);
+  const comparedArr = processAndSortData(audioData, results, examIds);
 
   const [date, time] = exam_date.split(" ");
 
+  console.log({ examIds });
   return (
     <Modal
       rendreProp={() => (

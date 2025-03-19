@@ -4,8 +4,6 @@ import { useGetExamSteps } from "../../shared/hooks/useGetExamSteps";
 import { useHandleToggleExamIsOpen } from "../../shared/hooks/useHandleToggleExamIsOpen";
 import { ModalCreateTask } from "../../enteties/Knowledge/ModalAddTask/ModalCreateTask";
 import { ModalEditExam } from "../../enteties/Knowledge/ModalEditExam/ModalEditExam";
-import { ModalEditExamInstruction } from "../../enteties/Knowledge/ModalEditExamInstruction/ModalEditExamInstruction";
-import { ModalDeleteExam } from "../../enteties/Knowledge/ModalDeleteExam/ModalDeleteExam";
 import { Button } from "../../shared/ui/Button/Button";
 import { TaskItem } from "../../enteties/Knowledge/TaskItem/EditTask";
 import { Loader } from "../../shared/ui/Loader/Loader";
@@ -31,14 +29,12 @@ const ExamItemPage = () => {
         <div className={styles.modal_filters_btnGroup}>
           <ModalCreateTask refetch={refetchExamsStep} examId={String(id)} />
           <ModalEditExam
+            instruction={ExamInfo?.instruction_text || ""}
             title={ExamInfo?.title || ""}
             description={ExamInfo?.description || ""}
             examId={String(id)}
           />
-          <ModalEditExamInstruction
-            instruction={ExamInfo?.instruction_text || ""}
-            examId={String(id)}
-          />
+
           {!ExamInfo?.is_open && (
             <Button onClick={() => handleToggleExamIsOpen("true", refetch)}>
               Открыть
@@ -52,13 +48,13 @@ const ExamItemPage = () => {
               Закрыть
             </Button>
           )}
-          <ModalDeleteExam examId={String(id)} />
         </div>
       </div>
       <div className={styles.modal_items}>
         {!isLoadingSteps &&
           ExamSteps?.map((el, i) => (
             <TaskItem
+              arr_time={[el.training_time, el.recording_time]}
               idInExam={i}
               stepId={el.id + ""}
               stepIdNext={ExamSteps?.[i - 1]?.id}

@@ -1,5 +1,6 @@
 import { useHandleCreateExamRandGroup } from "../../../shared/hooks/useHandleCreateExamRandGroup";
 import { Button } from "../../../shared/ui/Button/Button";
+import { PlusIcon } from "../../../shared/ui/icons/PlusIcon";
 import { Input } from "../../../shared/ui/Input/Input";
 import { Modal } from "../../../shared/ui/Modal/Modal";
 
@@ -35,12 +36,16 @@ export const ModalCreate = ({
               })
             }
           >
+            <PlusIcon />
             Создать
           </Button>
         </div>
       )}
     >
-      <Button>Создать новое значение</Button>
+      <Button>
+        <PlusIcon />
+        Создать новое значение
+      </Button>
     </Modal>
   );
 };

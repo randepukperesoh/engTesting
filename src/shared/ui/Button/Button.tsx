@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, ReactNode } from "react";
+import { Children, FC, HTMLAttributes, ReactNode } from "react";
 
 import styles from "./Button.module.scss";
 
@@ -7,7 +7,6 @@ interface IButton extends HTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   styledButton?: styleButton;
 }
-
 export const Button: FC<IButton> = ({
   children,
   className,
@@ -21,7 +20,12 @@ export const Button: FC<IButton> = ({
         styledButton === "red" && styles.button_red
       }`}
     >
-      {children?.toLocaleString().toLocaleUpperCase()}
+      {Children.map(children, (child) => {
+        if (typeof child === "string") {
+          return child.toUpperCase(); // Преобразуем только текстовые строки
+        }
+        return child; // Оставляем React-компоненты без изменений
+      })}
     </button>
   );
 };

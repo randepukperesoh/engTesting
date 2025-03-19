@@ -18,7 +18,7 @@ export const DeviceItem: FC<IACtualDevice> = ({
         last_ping_date={last_ping_date}
         device_id={id}
       />
-      <ModalSelectUser deviceId={id} rand_code={rand_code} name={fio} />
+      <ModalSelectUser deviceId={id} name={fio} />
     </div>
   );
 };

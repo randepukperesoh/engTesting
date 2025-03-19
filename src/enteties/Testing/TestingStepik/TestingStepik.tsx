@@ -84,7 +84,7 @@ export const TestingStepik = ({
         {isRecording && (
           <div>
             <Button key={"send_record"} onClick={handleNext}>
-              Отправить ответ
+              Завершить запись досрочно
             </Button>
           </div>
         )}

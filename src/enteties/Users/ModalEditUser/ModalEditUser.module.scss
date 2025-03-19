@@ -16,6 +16,10 @@
   flex-direction: column;
   gap: 0.5rem;
 
+  &_update {
+    font-size: 0.8rem;
+  }
+
   &_form {
     display: flex;
     flex-direction: column;

@@ -2,11 +2,11 @@ import { FC } from "react";
 import { IBlock } from "../../../shared/hooks/useGetExamBlock";
 import { useHandleDeleteExamBlock } from "../../../shared/hooks/useHandleDeleteExamBlock";
 import { useHandleEditBlock } from "../../../shared/hooks/useHandleEditBlock";
-import { useGetExamRandList } from "../../../shared/hooks/useGetExamRandList";
-import { useHandleEditExamBlockAddRandList } from "../../../shared/hooks/useHandleEditExamBlockAddRandList";
+// import { useGetExamRandList } from "../../../shared/hooks/useGetExamRandList";
+// import { useHandleEditExamBlockAddRandList } from "../../../shared/hooks/useHandleEditExamBlockAddRandList";
 import Select from "../../../shared/ui/Select/Select";
 import { TextArea } from "../../../shared/ui/TextArea/TextArea";
-import { Accordion } from "../../../shared/ui/Accordion/Accordion";
+// import { Accordion } from "../../../shared/ui/Accordion/Accordion";
 import { Button } from "../../../shared/ui/Button/Button";
 
 import styles from "./ModalAddRandValues.module.scss";
@@ -15,6 +15,8 @@ import {
   OPTIONS_MOCK_DESC,
   translateTypes,
 } from "../../../shared/consts/select";
+import { DeleteIcon } from "../../../shared/ui/icons/DeleteIcon";
+import { SaveIcon } from "../../../shared/ui/icons/SaveIcon";
 
 interface IContent extends IBlock {
   refetch: () => void;
@@ -25,7 +27,7 @@ export const ModalAddRandValues: FC<IContent> = ({
   data,
   id,
   type,
-  created_at,
+  // created_at,
   refetch,
   setIsOpen,
 }) => {
@@ -33,10 +35,10 @@ export const ModalAddRandValues: FC<IContent> = ({
 
   const { handleEditBlock, setData, setType } = useHandleEditBlock();
 
-  const { data: dataRandList } = useGetExamRandList();
+  // const { data: dataRandList } = useGetExamRandList();
 
-  const { handleEditExamBlockAddRandList } =
-    useHandleEditExamBlockAddRandList();
+  // const { handleEditExamBlockAddRandList } =
+  //   useHandleEditExamBlockAddRandList();
 
   return (
     <div className={styles.wrapper}>
@@ -53,7 +55,7 @@ export const ModalAddRandValues: FC<IContent> = ({
         onChange={(e) => setData(e.currentTarget.value)}
       />
       {type === "image" && <img width={200} src={data} />}
-      <Accordion
+      {/* <Accordion
         style={{ width: "100%" }}
         renderProp={() => (
           <div className={styles.item_modal_items_item_accordion}>
@@ -77,8 +79,9 @@ export const ModalAddRandValues: FC<IContent> = ({
         )}
       >
         Выбрать случайный вариант
-      </Accordion>
+      </Accordion> */}
       <Button onClick={() => handleEditBlock(id + "", data, type, refetch)}>
+        <SaveIcon />
         Сохранить
       </Button>
       <Button
@@ -90,6 +93,7 @@ export const ModalAddRandValues: FC<IContent> = ({
         }
         styledButton="red"
       >
+        <DeleteIcon />
         Удалить
       </Button>
     </div>

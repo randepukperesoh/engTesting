@@ -5,6 +5,7 @@ import { Input } from "../../../shared/ui/Input/Input";
 import { useHandleCreateExam } from "../../../shared/hooks/useHandleCreateExam";
 
 import styles from "./ModalCreateExam.module.scss";
+import { PlusIcon } from "../../../shared/ui/icons/PlusIcon";
 
 interface IModalCreateExam {
   refetch: () => void;
@@ -34,12 +35,16 @@ export const ModalCreateExam: FC<IModalCreateExam> = ({ refetch }) => {
               })
             }
           >
+            <PlusIcon />
             Создать
           </Button>
         </div>
       )}
     >
-      <Button>Создать</Button>
+      <Button>
+        <PlusIcon />
+        Создать
+      </Button>
     </Modal>
   );
 };

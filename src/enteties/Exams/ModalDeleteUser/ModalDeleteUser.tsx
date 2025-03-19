@@ -8,19 +8,15 @@ import styles from "./ModalDeleteUser.module.scss";
 interface IModalDeleteUser {
   deviceId: number;
   name: string;
-  rand_code: string;
 }
 
-export const ModalDeleteUser: FC<IModalDeleteUser> = ({
-  deviceId,
-  name,
-  rand_code,
-}) => {
+export const ModalDeleteUser: FC<IModalDeleteUser> = ({ deviceId, name }) => {
   const { handleDeleteUser } = useHandleDeleteUser();
   return (
     <Modal
       rendreProp={(setIsOpen) => (
-        <>
+        <div className={styles.wrapper}>
+          <h2>Сбросить пользователя {name}</h2>
           <Button
             onClick={() => {
               handleDeleteUser(deviceId, () => setIsOpen(false));
@@ -28,13 +24,10 @@ export const ModalDeleteUser: FC<IModalDeleteUser> = ({
           >
             Сбросить пользователя
           </Button>
-        </>
+        </div>
       )}
     >
-      <div className={styles.selectedUser}>
-        {name}
-        <span className={styles.selectedUser_code}>{rand_code}</span>
-      </div>
+      <div className={styles.selectedUser}>{name}</div>
     </Modal>
   );
 };

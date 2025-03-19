@@ -11,6 +11,9 @@ import { ModalContentBlocks } from "../ModalContentBlocks/ModalContentBlocks";
 import { ModalCreate } from "../ModalCreate/ModalCreate";
 
 import styles from "./ModalEditRandValue.module.scss";
+import { DeleteIcon } from "../../../shared/ui/icons/DeleteIcon";
+import { EditIcon } from "../../../shared/ui/icons/EditIcon";
+import { SaveIcon } from "../../../shared/ui/icons/SaveIcon";
 
 interface IModalEditRandValue {
   title: string;
@@ -39,12 +42,16 @@ const ModalEdit = ({ id, refetch }: { id: string; refetch: () => void }) => {
               })
             }
           >
+            <SaveIcon />
             Сохранить
           </Button>
         </div>
       )}
     >
-      <Button>Изменить</Button>
+      <Button>
+        {" "}
+        <EditIcon /> Изменить
+      </Button>
     </Modal>
   );
 };
@@ -96,6 +103,7 @@ const ModalContent = ({
             }
             styledButton="red"
           >
+            <DeleteIcon />
             Удалить
           </Button>
         </div>
@@ -113,7 +121,9 @@ const ModalContent = ({
               <Dropdown
                 options={[
                   <Modal rendreProp={() => <ModalContetEditBlocks />}>
-                    <Button>Изменить название</Button>
+                    <Button>
+                      <EditIcon /> Изменить название
+                    </Button>
                   </Modal>,
                 ]}
               >

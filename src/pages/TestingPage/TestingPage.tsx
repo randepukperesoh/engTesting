@@ -65,21 +65,28 @@ const TestingPage: FC = () => {
   };
 
   return (
-    <div className={styles.wrapper}>
+    // <div className={styles.wrapper}>
+    <>
       {step === -1 && (
         <div className={styles.test}>
           {id !== 0 && <div className={styles.test_number}>{id}</div>}
           <div>{pingData?.fio}</div>
           <div className={styles.test_btnGroup}>
-            <Button onClick={discard}>Отключиться</Button>
-            <Button
-              onClick={() => {
-                if (!isRecording) startRecording();
-                if (isRecording) stopRecording();
-              }}
-            >
-              Проверить микрофон
-            </Button>
+            {!pingData?.fio && (
+              <Button styledButton="red" onClick={discard}>
+                Отключиться
+              </Button>
+            )}
+            {!isAvailible && (
+              <Button
+                onClick={() => {
+                  if (!isRecording) startRecording();
+                  if (isRecording) stopRecording();
+                }}
+              >
+                Проверить микрофон
+              </Button>
+            )}
             {pingData?.fio && isAvailible && (
               <Button onClick={() => setStep(0)}>Начать тестирование</Button>
             )}
@@ -89,7 +96,8 @@ const TestingPage: FC = () => {
       {step === 0 && <TestingInstruction handleStartTest={handleStartTest} />}
       {step === 1 && <TestingStepik handleFinishTest={handleFinishTest} />}
       {step === 2 && <Finish setStep={setStep} />}
-    </div>
+    </>
+    // {/* </div> */}
   );
 };
 

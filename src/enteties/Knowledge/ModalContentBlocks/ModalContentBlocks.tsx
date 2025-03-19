@@ -18,6 +18,9 @@ import Select from "../../../shared/ui/Select/Select";
 import { TextArea } from "../../../shared/ui/TextArea/TextArea";
 
 import styles from "./ModalContentBlocks.module.scss";
+import { DeleteIcon } from "../../../shared/ui/icons/DeleteIcon";
+import { SaveIcon } from "../../../shared/ui/icons/SaveIcon";
+import { PlusIcon } from "../../../shared/ui/icons/PlusIcon";
 
 interface IModalEditBlock extends IBlock {
   refetch: () => void;
@@ -59,12 +62,14 @@ export const ModalEditBlock: FC<IModalEditBlock> = ({
           });
         }}
       >
+        <SaveIcon />
         Сохранить
       </Button>
       <Button
         onClick={() => handleDeleteExamRandItem(id + "")}
         styledButton="red"
       >
+        <DeleteIcon />
         Удалить
       </Button>
     </div>
@@ -114,12 +119,16 @@ export const ModalContentBlocks = ({ id }: { id: string }) => {
                 })
               }
             >
+              <PlusIcon />
               Создать
             </Button>
           </div>
         )}
       >
-        <Button style={{ width: "100%" }}>Создать</Button>
+        <Button style={{ width: "100%" }}>
+          <PlusIcon />
+          Создать
+        </Button>
       </Modal>
     </div>
   );

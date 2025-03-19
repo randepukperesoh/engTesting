@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { useHandleDeleteTask } from "../../../shared/hooks/useHandleDeleteTask";
 
 import styles from "./TaskItem.module.scss";
+import { DeleteIcon } from "../../../shared/ui/icons/DeleteIcon";
+import { EditIcon } from "../../../shared/ui/icons/EditIcon";
 
 interface ITaskItem {
   stepId: string;
@@ -13,12 +15,14 @@ interface ITaskItem {
   isLast: boolean;
   isFirst: boolean;
   idInExam: number;
+  arr_time: [number, number];
   callback?: () => void;
   stepIdNext?: number;
   setIdPrev?: number;
 }
 
 export const TaskItem: FC<ITaskItem> = ({
+  arr_time,
   title,
   isFirst,
   isLast,
@@ -32,14 +36,24 @@ export const TaskItem: FC<ITaskItem> = ({
 
   const { handleDeleteTask } = useHandleDeleteTask(stepId);
 
+  const [trainTime, recordTime] = arr_time;
+
   return (
     <div className={styles.item}>
       <Link to={`/knowledge/task/${stepId}`}>
-        <div className={styles.item_title}>{title}</div>
+        <div className={styles.item_title}>
+          {title}{" "}
+          <span className={styles.item_title_time}>
+            время подготовки: {trainTime}, время записи: {recordTime}
+          </span>
+        </div>
       </Link>
       <Dropdown
         options={[
-          <Button style={{ width: "100%" }}>Изменить название</Button>,
+          <Button style={{ width: "100%" }}>
+            {" "}
+            <EditIcon /> Изменить название
+          </Button>,
           !isFirst && (
             <Button
               onClick={() => {
@@ -70,6 +84,7 @@ export const TaskItem: FC<ITaskItem> = ({
             styledButton="red"
             style={{ width: "100%" }}
           >
+            <DeleteIcon />
             Удалить
           </Button>,
         ]}
