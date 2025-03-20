@@ -11,8 +11,8 @@ export interface IDecoding {
 type At = IVoice | IBlock | IDecoding;
 
 export const processAndSortData = (
-  audioData: IVoice[] | undefined,
-  results: IBlock[] | null,
+  audioData: IVoice[],
+  results: IBlock[],
   examIds: string[]
 ): At[] => {
   // Создаем Map для быстрого доступа к аудио данным по step_id

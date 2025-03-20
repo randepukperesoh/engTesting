@@ -3,7 +3,6 @@ import { useUserStore } from "../stores/useUserStore";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-
 const api = import.meta.env.VITE_API_URL;
 
 export const useAuthForm = () => {
@@ -20,7 +19,7 @@ export const useAuthForm = () => {
     formData.append("password", password);
     formData.append("api", "AuthByPassword");
 
-    const response = await fetch(api+ "/auth/api/", {
+    const response = await fetch(api + "/auth/api/", {
       method: "POST",
       body: formData,
     });
@@ -30,8 +29,8 @@ export const useAuthForm = () => {
     const { status } = res;
     setIsLogined(status);
 
-    if(!status){
-      toast.error('Неверный логин или пароль')
+    if (!status) {
+      toast.error("Неверный логин или пароль");
     }
     navigate(status ? "/profile" : "");
   }, [login, navigate, password, setIsLogined]);

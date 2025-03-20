@@ -8,6 +8,8 @@ import { useHandleDeleteTask } from "../../../shared/hooks/useHandleDeleteTask";
 import styles from "./TaskItem.module.scss";
 import { DeleteIcon } from "../../../shared/ui/icons/DeleteIcon";
 import { EditIcon } from "../../../shared/ui/icons/EditIcon";
+import { ArrowUp } from "../../../shared/ui/icons/ArrowUp";
+import { ArrowDown } from "../../../shared/ui/icons/ArrowDown";
 
 interface ITaskItem {
   stepId: string;
@@ -62,6 +64,7 @@ export const TaskItem: FC<ITaskItem> = ({
               }}
               style={{ width: "100%" }}
             >
+              <ArrowUp />
               Переместить вверх
             </Button>
           ),
@@ -73,6 +76,7 @@ export const TaskItem: FC<ITaskItem> = ({
               }}
               style={{ width: "100%" }}
             >
+              <ArrowDown />
               Переместить вниз
             </Button>
           ),
