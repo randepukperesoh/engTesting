@@ -11,7 +11,7 @@ const ErrorPage: FC = () => {
     <div className={styles.wrapper}>
       <div className={styles.wrapper_head}>
         <p>Упс что-то пошло не так ...</p>
-        <Button onClick={() => navigate("/")}>Главная</Button>
+        <Button onClick={() => navigate("/profile")}>Главная</Button>
       </div>
     </div>
   );

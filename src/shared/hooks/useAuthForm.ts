@@ -33,7 +33,7 @@ export const useAuthForm = () => {
     if(!status){
       toast.error('Неверный логин или пароль')
     }
-    navigate(status ? "/" : "");
+    navigate(status ? "/profile" : "");
   }, [login, navigate, password, setIsLogined]);
 
   return {

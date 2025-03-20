@@ -19,6 +19,7 @@ const EditTaskPage = lazy(
   () => import("./enteties/Knowledge/TaskItem/ModalContent")
 );
 const RandListPage = lazy(() => import("./pages/RandListPage/RandListPage"));
+const InfoPage = lazy(() => import("./pages/InfoPage/InfoPage"));
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,14 @@ const router = createBrowserRouter([
     element: (
       <Suspense fallback={<Loader />}>
         <LoginPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "",
+    element: (
+      <Suspense fallback={<Loader />}>
+        <InfoPage />
       </Suspense>
     ),
   },
@@ -46,7 +55,7 @@ const router = createBrowserRouter([
         ),
         children: [
           {
-            index: true,
+            path: "profile",
             element: (
               <Suspense fallback={<Loader />}>
                 <HomePage />

@@ -1,4 +1,6 @@
 :root {
+  --app-bg: #f4f4f4;
+  --divider-color: #d2dae3;
   --color-background: #eaeff8;
   --color-background-container: #ededed;
   --color-font-disable: #adb5bd;
@@ -18,4 +20,51 @@
 
   --gray-color-1: #d3dbe0;
   --text-color: #38424f;
+
+  --app-contrast-bg: #11519c;
+  --element-bg: #ffffff;
+  --element-bg-2: #e7e9ed;
+  --element-bg-3: rgba(255, 255, 255, 0.1);
+  --element-bg-4: rgba(255, 255, 255, 0.2);
+  --element-bg-5: rgba(255, 255, 255, 0.3);
+  --element-bg-6: trasparent;
+  --element-bg-contast: #11519c;
+  --element-bg-gradient: linear-gradient(
+    215deg,
+    #0e468b 0%,
+    #1370b9 100%,
+    #1370b9 100%
+  );
+  --element-bg-2-gradient: linear-gradient(184deg, #11519c 0%, #288ad8 100%);
+  --element-bg-transparent: transparent;
+  --text-color: #38424f;
+  --text-color-invert: #38424f;
+  --text-2-color: #80889d;
+  --text-2-color-invert: #80889d;
+  --text-link-color: #1370b9;
+  --text-blind-color: #c7c9cf;
+  --text-contrast-color: #ffffff;
+  --text-contrast-color-invert: #ffffff;
+  --text-2-contrast-color: rgba(255, 255, 255, 0.7);
+  --primary-color: #11519c;
+  --primary-dark-color: #0e468b;
+  --primary-light-color: #1370b9;
+  --divider-color: #d2dae3;
+  --divider-contrast-color: rgba(210, 218, 227, 0.3);
+  --gray-color-1: #d3dbe0;
+  --gray-color-2: #dfe3ea;
+  --gray-color-3: #e7e9ed;
+  --gray-color-4: #e9edf2;
+  --gray-color-5: #edeef0;
+  --gray-color-6: #f1f4f9;
+  --gray-color-7: #f7f8fb;
+  --error-color: #e83131;
+  --attention-color: #f1b400;
+  --highlight-color: #11519c;
+  --accent-color-yellow: #fdc51f;
+  --accent-dark-color-yellow: #f1b400;
+  --accent-light-color-yellow: #ffda6d;
+  --accent-color-red: #ff6363;
+  --accent-dark-color-red: #e44444;
+  --accent-light-color-red: #ffa9a9;
 }

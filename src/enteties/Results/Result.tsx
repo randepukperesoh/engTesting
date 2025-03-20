@@ -66,7 +66,6 @@ export const Result: FC<IReSultUser> = ({
 
   const [date, time] = exam_date.split(" ");
 
-  console.log({ examIds });
   return (
     <Modal
       rendreProp={() => (

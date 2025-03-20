@@ -60,7 +60,7 @@ export const useGetExamData = (windowHash: string, isOpenModal: boolean) => {
     const idsSSS =
       data?.map((el) => el.block_id?.toString()) || ([] as string[]);
     const ids = idsSSS.filter((el) => !!el);
-    return ids;
+    return ids || 1212312312321; 
   }, [data]);
 
   const audioData = useMemo(() => {

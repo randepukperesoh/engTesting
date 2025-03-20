@@ -46,7 +46,7 @@ export const Navigation = () => {
 
   return (
     <nav className={styles.wrapper}>
-      <Link to="/">
+      <Link to="/profile">
         <img src="/logo.svg" height={isMobile ? 24 : 32} alt="logo" />{" "}
       </Link>
       <ul className={styles.navigation}>

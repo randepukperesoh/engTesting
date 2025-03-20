@@ -5,24 +5,59 @@ export interface IDecoding {
   audioName?: string;
   type: string;
   id: number;
+  step_id: number;
 }
+
+type At = IVoice | IBlock | IDecoding;
 
 export const processAndSortData = (
   audioData: IVoice[] | undefined,
   results: IBlock[] | null,
   examIds: string[]
-) => {
+): At[] => {
+  // Создаем Map для быстрого доступа к аудио данным по step_id
+  const audioMap = new Map<number, IVoice>();
+  audioData?.forEach((audio) => audioMap.set(audio.step_id, audio));
 
-  const idsMap = new Map()
+  // Формируем массив a на основе examIds и results
+  const initialArray = examIds
+    .map((id) => results?.find((el) => el.id === +id))
+    .filter(Boolean) as IBlock[];
 
-  audioData?.map(el => idsMap.set(el.id,el))
-  results?.map(el => idsMap.set(el.id, el))
+  // Результирующий массив
+  const resultArray: At[] = [];
 
-  const res = examIds.map(el => {
-    idsMap.get(+el)
-  })
+  // Проходим по массиву initialArray
+  let previousStepId = -1; // Инициализируем предыдущий step_id
+  for (const block of initialArray) {
+    // Добавляем текущий блок в результат
+    resultArray.push(block);
 
-  return results;
+    // Проверяем смену step_id
+    if (block.step_id !== previousStepId) {
+      // Если step_id сменился, добавляем аудио (если оно существует)
+      if (audioMap.has(block.step_id)) {
+        resultArray.push(audioMap.get(block.step_id)!);
+
+        // После аудио добавляем decoding
+        resultArray.push({
+          id: audioMap.get(block.step_id)?.id || 0 + 2,
+          audioName: audioMap.get(block.step_id)?.audioName || "",
+          type: "decoding",
+          step_id: block.step_id,
+        } as IDecoding);
+      }
+
+      // Обновляем previousStepId
+      previousStepId = block.step_id;
+    }
+  }
+
+
+
+  console.log(resultArray)
+
+  return resultArray;
 };
 
 export const formatDate = (isoString: string) => {
@@ -40,7 +75,3 @@ export const formatDate = (isoString: string) => {
   // Формируем человеческую дату
   return `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
 };
-
-// Пример использования
-const isoDate = "2025-03-12T13:03:06.000000Z";
-console.log(formatDate(isoDate)); // Вывод: "12.03.2025 13:03:06"
