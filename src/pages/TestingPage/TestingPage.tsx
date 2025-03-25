@@ -12,6 +12,7 @@ import { useHandleStopPing } from "../../shared/hooks/useHandleStopPing";
 import { useAudioRecorder } from "../../shared/hooks/useAudioRecorder";
 
 import styles from "./TestingPage.module.scss";
+import { useUnicId } from "../../shared/hooks/useUnicId";
 
 const Finish = ({ setStep }: { setStep: (value: number) => void }) => {
   const navigate = useNavigate();
@@ -32,6 +33,8 @@ const Finish = ({ setStep }: { setStep: (value: number) => void }) => {
 
 const TestingPage: FC = () => {
   const [step, setStep] = useState(-1);
+
+  const { id: sh } = useUnicId();
 
   const navigate = useNavigate();
 
@@ -93,8 +96,12 @@ const TestingPage: FC = () => {
           </div>
         </div>
       )}
-      {step === 0 && <TestingInstruction handleStartTest={handleStartTest} />}
-      {step === 1 && <TestingStepik handleFinishTest={handleFinishTest} />}
+      {step === 0 && (
+        <TestingInstruction sh={sh} handleStartTest={handleStartTest} />
+      )}
+      {step === 1 && (
+        <TestingStepik sh={sh} handleFinishTest={handleFinishTest} />
+      )}
       {step === 2 && <Finish setStep={setStep} />}
     </>
     // {/* </div> */}

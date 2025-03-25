@@ -10,10 +10,10 @@ import { IVoice, useGetExamData } from "../../shared/hooks/useGetExamData";
 import { formatDate, IDecoding, processAndSortData } from "./helpre";
 import { ResultItem } from "./ResultItems/ResultItem";
 import { Input } from "../../shared/ui/Input/Input";
-
-import styles from "./Result.module.scss";
 import { useGetExamBall } from "../../shared/hooks/useGetExamBall";
 import { useHandleEditExamBall } from "../../shared/hooks/useHandleEditExamBall";
+
+import styles from "./Result.module.scss";
 
 const ResultModalContent = ({
   comparedArr,
@@ -58,13 +58,41 @@ export const Result: FC<IReSultUser> = ({
 }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const { examIds, audioData } = useGetExamData(window_hash, isOpenModal);
+  const { examIds, data } = useGetExamData(window_hash, isOpenModal);
 
   const { data: results, isLoading } = useGetBlockByArray(examIds, isOpenModal);
 
-  const comparedArr = processAndSortData(audioData, results || [], examIds);
-
   const [date, time] = exam_date.split(" ");
+
+  // export interface IDecoding {
+  //   audioName?: string;
+  //   type: string;
+  //   id: number;
+  //   step_id: number;
+  // }
+
+  const f = data
+    ?.flatMap((el) => {
+      if (el.type !== "voice") {
+        return results?.filter((res) => res.id === el.block_id)[0];
+      }
+
+      return [
+        {
+          id: el.id,
+          type: "audio",
+          audioName: el.audio_name,
+          step_id: el.step_id,
+        },
+        {
+          id: el.id,
+          type: "decoding",
+          audioName: el.audio_name,
+          step_id: el.step_id,
+        },
+      ];
+    })
+    .filter((el) => el !== undefined);
 
   return (
     <Modal
@@ -73,7 +101,7 @@ export const Result: FC<IReSultUser> = ({
           isOpenModal={isOpenModal}
           window_hash={window_hash}
           isLoading={isLoading}
-          comparedArr={comparedArr}
+          comparedArr={f || []}
         />
       )}
     >

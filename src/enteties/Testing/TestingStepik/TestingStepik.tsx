@@ -5,7 +5,6 @@ import { useAudioRecorder } from "../../../shared/hooks/useAudioRecorder";
 import { Timer } from "../Timer/Timer";
 import { useTimer } from "../../../shared/hooks/useTimer";
 import { useUploadAudiio } from "../../../shared/hooks/useUploadAudiio";
-import { useUnicId } from "../../../shared/hooks/useUnicId";
 import { useGetStepPlan } from "../../../shared/hooks/useGetStepPlan";
 import { StepikItem } from "../StepikItem/StepikItem";
 import { useHandleStopPing } from "../../../shared/hooks/useHandleStopPing";
@@ -14,15 +13,15 @@ import styles from "./TestingStepik.module.scss";
 
 export const TestingStepik = ({
   handleFinishTest,
+  sh,
 }: {
+  sh: string;
   handleFinishTest: () => void;
 }) => {
   const [step, setStep] = useState(0);
   const { stepsId, data } = useGetStepPlan();
 
   const lenExam = data?.length || 1 - 1;
-
-  const { id: sh } = useUnicId();
 
   const { data: planExam } = useGetPlanExam(stepsId?.[step] || null, sh);
 

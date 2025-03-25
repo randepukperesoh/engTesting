@@ -15,49 +15,41 @@ export const processAndSortData = (
   results: IBlock[],
   examIds: string[]
 ): At[] => {
-  // Создаем Map для быстрого доступа к аудио данным по step_id
-  const audioMap = new Map<number, IVoice>();
-  audioData?.forEach((audio) => audioMap.set(audio.step_id, audio));
 
-  // Формируем массив a на основе examIds и results
-  const initialArray = examIds
-    .map((id) => results?.find((el) => el.id === +id))
-    .filter(Boolean) as IBlock[];
+  const filteredResults = examIds
+    .map((el) => results.find((res) => res.id === Number(el)))
+    .filter((el) => el);
 
-  // Результирующий массив
-  const resultArray: At[] = [];
+  // Создаем карту для быстрого доступа к элементам IDecoding по id
+  // const decodingMap = new Map<number, IDecoding>();
+  // decodingData.forEach((decoding) => {
+  //   decodingMap.set(decoding.id, decoding);
+  // });
 
-  // Проходим по массиву initialArray
-  let previousStepId = -1; // Инициализируем предыдущий step_id
-  for (const block of initialArray) {
-    // Добавляем текущий блок в результат
-    resultArray.push(block);
+  // Объединяем IBlock и IDecoding в один массив
+  const res: At[] = [];
+  filteredResults.forEach((block) => {
+    res.push(block!);
+    // const decoding = decodingMap.get(block.id);
+    // if (decoding) {
+    //   res.push(decoding);
+    // }
+  });
 
-    // Проверяем смену step_id
-    if (block.step_id !== previousStepId) {
-      // Если step_id сменился, добавляем аудио (если оно существует)
-      if (audioMap.has(block.step_id)) {
-        resultArray.push(audioMap.get(block.step_id)!);
-
-        // После аудио добавляем decoding
-        resultArray.push({
-          id: audioMap.get(block.step_id)?.id || 0 + 2,
-          audioName: audioMap.get(block.step_id)?.audioName || "",
-          type: "decoding",
-          step_id: block.step_id,
-        } as IDecoding);
+  // Если нужно добавить IVoice элементы после IDecoding, можно сделать так:
+  const finalRes: At[] = [];
+  res.forEach((item) => {
+    finalRes.push(item);
+    if ('step_id' in item ) { //&& decodingMap.has(item.id)
+      const voice = audioData.find((voice) => voice.id === item.id);
+      if (voice) {
+        finalRes.push(voice);
       }
-
-      // Обновляем previousStepId
-      previousStepId = block.step_id;
     }
-  }
+  });
 
+  return finalRes;
 
-
-  console.log(resultArray)
-
-  return resultArray;
 };
 
 export const formatDate = (isoString: string) => {

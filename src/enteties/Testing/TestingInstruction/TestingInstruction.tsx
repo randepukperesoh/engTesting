@@ -5,9 +5,10 @@ import { Loader } from "../../../shared/ui/Loader/Loader";
 
 import styles from "./TestingInstruction.module.scss";
 
-export const TestingInstruction: FC<{ handleStartTest: () => void }> = ({
-  handleStartTest,
-}) => {
+export const TestingInstruction: FC<{
+  handleStartTest: () => void;
+  sh: string;
+}> = ({ handleStartTest, sh }) => {
   const { data: examInfo, isLoading } = useGetExamInfo();
 
   const parts = examInfo?.instruction_text.split(/<br\s*\/?>/);

@@ -66,6 +66,7 @@ const Audio: FC<IVoice> = ({ audioName, id }) => {
 };
 
 export const ResultItem: FC<IResultItem> = ({ data }) => {
+  console.log(data);
   if (!data) return null;
 
   if (data.type === "decoding") return <Decoding {...(data as IDecoding)} />;

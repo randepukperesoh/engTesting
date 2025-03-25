@@ -144,11 +144,12 @@ body {
     &_container {
       display: flex;
       gap: 1rem;
-      justify-content: space-between;
+      flex-wrap: wrap;
 
       &_item {
         padding: 1rem;
         border-radius: 1rem;
+        width: 260px;
         display: flex;
         align-items: center;
         gap: 1rem;

@@ -2,11 +2,30 @@ import { Link } from "react-router-dom";
 import { useIsMobile } from "../../shared/hooks/useIsMobile";
 import { ClickSvg } from "./ClickSvg";
 import { ArrowSvg } from "./ArrowSvg";
+import { useEffect, useState } from "react";
 
 import styles from "./InfoPage.module.scss";
 
+interface IFlags {
+  name: string;
+  image_url: string;
+}
+
 const InfoPage = () => {
   const { isMobile } = useIsMobile();
+  const [flags, setFlags] = useState<IFlags[]>([]);
+
+  useEffect(() => {
+    const fetchFlags = async () => {
+      const response = await fetch("/back/flags.json");
+
+      const res: IFlags[] = await response.json();
+
+      setFlags(res);
+    };
+
+    fetchFlags();
+  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -82,14 +101,12 @@ const InfoPage = () => {
         <div className={styles.wrapper_lang}>
           <h3 className={styles.wrapper_lang_head}>Поддерживаемые языки</h3>
           <div className={styles.wrapper_lang_container}>
-            <div className={styles.wrapper_lang_container_item}>
-              <img
-                width={80}
-                src="https://flagcdn.com/w80/gb.png"
-                alt="Флаг Великобритании"
-              />
-              Английский язык
-            </div>
+            {flags.map((el) => (
+              <div className={styles.wrapper_lang_container_item}>
+                <img width={80} src={el.image_url} alt="Флаг Великобритании" />
+                {el.name}
+              </div>
+            ))}
           </div>
         </div>
       </div>

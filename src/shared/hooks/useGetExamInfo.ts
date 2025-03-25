@@ -15,7 +15,7 @@ export interface IExam {
   instruction_text: string;
 }
 
-export const useGetExamInfo = () => {
+export const useGetExamInfo = (sh: string) => {
   const [data, setData] = useState<IExam | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -24,12 +24,16 @@ export const useGetExamInfo = () => {
     const fetchExam = async () => {
       try {
         setIsLoading(true);
+        
+        const fData = new FormData()
+        fData.append("sh", sh)
+
         const response = await fetch(
           api + "/main/examination/api/getExamInfo",
           {
             method: "POST",
             credentials: "include",
-            body: new FormData(),
+            body: fData,
           }
         );
 
@@ -44,6 +48,7 @@ export const useGetExamInfo = () => {
     };
 
     fetchExam();
-  }, []);
+  }, [sh]);
+  
   return { data, isLoading, error };
 };
