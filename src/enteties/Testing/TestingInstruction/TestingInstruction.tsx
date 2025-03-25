@@ -9,7 +9,7 @@ export const TestingInstruction: FC<{
   handleStartTest: () => void;
   sh: string;
 }> = ({ handleStartTest, sh }) => {
-  const { data: examInfo, isLoading } = useGetExamInfo();
+  const { data: examInfo, isLoading } = useGetExamInfo(sh);
 
   const parts = examInfo?.instruction_text.split(/<br\s*\/?>/);
 

@@ -7,7 +7,7 @@ import {
 } from "../../shared/hooks/useGetBlockByArray";
 import { Loader } from "../../shared/ui/Loader/Loader";
 import { IVoice, useGetExamData } from "../../shared/hooks/useGetExamData";
-import { formatDate, IDecoding, processAndSortData } from "./helpre";
+import { formatDate, IDecoding } from "./helpre";
 import { ResultItem } from "./ResultItems/ResultItem";
 import { Input } from "../../shared/ui/Input/Input";
 import { useGetExamBall } from "../../shared/hooks/useGetExamBall";
@@ -64,17 +64,26 @@ export const Result: FC<IReSultUser> = ({
 
   const [date, time] = exam_date.split(" ");
 
-  // export interface IDecoding {
-  //   audioName?: string;
-  //   type: string;
-  //   id: number;
-  //   step_id: number;
-  // }
-
-  const f = data
+  const f: (IVoice | IBlock | IDecoding)[] = data
     ?.flatMap((el) => {
       if (el.type !== "voice") {
-        return results?.filter((res) => res.id === el.block_id)[0];
+        const block = results?.find((res) => res.id === el.block_id);
+        if (block) {
+          return [
+            {
+              id: block.id,
+              data: block.data,
+              type: block.type,
+              created_at: block.created_at,
+              updated_at: block.updated_at,
+              user_id: block.user_id,
+              step_id: block.step_id,
+              is_rand: block.is_rand,
+              randcode: block.randcode,
+            },
+          ];
+        }
+        return [];
       }
 
       return [
@@ -83,16 +92,16 @@ export const Result: FC<IReSultUser> = ({
           type: "audio",
           audioName: el.audio_name,
           step_id: el.step_id,
-        },
+        } as IVoice,
         {
           id: el.id,
           type: "decoding",
           audioName: el.audio_name,
           step_id: el.step_id,
-        },
+        } as IDecoding,
       ];
     })
-    .filter((el) => el !== undefined);
+    .filter((el) => el !== undefined) as (IVoice | IBlock | IDecoding)[];
 
   return (
     <Modal
